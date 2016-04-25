@@ -1,7 +1,6 @@
 {
   "name": "tmciver/functional-php",
   "description": "A functional programming library for PHP.",
-  "version": "0.1.0",
   "keywords": ["functional", "fp"],
   "authors": [
     {
