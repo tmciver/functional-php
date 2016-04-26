@@ -14,6 +14,10 @@ class Nothing implements Maybe {
 	return $this;
     }
 
+    public function fmap(Callable $f) {
+	return $this;
+    }
+
     public function orElse(callable $f, array $args) {
 	return call_user_func_array($f, $args);
     }

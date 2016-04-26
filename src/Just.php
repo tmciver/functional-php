@@ -2,6 +2,8 @@
 
 namespace TMciver\Functional;
 
+use TMciver\Functional\Nothing;
+
 class Just implements Maybe {
 
     private $val;
@@ -12,6 +14,26 @@ class Just implements Maybe {
 
     public function bind(Callable $f) {
 	return $f($this->val);
+    }
+
+    public function fmap(callable $f) {
+
+	// Since we don't know if $f will throw an exception, we wrap the call
+	// in a try/catch. The result wiil be Nothing if there's an exception.
+	try {
+	    $result = $f($this->val);
+
+	    // If the result is null, we return Nothing.
+	    if (is_null($result)) {
+		$maybeResult = new Nothing("Result of call to " . $f . " was null.");
+	    } else {
+		$maybeResult = new Just($result);
+	    }
+	} catch (\Exception $e) {
+	    $maybeResult = new Nothing($e->getMessage());
+	}
+
+	return $maybeResult;
     }
 
     public function get() {
