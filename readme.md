@@ -15,16 +15,51 @@ Then, run the unit tests with
 
 ## Usage
 
-Currently this library only supports Monads and, in particular, only supports
-the Maybe Monad.  If you're familiar with Maybe Monads from another language
-such as Haskell, then this should be intuitive.
+Currently this library only supports Functors and Monads and, in particular,
+only supports the Maybe version of these types.  If you're familiar with Maybe
+Functors and Monads from another language such as Haskell, then this should be
+intuitive.
 
-The Monad interface contains only a single method, namely `bind`.  This method
-is used to call a function on a contained value.  The only requirement is that
-this function return a Monad of the same type on which `bind` is currently being
-called.
+Maybe is intended to be used in lieu of both exception and null handling.  Using
+Maybe allows one to completely avoid having to wrap code in try/catch or check
+for null values.
 
-Say we have an integer contained in a Just:
+The Maybe type in this library deviates slightly from that found in Haskell.
+It's really more of a combination of Either and Maybe in that in this library
+Nothing takes an optional parameter (which is typically an error message).  So
+Maybe is used for error handling but you can also have an error message
+associated with errors.
+
+### Functor
+
+Functors are used for mapping regular functions over values in a context.  In
+this case the context is Maybe.  This library implements Functor with the
+`Functor` interface which contains only one method, namely `fmap`.  This is best illustrated by an example.  Say we have a string in a Maybe context:
+
+```php
+use TMciver\Functional\Just;
+
+$maybeAString = new Just("Hello, world!");
+```
+
+and we want to run a string-manipulation function over it:
+
+```php
+$maybeAnotherString = $maybeAString->fmap(function ($s) {
+   return strtoupper($s);
+});
+```
+
+then, `$maybeAnotherString` will be `Just("HELLO, WORLD!")`.
+
+### Monad
+
+Monad is similar to Functor.  It is implemented using the `Monad` interface
+which also contains only a single method, namely `bind`.  But whereas `fmap`
+takes a _normal_ function, `bind` takes a function that returns a `Monad` of the
+same type on which `bind` is currently being called.
+
+For example, say we have an integer contained in a `Just`:
 
 ```php
 use TMciver\Functional\Just;
@@ -60,3 +95,8 @@ See
 [PHP's documentation on `callable`](http://php.net/manual/en/language.types.callable.php)
 for more info.  If calling a function using a string seems strange, good; it
 *is* strange! :)
+
+### Applicative
+
+There currently exists an `Applicative` interface but it contains no methods.
+Applicative functionality will be added in the future.
