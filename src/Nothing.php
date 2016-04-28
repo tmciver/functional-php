@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional;
 
-class Nothing implements Maybe {
+class Nothing extends Maybe {
 
     private $message;
 
@@ -10,11 +10,11 @@ class Nothing implements Maybe {
 	$this->message = $message;
     }
 
-    public function bind(Callable $f) {
+    public function fmap(Callable $f) {
 	return $this;
     }
 
-    public function fmap(Callable $f) {
+    public function join() {
 	return $this;
     }
 

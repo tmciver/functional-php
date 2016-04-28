@@ -4,16 +4,12 @@ namespace TMciver\Functional;
 
 use TMciver\Functional\Nothing;
 
-class Just implements Maybe {
+class Just extends Maybe {
 
     private $val;
 
     public function __construct($val) {
 	$this->val = $val;
-    }
-
-    public function bind(Callable $f) {
-	return $f($this->val);
     }
 
     public function fmap(callable $f) {
@@ -34,6 +30,16 @@ class Just implements Maybe {
 	}
 
 	return $maybeResult;
+    }
+
+    function join() {
+
+	// $this->val *must* be a value of type Maybe
+	if (!($this->val instanceof Maybe)) {
+	    throw new \Exception("join can only be called on a Maybe that contains another Maybe.");
+	} else {
+	    return $this->val;
+	}
     }
 
     public function get() {

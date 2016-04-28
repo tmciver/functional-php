@@ -2,7 +2,11 @@
 
 namespace TMciver\Functional;
 
-interface Maybe extends Monad {
+use TMciver\Functional\Monad;
+use TMciver\Functional\Just;
+
+abstract class Maybe {
+    use Monad;
 
     /**
      * Calls the Callable $f (or not) in a sub-class-specific way.
@@ -11,11 +15,11 @@ interface Maybe extends Monad {
      * length must be equal to the number of arguments expected by $f.
      * @return An instance of Maybe.
      */
-    function orElse(callable $f, array $args);
+    abstract function orElse(callable $f, array $args);
 
     /**
      * @return True if this object is an instance of the Nothing class; false
      * otherwise.
      */
-    function isNothing();
+    abstract function isNothing();
 }
