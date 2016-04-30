@@ -32,14 +32,22 @@ class Just extends Maybe {
 	return $maybeResult;
     }
 
-    function join() {
+    public function bind(callable $f) {
 
-	// $this->val *must* be a value of type Maybe
-	if (!($this->val instanceof Maybe)) {
-	    throw new \Exception("join can only be called on a Maybe that contains another Maybe.");
-	} else {
-	    return $this->val;
+	// Since we don't know if $f will throw an exception, we wrap the call
+	// in a try/catch. The result wiil be Nothing if there's an exception.
+	try {
+	    $maybeResult = $f($this->val);
+
+	    // If the result is null, we return Nothing.
+	    if (is_null($maybeResult)) {
+		$maybeResult = new Nothing("Result of call to " . $f . " was null.");
+	    }
+	} catch (\Exception $e) {
+	    $maybeResult = new Nothing($e->getMessage());
 	}
+
+	return $maybeResult;
     }
 
     public function get() {

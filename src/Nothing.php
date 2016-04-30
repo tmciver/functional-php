@@ -14,7 +14,7 @@ class Nothing extends Maybe {
 	return $this;
     }
 
-    public function join() {
+    public function bind(callable $f) {
 	return $this;
     }
 

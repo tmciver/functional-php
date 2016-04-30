@@ -14,13 +14,18 @@ trait Monad {
      * should be a Maybe.
      * @return The value returned by $f.
      */
-    function bind(callable $f) {
-	return $this->fmap($f)->join();
-    }
+    abstract function bind(callable $f);
 
     /**
      * Removes one layer of structure.
      * @return The type of the return value should be the same type as this Monad.
      */
-    abstract function join();
+    function join() {
+
+	// the identity function. Can you believe PHP doesn't have one in the
+	// standard lib?
+	$id = function ($x) { return $x; };
+
+	return $this->bind($id);
+    }
 }
