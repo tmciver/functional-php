@@ -1,8 +1,9 @@
 <?php
 
-namespace TMciver\Functional;
+namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\Nothing;
+use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Maybe\Nothing;
 
 class Just extends Maybe {
 

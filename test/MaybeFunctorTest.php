@@ -1,7 +1,7 @@
 <?php
 
-use TMciver\Functional\Just;
-use TMciver\Functional\Nothing;
+use TMciver\Functional\Maybe\Just;
+use TMciver\Functional\Maybe\Nothing;
 
 class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 
@@ -22,7 +22,7 @@ class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 	    return addOne($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
 
     public function testFmapExceptionHandling() {
@@ -32,7 +32,7 @@ class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 	    return throwException($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
 
     public function testFmapNullHandling() {
@@ -42,7 +42,7 @@ class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 	    return returnNull($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
 }
 

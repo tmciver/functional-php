@@ -1,9 +1,8 @@
 <?php
 
-namespace TMciver\Functional;
+namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\Monad;
-use TMciver\Functional\Just;
 
 abstract class Maybe {
     use Monad;

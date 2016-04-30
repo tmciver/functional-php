@@ -1,7 +1,7 @@
 <?php
 
-use TMciver\Functional\Just;
-use TMciver\Functional\Nothing;
+use TMciver\Functional\Maybe\Just;
+use TMciver\Functional\Maybe\Nothing;
 
 class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 
@@ -22,7 +22,7 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 	    return maybeAddOne($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
 }
 
