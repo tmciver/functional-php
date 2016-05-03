@@ -51,6 +51,10 @@ class Just extends Maybe {
 	return $maybeResult;
     }
 
+    public function accept($maybeVisitor) {
+	return $maybeVisitor->visitJust($this);
+    }
+
     public function get() {
 	return $this->val;
     }

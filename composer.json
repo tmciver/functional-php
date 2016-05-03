@@ -10,7 +10,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "TMciver\\Functional\\": "src/"
+      "TMciver\\Functional\\": "src/",
+      "TMciver\\Functional\\Test\\": "test/"
     }
   },
   "require-dev": {

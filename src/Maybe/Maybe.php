@@ -21,4 +21,6 @@ abstract class Maybe {
      * otherwise.
      */
     abstract function isNothing();
+
+    abstract function accept($maybeVisitor);
 }

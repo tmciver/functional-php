@@ -18,6 +18,10 @@ class Nothing extends Maybe {
 	return $this;
     }
 
+    public function accept($maybeVisitor) {
+	return $maybeVisitor->visitNothing($this);
+    }
+
     public function orElse(callable $f, array $args) {
 	return call_user_func_array($f, $args);
     }
