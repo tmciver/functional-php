@@ -4,12 +4,6 @@ namespace TMciver\Functional\Maybe;
 
 class Nothing extends Maybe {
 
-    private $message;
-
-    public function __construct($message = '') {
-	$this->message = $message;
-    }
-
     public function fmap(Callable $f) {
 	return $this;
     }
@@ -24,10 +18,6 @@ class Nothing extends Maybe {
 
     public function orElse(callable $f, array $args) {
 	return call_user_func_array($f, $args);
-    }
-
-    public function getMessage() {
-	return $this->message;
     }
 
     public function isNothing() {

@@ -18,9 +18,9 @@ class MaybeVisitorTest extends PHPUnit_Framework_TestCase {
     public function testNothingVisitor() {
 
 	$maybeVisitor = new ToStringMaybeVisitor();
-	$nothing = new Nothing("Hello!");
+	$nothing = new Nothing();
 	$nothingAsString = $nothing->accept($maybeVisitor);
 
-	$this->assertEquals($nothingAsString, "Hello!");
+	$this->assertEquals($nothingAsString, "Nothing!");
     }
 }
