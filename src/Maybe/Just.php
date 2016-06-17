@@ -42,10 +42,10 @@ class Just extends Maybe {
 
 	    // If the result is null, we return Nothing.
 	    if (is_null($maybeResult)) {
-		$maybeResult = new Nothing("Result of call to " . $f . " was null.");
+		$maybeResult = new Nothing();
 	    }
 	} catch (\Exception $e) {
-	    $maybeResult = new Nothing($e->getMessage());
+	    $maybeResult = new Nothing();
 	}
 
 	return $maybeResult;
