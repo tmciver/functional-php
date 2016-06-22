@@ -3,9 +3,14 @@
 namespace TMciver\Functional\Either;
 
 use TMciver\Functional\Monad;
+use TMciver\Functional\Either\Right;
 
 abstract class Either {
     use Monad;
+
+    public function pure($val) {
+	return new Right($val);
+    }
 
     /**
      * Calls the Callable $f (or not) in a sub-class-specific way.

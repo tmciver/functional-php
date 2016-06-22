@@ -3,9 +3,14 @@
 namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\Monad;
+use TMciver\Functional\Maybe\Just;
 
 abstract class Maybe {
     use Monad;
+
+    public function pure($val) {
+	return new Just($val);
+    }
 
     /**
      * Calls the Callable $f (or not) in a sub-class-specific way.
