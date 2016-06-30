@@ -6,10 +6,10 @@ use TMciver\Functional\Either\Either;
 
 class Left extends Either {
 
-    private $message;
+    private $val;
 
-    public function __construct($message) {
-	$this->message = $message;
+    public function __construct($val) {
+	$this->val = $val;
     }
 
     public function fmap(Callable $f) {
@@ -26,6 +26,10 @@ class Left extends Either {
 
     public function orElse(callable $f, array $args) {
 	return call_user_func_array($f, $args);
+    }
+
+    public function get() {
+	return $this->val;
     }
 
     public function isLeft() {

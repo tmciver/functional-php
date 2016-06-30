@@ -66,4 +66,8 @@ class MonadTransformer {
 	    }
 	));
     }
+
+    public function accept($vistor) {
+	return $this->outerMonad->accept($vistor);
+    }
 }
