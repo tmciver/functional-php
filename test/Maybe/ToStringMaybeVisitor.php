@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test;
+namespace TMciver\Functional\Test\Maybe;
 
 use TMciver\Functional\Maybe\MaybeVisitor;
 

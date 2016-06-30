@@ -2,7 +2,7 @@
 
 use TMciver\Functional\Maybe\Just;
 use TMciver\Functional\Maybe\Nothing;
-use TMciver\Functional\Test\ToStringMaybeVisitor;
+use TMciver\Functional\Test\Maybe\ToStringMaybeVisitor;
 
 class MaybeVisitorTest extends PHPUnit_Framework_TestCase {
 

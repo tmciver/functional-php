@@ -6,7 +6,7 @@ use TMciver\Functional\Maybe\Nothing;
 use TMciver\Functional\Either\Left;
 use TMciver\Functional\Either\Right;
 use TMciver\Functional\Either\EitherVisitor;
-use TMciver\Functional\Test\ToStringMaybeVisitor;
+use TMciver\Functional\Test\Maybe\ToStringMaybeVisitor;
 
 class EitherMaybeMonadTransformerVisitorTest extends PHPUnit_Framework_TestCase {
 
