@@ -2,12 +2,19 @@
 
 namespace TMciver\Functional\Maybe;
 
+use TMciver\Functional\Monad;
+
 class MaybeT {
+    use Monad;
 
     private $monad;
 
     public function __construct($monad) {
 	$this->monad = $monad;
+    }
+
+    public function fmap(callable $f) {
+	throw new \Exception("Not yet implemented.");
     }
 
     public function bind(callable $f) {
@@ -23,6 +30,10 @@ class MaybeT {
 	});
 
 	return new MaybeT($newMonad);
+    }
+
+    public function pure($val) {
+	return new MaybeT($this->monad->pure(new Just($val)));
     }
 
     public function getMonad() {

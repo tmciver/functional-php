@@ -8,6 +8,16 @@ use TMciver\Functional\Either\Left;
 
 class MaybeTTest extends PHPUnit_Framework_TestCase {
 
+    public function testFmap() {
+
+	// create a MaybeT that represents an `Either Maybe`
+	$mt = new MaybeT(new Right(new Just("Hello")));
+
+	$this->setExpectedException('Exception');
+
+	$mt->fmap(function($i) { return $i; });
+    }
+
     public function testBindForRightJust1() {
 
 	// create a MaybeT that represents an `Either Maybe`
@@ -48,6 +58,19 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 	$newMt = $mt->bind('firstLetter');
 
 	$this->assertEquals($newMt, $mt);
+    }
+
+    public function testPure() {
+
+	// create a MaybeT that represents an `Either Maybe`
+	$mt = new MaybeT(new Left("I am Error."));
+
+	// create a pure value
+	$newMt = $mt->pure("Hello!");
+
+	$expectedMt = new MaybeT(new Right(new Just("Hello!")));
+
+	$this->assertEquals($newMt, $expectedMt);
     }
 }
 
