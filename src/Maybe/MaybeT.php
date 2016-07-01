@@ -14,7 +14,9 @@ class MaybeT {
     }
 
     public function fmap(callable $f) {
-	throw new \Exception("Not yet implemented.");
+	return new MaybeT($this->monad->fmap(function ($maybe) use ($f) {
+	    return $maybe->fmap($f);
+	}));
     }
 
     public function bind(callable $f) {

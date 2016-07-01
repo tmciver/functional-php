@@ -12,10 +12,10 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 
 	// create a MaybeT that represents an `Either Maybe`
 	$mt = new MaybeT(new Right(new Just("Hello")));
+	$newMt = $mt->fmap('strtolower');
+	$expectedMt = new MaybeT(new Right(new Just("hello")));
 
-	$this->setExpectedException('Exception');
-
-	$mt->fmap(function($i) { return $i; });
+	$this->assertEquals($newMt, $expectedMt);
     }
 
     public function testBindForRightJust1() {
