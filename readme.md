@@ -15,44 +15,108 @@ Then, run the unit tests with
 
 ## Usage
 
-Currently this library only supports Functors and Monads and, in particular,
-only supports the Maybe version of these types.  If you're familiar with Maybe
-Functors and Monads from another language such as Haskell, then this should be
-intuitive.
+Currently this library only supports Functors and Monads (Applicative is on the
+way) and there are three data types that support them: Maybe, Either and MaybeT.
+If you're familiar with Maybe Functors and Monads from another language such as
+Haskell, then this should be intuitive.
 
-Maybe is intended to be used in lieu of both exception and null handling.  Using
-Maybe allows one to completely avoid having to wrap code in try/catch or check
-for null values.
+### Maybe
 
-The Maybe type in this library deviates slightly from that found in Haskell.
-It's really more of a combination of Either and Maybe in that in this library
-Nothing takes an optional parameter (which is typically an error message).  So
-Maybe is used for error handling but you can also have an error message
-associated with errors.
+Maybe is intended to be used to represent the lack of a value.  Typically, you
+would use Maybe when you might ordinarily return a null value from a
+function.  Note that Maybe should not be used to represent an error condition;
+that's what Either is for.
 
-### Functor
+#### Maybe Example
 
-Functors are used for mapping regular functions over values in a context.  In
-this case the context is Maybe.  This library implements Functor with the
-`Functor` interface which contains only one method, namely `fmap`.  This is best illustrated by an example.  Say we have a string in a Maybe context:
-
-```php
-use TMciver\Functional\Just;
-
-$maybeAString = new Just("Hello, world!");
-```
-
-and we want to run a string-manipulation function over it:
+The main data structure in PHP is the array.  But someone with a background in
+functional programming might find this data structure a bit strange and the
+functions that operate on it to behave unexpectedly.  For instance, the first
+thing one might want to do with an array is to get the first element of the
+array.  Surpisingly, there is not a single function that does this but an
+implemenation that one can find online is the following:
 
 ```php
-$maybeAnotherString = $maybeAString->fmap(function ($s) {
-   return strtoupper($s);
-});
+// $array initialized elsewhere
+reset($array);
+$firstElement = current($array);
 ```
 
-then, `$maybeAnotherString` will be `Just("HELLO, WORLD!")`.
+So `current` returns the current element but that may not necessarily be the
+first element which is why the call to `reset` is necessary.  But `reset`
+mutates a pointer internally held by the array and a functional programmer has
+an expectation that their data structures are not going to be mutated out from
+under them.  Let's see if we can do better.
 
-### Monad
+A function to get the first element of an array or list is typically called
+`head`.  In Haskell calling `head` on an empty list is an error and halts the
+program if not handled appropriately but we can do better in this respect as
+well.  Our version of `head` will return a Maybe.
+
+```php
+function head($array) {
+   if (is_array($array)) {
+      if (count($array) > 0) {
+	     $vals = array_values($array);
+	     $h = new Just($array[0]);
+	  } else {
+	     $h = new Nothing();
+	  }
+   } else {
+      $h = new Nothing();
+   }
+
+   return $h;
+}
+```
+
+When given a non-empty array, the above function will return `Just($v)` where
+`$v` is the first value of the array argument.  It will return `Nothing` in all
+other cases.  See the file `test/Maybe/HeadTest.php` for examples of using this
+function.
+
+#### Maybe Functor
+
+Functors are usually defined as things that can be mapped over.  Some may
+naively think that lists/arrays are the only data structures that can be mapped
+over but this is not the case.  Lots of things can be Functors and this includes
+Maybe.
+
+So what could we do with the `head` function that was defined above?  Well we
+could map the value we get over a regular function like so:
+
+```php
+$a = ['apples', 'oranges', 'bananas'];
+$maybeUppercaseOfFirstElement = head($a)->fmap('strtoupper');
+```
+
+In this case `$maybeUppercaseOfFirstElement` would be `Just('APPLES')`.  But if
+`$a` had been an empty array, then it would have been `Nothing()` and the
+`strtoupper` function would never have been run.  You can also chain `fmap`s:
+
+```php
+$a = ['apples', 'oranges', 'bananas'];
+$maybeUppercaseOfFirstLetterOfFirstElement = head($a)->fmap('strtoupper')
+                                                     ->fmap(function ($str) {
+													    return substr($str, 0, 1);
+													 });
+```
+
+If you can forgive the very long but descriptive name,
+`$maybeUppercaseOfFirstLetterOfFirstElement` would be `Just('A')` in this case
+(it still has that value if you can't forgive it).  There are a couple of things
+to note here.  First, `fmap` takes a `callable`.  In PHP `callable`s take
+several forms but one of them is a string and in the first call to `fmap`, I
+passed in the string version of a built-in PHP function.  In the second case I
+pass in an anonymous function, also a `callable`.
+
+Second, `callable`s passed into `fmap` must be functions of one argument and
+that argument will be the value _wrapped_ in the `Maybe`.  Third, the value
+returned by this function will _automatically_ be wrapped back up in a `Maybe`.
+So the result of calling `fmap` on a `Maybe` is again a `Maybe` which is what
+allows us to chain calls to `fmap` this way.
+
+#### Maybe Monad
 
 Monad is similar to Functor.  It is implemented using the `Monad` interface
 which also contains only a single method, namely `bind`.  But whereas `fmap`
