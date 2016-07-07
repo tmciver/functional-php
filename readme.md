@@ -16,16 +16,16 @@ Then, run the unit tests with
 ## Usage
 
 Currently this library only supports Functors and Monads (Applicative is on the
-way) and there are three data types that support them: Maybe, Either and MaybeT.
-If you're familiar with Maybe Functors and Monads from another language such as
-Haskell, then this should be intuitive.
+way) and there are three data types that support them: `Maybe`, `Either` and
+`MaybeT`.  If you're familiar with Functors and Monads from another language
+such as Haskell, then this should be intuitive.
 
 ### Maybe
 
-Maybe is intended to be used to represent the lack of a value.  Typically, you
-would use Maybe when you might ordinarily return a null value from a
-function.  Note that Maybe should not be used to represent an error condition;
-that's what Either is for.
+`Maybe` is intended to be used to represent the lack of a value.  Typically, you
+would use `Maybe` when you might ordinarily return a null value from a
+function.  Note that `Maybe` should not be used to represent an error condition;
+that's what `Either` is for.
 
 #### Maybe Example
 
@@ -51,7 +51,7 @@ under them.  Let's see if we can do better.
 A function to get the first element of an array or list is typically called
 `head`.  In Haskell calling `head` on an empty list is an error and halts the
 program if not handled appropriately but we can do better in this respect as
-well.  Our version of `head` will return a Maybe.
+well.  Our version of `head` will return a `Maybe`.
 
 ```php
 function head($array) {
@@ -80,7 +80,7 @@ function.
 Functors are usually defined as things that can be mapped over.  Some may
 naively think that lists/arrays are the only data structures that can be mapped
 over but this is not the case.  Lots of things can be Functors and this includes
-Maybe.
+`Maybe`.
 
 So what could we do with the `head` function that was defined above?  Well we
 could map the value we get over a regular function like so:
@@ -159,6 +159,14 @@ See
 [PHP's documentation on `callable`](http://php.net/manual/en/language.types.callable.php)
 for more info.  If calling a function using a string seems strange, good; it
 *is* strange! :)
+
+### Either
+
+TBD
+
+### MaybeT
+
+TBD
 
 ### Applicative
 
