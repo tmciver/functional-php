@@ -13,11 +13,13 @@ class EitherTraverser extends Traversable {
         foreach ($array as $either) {
             if ($either->isLeft()) {
                 $foundLeft = true;
+                $left = $either;
                 break;
             } else {
                 $newEither = $f($either);
                 if ($newEither->isLeft()) {
                     $foundLeft = true;
+                    $left = $newEither;
                     break;
                 } else {
                     $vals[] = $newEither->get();
@@ -26,7 +28,7 @@ class EitherTraverser extends Traversable {
         }
 
         if ($foundLeft) {
-            $result = new Left('');
+            $result = $left;
         } else {
             $result = new Right($vals);
         }

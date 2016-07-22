@@ -43,9 +43,9 @@ class EitherTraverserTest extends PHPUnit_Framework_TestCase {
 
     public function testSequenceForSomeLeft() {
 
-        $arrayOfEither = [new Right(1), new Left(''), new Right(3)];
+        $arrayOfEither = [new Right(1), new Left('Some Error'), new Right(3)];
         $eitherOfArray = $this->traverser->sequence($arrayOfEither);
-        $expected = new Left('');
+        $expected = new Left('Some Error');
 
         $this->assertEquals($eitherOfArray, $expected);
     }
@@ -70,9 +70,9 @@ class EitherTraverserTest extends PHPUnit_Framework_TestCase {
 
     public function testTraverseForForSomeLeft() {
 
-        $arrayOfEither = [new Right(1), new Left(''), new Right(3)];
+        $arrayOfEither = [new Right(1), new Left('An error.'), new Right(3)];
         $eitherOfArray = $this->traverser->traverse($this->traverseFn, $arrayOfEither);
-        $expected = new Left('');
+        $expected = new Left('An error.');
 
         $this->assertEquals($eitherOfArray, $expected);
     }
