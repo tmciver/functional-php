@@ -2,15 +2,15 @@
 
 namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\Traversable;
+use TMciver\Functional\AssociativeArray;
 
-class MaybeTraverser extends Traversable {
+class MaybeArray extends AssociativeArray {
 
-    public function traverse(callable $f, $array) {
+    public function traverse(callable $f) {
 
         $vals = [];
         $foundNothing = false;
-        foreach ($array as $maybe) {
+        foreach ($this->array as $maybe) {
             if ($maybe->isNothing()) {
                 $foundNothing = true;
                 break;

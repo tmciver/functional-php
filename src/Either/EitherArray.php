@@ -2,15 +2,15 @@
 
 namespace TMciver\Functional\Either;
 
-use TMciver\Functional\Traversable;
+use TMciver\Functional\AssociativeArray;
 
-class EitherTraverser extends Traversable {
+class EitherArray extends AssociativeArray {
 
-    public function traverse(callable $f, $array) {
+    public function traverse(callable $f) {
 
         $vals = [];
         $foundLeft = false;
-        foreach ($array as $either) {
+        foreach ($this->array as $either) {
             if ($either->isLeft()) {
                 $foundLeft = true;
                 $left = $either;
