@@ -4,6 +4,10 @@ namespace TMciver\Functional\Maybe;
 
 class Nothing extends Maybe {
 
+    public function getOrElse($default) {
+        return $default;
+    }
+
     public function fmap(Callable $f) {
 	return $this;
     }
