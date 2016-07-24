@@ -13,6 +13,10 @@ class Right extends Either {
 	$this->val = $val;
     }
 
+    public function getOrElse($default) {
+        return $this->val;
+    }
+
     public function fmap(callable $f) {
 
 	// Since we don't know if $f will throw an exception, we wrap the call

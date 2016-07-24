@@ -12,6 +12,10 @@ class Left extends Either {
 	$this->val = $val;
     }
 
+    public function getOrElse($default) {
+        return $default;
+    }
+
     public function fmap(Callable $f) {
 	return $this;
     }

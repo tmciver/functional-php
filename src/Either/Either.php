@@ -12,6 +12,8 @@ abstract class Either {
 	return new Right($val);
     }
 
+    public abstract function getOrElse($default);
+
     /**
      * Calls the Callable $f (or not) in a sub-class-specific way.
      * @param Callable $f the Callable to (optionally) call.
@@ -19,13 +21,13 @@ abstract class Either {
      * length must be equal to the number of arguments expected by $f.
      * @return An instance of Maybe.
      */
-    abstract function orElse(callable $f, array $args);
+    public abstract function orElse(callable $f, array $args);
 
     /**
      * @return True if this object is an instance of the Left class; false
      * otherwise.
      */
-    abstract function isLeft();
+    public abstract function isLeft();
 
-    abstract function accept($eitherVisitor);
+    public abstract function accept($eitherVisitor);
 }
