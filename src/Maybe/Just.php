@@ -51,6 +51,35 @@ class Just extends Maybe {
 	return $maybeResult;
     }
 
+    public function append($appendee) {
+        return $appendee->appendJust($this);
+    }
+
+    protected function appendJust($just) {
+        // this is where the real work of appending two Just's is done.
+
+        // Since we can't know if the value contained in a Maybe is itself a
+        // monoid, we're just going to put the values in an array. But there are
+        // four cases that we have to account for to create the proper result
+        // array so that associativity is maintained.
+        $leftVal = $just->val;
+        $rightVal = $this->val;
+        if (!is_array($leftVal) && !is_array($rightVal)) {
+            $resultArray = [$leftVal, $rightVal];
+        } else if (is_array($leftVal) && !is_array($rightVal)) {
+            $leftVal[] = $rightVal;
+            $resultArray = $leftVal;
+        } else if (!is_array($leftVal) && is_array($rightVal)) {
+            array_unshift($rightVal, $leftVal);
+            $resultArray = $rightVal;
+        } else {
+            // both values are arrays
+            $resultArray = array_merge($leftVal, $rightVal);
+        }
+
+        return new Just($resultArray);
+    }
+
     public function accept($maybeVisitor) {
 	return $maybeVisitor->visitJust($this);
     }

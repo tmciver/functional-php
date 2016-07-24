@@ -12,6 +12,14 @@ class Nothing extends Maybe {
 	return $this;
     }
 
+    public function append($appendee) {
+        return $appendee;
+    }
+
+    protected function appendJust($just) {
+        return $just;
+    }
+
     public function accept($maybeVisitor) {
 	return $maybeVisitor->visitNothing($this);
     }

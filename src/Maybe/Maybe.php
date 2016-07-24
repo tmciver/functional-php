@@ -3,14 +3,24 @@
 namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\Monad;
+use TMciver\Functional\Monoid;
 use TMciver\Functional\Maybe\Just;
 
 abstract class Maybe {
-    use Monad;
+    use Monoid, Monad;
 
     public function pure($val) {
 	return new Just($val);
     }
+
+    public function identity() {
+        return new Nothing();
+    }
+
+    /**
+     * Function for doing double dispatch from Just::append.
+     */
+    protected abstract function appendJust($just);
 
     /**
      * Calls the Callable $f (or not) in a sub-class-specific way.
