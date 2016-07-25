@@ -12,6 +12,14 @@ class Left extends Either {
 	$this->val = $val;
     }
 
+    public function append($either) {
+        return $either;
+    }
+
+    public function appendRight($right) {
+        return $right;
+    }
+
     public function getOrElse($default) {
         return $default;
     }

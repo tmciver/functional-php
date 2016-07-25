@@ -13,6 +13,35 @@ class Right extends Either {
 	$this->val = $val;
     }
 
+    public function append($appendee) {
+        return $appendee->appendRight($this);
+    }
+
+    public function appendRight($right) {
+        // this is where the real work of appending two Right's is done.
+
+        // Since we can't know if the value contained in an Either is itself a
+        // monoid, we're just going to put the values in an array. But there are
+        // four cases that we have to account for to create the proper result
+        // array so that associativity is maintained.
+        $firstVal = $right->val;
+        $secondVal = $this->val;
+        if (!is_array($firstVal) && !is_array($secondVal)) {
+            $resultArray = [$firstVal, $secondVal];
+        } else if (is_array($firstVal) && !is_array($secondVal)) {
+            $firstVal[] = $secondVal;
+            $resultArray = $firstVal;
+        } else if (!is_array($firstVal) && is_array($secondVal)) {
+            array_unshift($secondVal, $firstVal);
+            $resultArray = $secondVal;
+        } else {
+            // both values are arrays
+            $resultArray = array_merge($firstVal, $secondVal);
+        }
+
+        return new Right($resultArray);
+    }
+
     public function getOrElse($default) {
         return $this->val;
     }

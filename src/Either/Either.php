@@ -3,14 +3,24 @@
 namespace TMciver\Functional\Either;
 
 use TMciver\Functional\Monad;
+use TMciver\Functional\Monoid;
 use TMciver\Functional\Either\Right;
 
 abstract class Either {
-    use Monad;
+    use Monoid, Monad;
 
     public function pure($val) {
 	return new Right($val);
     }
+
+    public function identity() {
+        return new Left('');
+    }
+
+    /**
+     * Function for doing double dispatch from Right::append.
+     */
+    protected abstract function appendRight($right);
 
     public abstract function getOrElse($default);
 
