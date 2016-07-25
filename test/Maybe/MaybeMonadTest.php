@@ -18,20 +18,20 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 	$this->assertEquals($wrappedVal->get(), "Hello!");
     }
 
-    public function testBindForJust() {
+    public function testConcatMapForJust() {
 
 	$maybeInt = new Just(1);
-	$maybeIntPlusOne = $maybeInt->bind(function ($i) {
+	$maybeIntPlusOne = $maybeInt->concatMap(function ($i) {
 	    return maybeAddOne($i);
 	});
 
 	$this->assertEquals($maybeIntPlusOne->get(), 2);
     }
 
-    public function testBindForNothing() {
+    public function testConcatMapForNothing() {
 
 	$maybeInt = new Nothing();
-	$maybeIntPlusOne = $maybeInt->bind(function ($i) {
+	$maybeIntPlusOne = $maybeInt->concatMap(function ($i) {
 	    return maybeAddOne($i);
 	});
 

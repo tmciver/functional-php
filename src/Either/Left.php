@@ -20,7 +20,7 @@ class Left extends Either {
 	return $this;
     }
 
-    public function bind(callable $f) {
+    public function concatMap(callable $f) {
 	return $this;
     }
 

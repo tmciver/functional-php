@@ -37,7 +37,7 @@ class Right extends Either {
 	return $eitherResult;
     }
 
-    public function bind(callable $f) {
+    public function concatMap(callable $f) {
 
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Left if there's an exception.

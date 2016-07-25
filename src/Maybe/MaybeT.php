@@ -19,8 +19,8 @@ class MaybeT {
 	}));
     }
 
-    public function bind(callable $f) {
-	$newMonad = $this->monad->bind(function ($maybe) use ($f) {
+    public function concatMap(callable $f) {
+	$newMonad = $this->monad->concatMap(function ($maybe) use ($f) {
 	    if ($maybe->isNothing()) {
 		$newMonad = $this->monad->pure($maybe);
 	    } else {

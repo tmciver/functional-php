@@ -12,7 +12,7 @@ class Nothing extends Maybe {
 	return $this;
     }
 
-    public function bind(callable $f) {
+    public function concatMap(callable $f) {
 	return $this;
     }
 

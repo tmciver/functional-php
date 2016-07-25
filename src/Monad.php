@@ -14,7 +14,7 @@ trait Monad {
      * should be a Maybe.
      * @return The value returned by $f.
      */
-    abstract function bind(callable $f);
+    abstract function concatMap(callable $f);
 
     /**
      * @param A value to be put into a minimal context.

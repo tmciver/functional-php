@@ -24,44 +24,44 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 	$this->assertEquals($newMt, $expectedMt);
     }
 
-    public function testBindForRightJust1() {
+    public function testConcatMapForRightJust1() {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("Hello");
 	$expectedMt = new MaybeT(new Right(new Just("H")));
 
-	$newMt = $mt->bind('firstLetter');
+	$newMt = $mt->concatMap('firstLetter');
 
 	$this->assertEquals($newMt, $expectedMt);
     }
 
-    public function testBindForRightJust2() {
+    public function testConcatMapForRightJust2() {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("");
 	$expectedMt = new MaybeT(new Right(new Nothing()));
 
-	$newMt = $mt->bind('firstLetter');
+	$newMt = $mt->concatMap('firstLetter');
 
 	$this->assertEquals($newMt, $expectedMt);
     }
 
-    public function testBindForRightNothing() {
+    public function testConcatMapForRightNothing() {
 
 	// create a MaybeT that represents an `Either Maybe`
 	$mt = new MaybeT(new Right(new Nothing()));
 
-	$newMt = $mt->bind('firstLetter');
+	$newMt = $mt->concatMap('firstLetter');
 
 	$this->assertEquals($newMt, $mt);
     }
 
-    public function testBindForLeft() {
+    public function testConcatMapForLeft() {
 
 	// create a MaybeT that represents an `Either Maybe`
 	$mt = new MaybeT(new Left("I am Error!"));
 
-	$newMt = $mt->bind('firstLetter');
+	$newMt = $mt->concatMap('firstLetter');
 
 	$this->assertEquals($newMt, $mt);
     }
