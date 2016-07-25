@@ -8,10 +8,16 @@ use TMciver\Functional\Either\Left;
 
 class MaybeTTest extends PHPUnit_Framework_TestCase {
 
+    private $maybeT; // used to create MaybeT's using 'pure'
+
+    public function __construct() {
+        $this->maybeT = new MaybeT(new Left(''));
+    }
+
     public function testFmap() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Right(new Just("Hello")));
+        $mt = $this->maybeT->pure("Hello");
 	$newMt = $mt->fmap('strtolower');
 	$expectedMt = new MaybeT(new Right(new Just("hello")));
 
@@ -21,7 +27,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
     public function testBindForRightJust1() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Right(new Just("Hello")));
+        $mt = $this->maybeT->pure("Hello");
 	$expectedMt = new MaybeT(new Right(new Just("H")));
 
 	$newMt = $mt->bind('firstLetter');
@@ -32,7 +38,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
     public function testBindForRightJust2() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Right(new Just("")));
+        $mt = $this->maybeT->pure("");
 	$expectedMt = new MaybeT(new Right(new Nothing()));
 
 	$newMt = $mt->bind('firstLetter');
