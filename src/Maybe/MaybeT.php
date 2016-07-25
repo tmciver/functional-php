@@ -25,7 +25,7 @@ class MaybeT {
 		$newMonad = $this->monad->pure($maybe);
 	    } else {
 		$newMaybeT = $f($maybe->get());
-		$newMonad = $newMaybeT->getMonad();
+		$newMonad = $newMaybeT->monad;
 	    }
 
 	    return $newMonad;
@@ -36,9 +36,5 @@ class MaybeT {
 
     public function pure($val) {
 	return new MaybeT($this->monad->pure(new Just($val)));
-    }
-
-    public function getMonad() {
-	return $this->monad;
     }
 }
