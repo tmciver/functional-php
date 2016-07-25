@@ -31,6 +31,6 @@ trait Monad {
 	// standard lib?
 	$id = function ($x) { return $x; };
 
-	return $this->bind($id);
+	return $this->concatMap($id);
     }
 }
