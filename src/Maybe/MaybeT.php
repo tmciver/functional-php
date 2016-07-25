@@ -13,9 +13,9 @@ class MaybeT {
 	$this->monad = $monad;
     }
 
-    public function fmap(callable $f) {
-	return new MaybeT($this->monad->fmap(function ($maybe) use ($f) {
-	    return $maybe->fmap($f);
+    public function map(callable $f) {
+	return new MaybeT($this->monad->map(function ($maybe) use ($f) {
+	    return $maybe->map($f);
 	}));
     }
 

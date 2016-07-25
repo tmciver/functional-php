@@ -17,7 +17,7 @@ class Just extends Maybe {
         return $this->val;
     }
 
-    public function fmap(callable $f) {
+    public function map(callable $f) {
 
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Nothing if there's an exception.

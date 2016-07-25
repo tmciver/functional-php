@@ -9,26 +9,26 @@ class EitherFunctorTest extends PHPUnit_Framework_TestCase {
 
 	$id = function ($val) { return $val; };
 	$eitherVal = new Right("Hello");
-	$mappedEitherVal = $eitherVal->fmap($id);
+	$mappedEitherVal = $eitherVal->map($id);
 
 	$this->assertEquals($eitherVal, $mappedEitherVal);
     }
 
-    public function testFmapRight() {
+    public function testMapRight() {
 
 	$toUpper = function ($str) { return strtoupper($str); };
 	$eitherStr = new Right("hello");
-	$mappedEitherStr = $eitherStr->fmap($toUpper);
+	$mappedEitherStr = $eitherStr->map($toUpper);
 	$expectedEitherStr = new Right("HELLO");
 
 	$this->assertEquals($mappedEitherStr, $expectedEitherStr);
     }
 
-    public function testFmapLeft() {
+    public function testMapLeft() {
 
 	$toUpper = function ($str) { return strtoupper($str); };
 	$eitherStr = new Left("We have a problem!");
-	$mappedEitherStr = $eitherStr->fmap($toUpper);
+	$mappedEitherStr = $eitherStr->map($toUpper);
 
 	$this->assertInstanceOf('TMciver\Functional\Either\Left', $mappedEitherStr);
     }

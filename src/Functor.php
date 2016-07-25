@@ -9,5 +9,5 @@ trait Functor {
      * value contained in the functor.
      * @return An instance of Functor whose type is the same as this Functor.
      */
-    abstract function fmap(callable $f);
+    abstract function map(callable $f);
 }

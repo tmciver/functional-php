@@ -17,7 +17,7 @@ class Right extends Either {
         return $this->val;
     }
 
-    public function fmap(callable $f) {
+    public function map(callable $f) {
 
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Left if there's an exception.

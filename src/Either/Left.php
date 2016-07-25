@@ -16,7 +16,7 @@ class Left extends Either {
         return $default;
     }
 
-    public function fmap(Callable $f) {
+    public function map(Callable $f) {
 	return $this;
     }
 

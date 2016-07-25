@@ -5,40 +5,40 @@ use TMciver\Functional\Maybe\Nothing;
 
 class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 
-    public function testFmapForJust() {
+    public function testMapForJust() {
 
 	$maybeInt = new Just(1);
-	$maybeIntPlusOne = $maybeInt->fmap(function ($i) {
+	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return addOne($i);
 	});
 
 	$this->assertEquals($maybeIntPlusOne->get(), 2);
     }
 
-    public function testFmapForNothing() {
+    public function testMapForNothing() {
 
 	$maybeInt = new Nothing();
-	$maybeIntPlusOne = $maybeInt->fmap(function ($i) {
+	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return addOne($i);
 	});
 
 	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
 
-    public function testFmapExceptionHandling() {
+    public function testMapExceptionHandling() {
 
 	$maybeInt = new Just(1);
-	$maybeIntPlusOne = $maybeInt->fmap(function ($i) {
+	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return throwException($i);
 	});
 
 	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
 
-    public function testFmapNullHandling() {
+    public function testMapNullHandling() {
 
 	$maybeInt = new Just(1);
-	$maybeIntPlusOne = $maybeInt->fmap(function ($i) {
+	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return returnNull($i);
 	});
 
