@@ -1,7 +1,6 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeArray;
 
 class MaybeTraverserTest extends PHPUnit_Framework_TestCase {
@@ -14,7 +13,7 @@ class MaybeTraverserTest extends PHPUnit_Framework_TestCase {
                 // no sense in creating another Nothing when we already have one
                 $result = $maybe;
             } else {
-                $result = new Just($maybe->get() + 1);
+                $result = Maybe::fromValue($maybe->get() + 1);
             }
 
             return $result;
@@ -25,25 +24,25 @@ class MaybeTraverserTest extends PHPUnit_Framework_TestCase {
 
         $arrayOfMaybe = new MaybeArray([]);
         $maybeOfArray = $arrayOfMaybe->sequence();
-        $expected = new Just([]);
+        $expected = Maybe::fromValue([]);
 
         $this->assertEquals($maybeOfArray, $expected);
     }
 
     public function testSequenceForAllJust() {
 
-        $arrayOfMaybe = new MaybeArray([new Just(1), new Just(2), new Just(3)]);
+        $arrayOfMaybe = new MaybeArray([Maybe::fromValue(1), Maybe::fromValue(2), Maybe::fromValue(3)]);
         $maybeOfArray = $arrayOfMaybe->sequence($arrayOfMaybe);
-        $expected = new Just([1, 2, 3]);
+        $expected = Maybe::fromValue([1, 2, 3]);
 
         $this->assertEquals($maybeOfArray, $expected);
     }
 
     public function testSequenceForSomeNothing() {
 
-        $arrayOfMaybe = new MaybeArray([new Just(1), new Nothing(), new Just(3)]);
+        $arrayOfMaybe = new MaybeArray([Maybe::fromValue(1), Maybe::nothing(), Maybe::fromValue(3)]);
         $maybeOfArray = $arrayOfMaybe->sequence($arrayOfMaybe);
-        $expected = new Nothing();
+        $expected = Maybe::nothing();
 
         $this->assertEquals($maybeOfArray, $expected);
     }
@@ -52,25 +51,25 @@ class MaybeTraverserTest extends PHPUnit_Framework_TestCase {
 
         $arrayOfMaybe = new MaybeArray([]);
         $maybeOfArray = $arrayOfMaybe->traverse($this->traverseFn, $arrayOfMaybe);
-        $expected = new Just([]);
+        $expected = Maybe::fromValue([]);
 
         $this->assertEquals($maybeOfArray, $expected);
     }
 
     public function testTraverseForAllJust() {
 
-        $arrayOfMaybe = new MaybeArray([new Just(1), new Just(2), new Just(3)]);
+        $arrayOfMaybe = new MaybeArray([Maybe::fromValue(1), Maybe::fromValue(2), Maybe::fromValue(3)]);
         $maybeOfArray = $arrayOfMaybe->traverse($this->traverseFn, $arrayOfMaybe);
-        $expected = new Just([2, 3, 4]);
+        $expected = Maybe::fromValue([2, 3, 4]);
 
         $this->assertEquals($maybeOfArray, $expected);
     }
 
     public function testTraverseForForSomeNothing() {
 
-        $arrayOfMaybe = new MaybeArray([new Just(1), new Nothing(), new Just(3)]);
+        $arrayOfMaybe = new MaybeArray([Maybe::fromValue(1), Maybe::nothing(), Maybe::fromValue(3)]);
         $maybeOfArray = $arrayOfMaybe->traverse($this->traverseFn, $arrayOfMaybe);
-        $expected = new Nothing();
+        $expected = Maybe::nothing();
 
         $this->assertEquals($maybeOfArray, $expected);
     }

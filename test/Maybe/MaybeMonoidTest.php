@@ -1,36 +1,35 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 
 class MaybeMonoidTest extends PHPUnit_Framework_TestCase {
 
     public function testAppendForIdentityOnLeft() {
 
-	    $just5 = new Just(5);
+	    $just5 = Maybe::fromValue(5);
         $identity = $just5->identity();
 	    $appended = $identity->append($just5);
-	    $expexted = new Just(5);
+	    $expexted = Maybe::fromValue(5);
 
 	    $this->assertEquals($appended, $expexted);
     }
 
     public function testAppendForIdentityOnRight() {
 
-        $just5 = new Just(5);
+        $just5 = Maybe::fromValue(5);
         $identity = $just5->identity();
 	    $appended = $just5->append($identity);
-	    $expexted = new Just(5);
+	    $expexted = Maybe::fromValue(5);
 
 	    $this->assertEquals($appended, $expexted);
     }
 
     public function testAppendForTwoJusts() {
 
-        $just5 = new Just(5);
-        $just6 = new Just(6);
+        $just5 = Maybe::fromValue(5);
+        $just6 = Maybe::fromValue(6);
 	    $appended = $just5->append($just6);
-	    $expexted = new Just([5, 6]);
+	    $expexted = Maybe::fromValue([5, 6]);
 
 	    $this->assertEquals($appended, $expexted);
     }
@@ -39,10 +38,10 @@ class MaybeMonoidTest extends PHPUnit_Framework_TestCase {
 
         // we'll combine four values in two different ways and make sure the
         // results are the same.
-        $just1 = new Just(1);
-        $just2 = new Just(2);
-        $just3 = new Just(3);
-        $just4 = new Just(4);
+        $just1 = Maybe::fromValue(1);
+        $just2 = Maybe::fromValue(2);
+        $just3 = Maybe::fromValue(3);
+        $just4 = Maybe::fromValue(4);
 
         // First, combine the first two, then the last two and finally combine
         // the two results.
@@ -50,8 +49,8 @@ class MaybeMonoidTest extends PHPUnit_Framework_TestCase {
         $secondTwo = $just3->append($just4);
         $result1 = $firstTwo->append($secondTwo);
 
-        // Next, combine the first two with the third and then combine that
-        // result with the fourth.
+        // Next, combine the first two, then combine that result with the third
+        // and then combine that result with the fourth.
         $firstThree = $firstTwo->append($just3);
         $result2 = $firstThree->append($just4);
 

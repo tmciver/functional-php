@@ -1,13 +1,12 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 
 class MaybeTest extends PHPUnit_Framework_TestCase {
 
     public function testMaybeGetOrElseForJust() {
 
-        $maybe = new Just("Hello!");
+        $maybe = Maybe::fromValue("Hello!");
         $val = $maybe->getOrElse("World!");
 
         $this->assertEquals("Hello!", $val);
@@ -15,7 +14,7 @@ class MaybeTest extends PHPUnit_Framework_TestCase {
 
     public function testMaybeGetOrElseForNothing() {
 
-        $maybe = new Nothing();
+        $maybe = Maybe::nothing();
         $val = $maybe->getOrElse("World!");
 
         $this->assertEquals("World!", $val);

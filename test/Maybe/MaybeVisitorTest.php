@@ -1,7 +1,6 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Test\Maybe\ToStringMaybeVisitor;
 
 class MaybeVisitorTest extends PHPUnit_Framework_TestCase {
@@ -9,7 +8,7 @@ class MaybeVisitorTest extends PHPUnit_Framework_TestCase {
     public function testJustVisitor() {
 
 	$maybeVisitor = new ToStringMaybeVisitor();
-	$just = new Just(123);
+	$just = Maybe::fromValue(123);
 	$justAsString = $just->accept($maybeVisitor);
 
 	$this->assertEquals($justAsString, "123");
@@ -18,7 +17,7 @@ class MaybeVisitorTest extends PHPUnit_Framework_TestCase {
     public function testNothingVisitor() {
 
 	$maybeVisitor = new ToStringMaybeVisitor();
-	$nothing = new Nothing();
+	$nothing = Maybe::nothing();
 	$nothingAsString = $nothing->accept($maybeVisitor);
 
 	$this->assertEquals($nothingAsString, "Nothing!");

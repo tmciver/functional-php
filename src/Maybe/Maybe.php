@@ -5,16 +5,33 @@ namespace TMciver\Functional\Maybe;
 use TMciver\Functional\Monad;
 use TMciver\Functional\Monoid;
 use TMciver\Functional\Maybe\Just;
+use TMciver\Functional\Maybe\Nothing;
 
 abstract class Maybe {
     use Monoid, Monad;
 
+    public static $nothing;
+
+    public static function fromValue($val) {
+        if (is_null($val)) {
+            $maybe = self::nothing();
+        } else {
+            $maybe = new Just($val);
+        }
+
+        return $maybe;
+    }
+
+    public static function nothing() {
+        return self::$nothing;
+    }
+
     public function pure($val) {
-	return new Just($val);
+	return self::fromValue($val);
     }
 
     public function identity() {
-        return new Nothing();
+        return self::$nothing;
     }
 
     /**
@@ -49,3 +66,6 @@ abstract class Maybe {
 
     abstract function accept($maybeVisitor);
 }
+
+// initialize Maybe::$nothing
+Maybe::$nothing = new Nothing();

@@ -35,6 +35,6 @@ class MaybeT {
     }
 
     public function pure($val) {
-	return new MaybeT($this->monad->pure(new Just($val)));
+	return new MaybeT($this->monad->pure(Maybe::fromValue($val)));
     }
 }

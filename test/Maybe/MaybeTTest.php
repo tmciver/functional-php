@@ -1,8 +1,7 @@
 <?php
 
+use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
 use TMciver\Functional\Either\Right;
 use TMciver\Functional\Either\Left;
 
@@ -19,7 +18,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("Hello");
 	$newMt = $mt->map('strtolower');
-	$expectedMt = new MaybeT(new Right(new Just("hello")));
+	$expectedMt = new MaybeT(new Right(Maybe::fromValue("hello")));
 
 	$this->assertEquals($newMt, $expectedMt);
     }
@@ -28,7 +27,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("Hello");
-	$expectedMt = new MaybeT(new Right(new Just("H")));
+	$expectedMt = new MaybeT(new Right(Maybe::fromValue("H")));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -39,7 +38,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("");
-	$expectedMt = new MaybeT(new Right(new Nothing()));
+	$expectedMt = new MaybeT(new Right(Maybe::nothing()));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -49,7 +48,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
     public function testConcatMapForRightNothing() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Right(new Nothing()));
+	$mt = new MaybeT(new Right(Maybe::nothing()));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -74,7 +73,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 	// create a pure value
 	$newMt = $mt->pure("Hello!");
 
-	$expectedMt = new MaybeT(new Right(new Just("Hello!")));
+	$expectedMt = new MaybeT(new Right(Maybe::fromValue("Hello!")));
 
 	$this->assertEquals($newMt, $expectedMt);
     }
@@ -87,9 +86,9 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 function firstLetter($str) {
     if (is_string($str)) {
 	if (empty($str)) {
-	    $maybeLetter = new Nothing();
+	    $maybeLetter = Maybe::nothing();
 	} else {
-	    $maybeLetter = new Just(substr($str, 0, 1));
+	    $maybeLetter = Maybe::fromValue(substr($str, 0, 1));
 	}
 	$either = new Right($maybeLetter);
     } else {

@@ -26,9 +26,9 @@ class MaybeArray extends AssociativeArray {
         }
 
         if ($foundNothing) {
-            $result = new Nothing();
+            $result = Maybe::nothing();
         } else {
-            $result = new Just($vals);
+            $result = Maybe::fromValue($vals);
         }
 
         return $result;

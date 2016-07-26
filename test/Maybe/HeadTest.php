@@ -1,7 +1,6 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 
 class HeadTest extends PHPUnit_Framework_TestCase {
 
@@ -9,7 +8,7 @@ class HeadTest extends PHPUnit_Framework_TestCase {
 
 	$a = ['apples', 'oranges', 'bananas'];
 	$h = $this->head($a);
-	$expectedResult = new Just('apples');
+	$expectedResult = Maybe::fromValue('apples');
 
 	$this->assertEquals($h, $expectedResult);
     }
@@ -18,7 +17,7 @@ class HeadTest extends PHPUnit_Framework_TestCase {
 
 	$a = [];
 	$h = $this->head($a);
-	$expectedResult = new Nothing();
+	$expectedResult = Maybe::nothing();
 
 	$this->assertEquals($h, $expectedResult);
     }
@@ -27,7 +26,7 @@ class HeadTest extends PHPUnit_Framework_TestCase {
 
 	$a = "hello";
 	$h = $this->head($a);
-	$expectedResult = new Nothing();
+	$expectedResult = Maybe::nothing();
 
 	$this->assertEquals($h, $expectedResult);
     }
@@ -35,7 +34,7 @@ class HeadTest extends PHPUnit_Framework_TestCase {
     public function testHeadOnObject() {
 
 	$h = $this->head($this);
-	$expectedResult = new Nothing();
+	$expectedResult = Maybe::nothing();
 
 	$this->assertEquals($h, $expectedResult);
     }
@@ -46,7 +45,7 @@ class HeadTest extends PHPUnit_Framework_TestCase {
 	      '2' => 'oranges',
 	      '3' => 'bananas'];
 	$h = $this->head($a);
-	$expectedResult = new Just('apples');
+	$expectedResult = Maybe::fromValue('apples');
 
 	$this->assertEquals($h, $expectedResult);
     }
@@ -55,12 +54,12 @@ class HeadTest extends PHPUnit_Framework_TestCase {
 	if (is_array($array)) {
 	    if (count($array) > 0) {
 		$vals = array_values($array);
-		$h = new Just($vals[0]);
+		$h = Maybe::fromValue($vals[0]);
 	    } else {
-		$h = new Nothing();
+		$h = Maybe::nothing();
 	    }
 	} else {
-	    $h = new Nothing();
+	    $h = Maybe::nothing();
 	}
 
 	return $h;

@@ -1,7 +1,6 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 
 class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 
@@ -9,7 +8,7 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 
 	// using `pure` in this lib requres having a reference to an object of
 	// the desired type, so here, we'll just create a Nothing Maybe.
-	$maybe = new Nothing();
+	$maybe = Maybe::nothing();
 
 	// create a wrapped val
 	$wrappedVal = $maybe->pure("Hello!");
@@ -20,7 +19,7 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 
     public function testConcatMapForJust() {
 
-	$maybeInt = new Just(1);
+	$maybeInt = Maybe::fromValue(1);
 	$maybeIntPlusOne = $maybeInt->concatMap(function ($i) {
 	    return maybeAddOne($i);
 	});
@@ -30,7 +29,7 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 
     public function testConcatMapForNothing() {
 
-	$maybeInt = new Nothing();
+	$maybeInt = Maybe::nothing();
 	$maybeIntPlusOne = $maybeInt->concatMap(function ($i) {
 	    return maybeAddOne($i);
 	});
@@ -40,5 +39,5 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
 }
 
 function maybeAddOne($i) {
-    return new Just($i + 1);
+    return Maybe::fromValue($i + 1);
 }

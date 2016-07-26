@@ -9,7 +9,7 @@ class Just extends Maybe {
 
     private $val;
 
-    public function __construct($val) {
+    protected function __construct($val) {
 	$this->val = $val;
     }
 
@@ -22,16 +22,9 @@ class Just extends Maybe {
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Nothing if there's an exception.
 	try {
-	    $result = $f($this->val);
-
-	    // If the result is null, we return Nothing.
-	    if (is_null($result)) {
-		$maybeResult = new Nothing("Result of call to " . $f . " was null.");
-	    } else {
-		$maybeResult = new Just($result);
-	    }
+	    $maybeResult = Maybe::fromValue($f($this->val));
 	} catch (\Exception $e) {
-	    $maybeResult = new Nothing($e->getMessage());
+	    $maybeResult = Maybe::nothing();
 	}
 
 	return $maybeResult;
@@ -46,10 +39,10 @@ class Just extends Maybe {
 
 	    // If the result is null, we return Nothing.
 	    if (is_null($maybeResult)) {
-		$maybeResult = new Nothing();
+		$maybeResult = Maybe::nothing();
 	    }
 	} catch (\Exception $e) {
-	    $maybeResult = new Nothing();
+	    $maybeResult = Maybe::nothing();
 	}
 
 	return $maybeResult;
@@ -81,7 +74,7 @@ class Just extends Maybe {
             $resultArray = array_merge($leftVal, $rightVal);
         }
 
-        return new Just($resultArray);
+        return Maybe::fromValue($resultArray);
     }
 
     public function accept($maybeVisitor) {

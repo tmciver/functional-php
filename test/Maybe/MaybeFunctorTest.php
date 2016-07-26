@@ -1,13 +1,12 @@
 <?php
 
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Maybe\Maybe;
 
 class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 
     public function testMapForJust() {
 
-	$maybeInt = new Just(1);
+	$maybeInt = Maybe::fromValue(1);
 	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return addOne($i);
 	});
@@ -17,7 +16,7 @@ class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 
     public function testMapForNothing() {
 
-	$maybeInt = new Nothing();
+	$maybeInt = Maybe::nothing();
 	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return addOne($i);
 	});
@@ -27,7 +26,7 @@ class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 
     public function testMapExceptionHandling() {
 
-	$maybeInt = new Just(1);
+	$maybeInt = Maybe::fromValue(1);
 	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return throwException($i);
 	});
@@ -37,7 +36,7 @@ class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
 
     public function testMapNullHandling() {
 
-	$maybeInt = new Just(1);
+	$maybeInt = Maybe::fromValue(1);
 	$maybeIntPlusOne = $maybeInt->map(function ($i) {
 	    return returnNull($i);
 	});
