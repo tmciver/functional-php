@@ -12,7 +12,7 @@ class Nothing extends Maybe {
 	return $this;
     }
 
-    public function concatMap(callable $f) {
+    public function flatMap(callable $f) {
 	return $this;
     }
 

@@ -14,7 +14,7 @@ trait Monad {
      * should be a Maybe.
      * @return The value returned by $f.
      */
-    abstract function concatMap(callable $f);
+    abstract function flatMap(callable $f);
 
     /**
      * @param A value to be put into a minimal context.
@@ -31,6 +31,6 @@ trait Monad {
 	// standard lib?
 	$id = function ($x) { return $x; };
 
-	return $this->concatMap($id);
+	return $this->flatMap($id);
     }
 }

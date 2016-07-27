@@ -30,7 +30,7 @@ class Just extends Maybe {
 	return $maybeResult;
     }
 
-    public function concatMap(callable $f) {
+    public function flatMap(callable $f) {
 
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Nothing if there's an exception.

@@ -17,20 +17,20 @@ class EitherMonadTest extends PHPUnit_Framework_TestCase {
 	$this->assertEquals($wrappedVal->get(), "Hello!");
     }
 
-    public function testConcatMapForRight() {
+    public function testFlatMapForRight() {
 
 	$eitherInt = Either::fromValue(1);
-	$eitherIntPlusOne = $eitherInt->concatMap(function ($i) {
+	$eitherIntPlusOne = $eitherInt->flatMap(function ($i) {
 	    return Either::fromValue($i + 1);
 	});
 
 	$this->assertEquals($eitherIntPlusOne->get(), 2);
     }
 
-    public function testConcatMapForLeft() {
+    public function testFlatMapForLeft() {
 
 	$eitherInt = Either::left("Error!");
-	$eitherIntPlusOne = $eitherInt->concatMap(function ($i) {
+	$eitherIntPlusOne = $eitherInt->flatMap(function ($i) {
 	    return Either::fromValue($i + 1);
 	});
 

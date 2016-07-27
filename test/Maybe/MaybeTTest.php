@@ -22,44 +22,44 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 	$this->assertEquals($newMt, $expectedMt);
     }
 
-    public function testConcatMapForRightJust1() {
+    public function testFlatMapForRightJust1() {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("Hello");
 	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("H")));
 
-	$newMt = $mt->concatMap('firstLetter');
+	$newMt = $mt->flatMap('firstLetter');
 
 	$this->assertEquals($newMt, $expectedMt);
     }
 
-    public function testConcatMapForRightJust2() {
+    public function testFlatMapForRightJust2() {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("");
 	$expectedMt = new MaybeT(Either::fromValue(Maybe::nothing()));
 
-	$newMt = $mt->concatMap('firstLetter');
+	$newMt = $mt->flatMap('firstLetter');
 
 	$this->assertEquals($newMt, $expectedMt);
     }
 
-    public function testConcatMapForRightNothing() {
+    public function testFlatMapForRightNothing() {
 
 	// create a MaybeT that represents an `Either Maybe`
 	$mt = new MaybeT(Either::fromValue(Maybe::nothing()));
 
-	$newMt = $mt->concatMap('firstLetter');
+	$newMt = $mt->flatMap('firstLetter');
 
 	$this->assertEquals($newMt, $mt);
     }
 
-    public function testConcatMapForLeft() {
+    public function testFlatMapForLeft() {
 
 	// create a MaybeT that represents an `Either Maybe`
 	$mt = new MaybeT(Either::left("I am Error!"));
 
-	$newMt = $mt->concatMap('firstLetter');
+	$newMt = $mt->flatMap('firstLetter');
 
 	$this->assertEquals($newMt, $mt);
     }
