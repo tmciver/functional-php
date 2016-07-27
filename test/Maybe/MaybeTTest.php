@@ -2,15 +2,14 @@
 
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
-use TMciver\Functional\Either\Right;
-use TMciver\Functional\Either\Left;
+use TMciver\Functional\Either\Either;
 
 class MaybeTTest extends PHPUnit_Framework_TestCase {
 
     private $maybeT; // used to create MaybeT's using 'pure'
 
     public function __construct() {
-        $this->maybeT = new MaybeT(new Left(''));
+        $this->maybeT = new MaybeT(Either::left(''));
     }
 
     public function testMap() {
@@ -18,7 +17,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("Hello");
 	$newMt = $mt->map('strtolower');
-	$expectedMt = new MaybeT(new Right(Maybe::fromValue("hello")));
+	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("hello")));
 
 	$this->assertEquals($newMt, $expectedMt);
     }
@@ -27,7 +26,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("Hello");
-	$expectedMt = new MaybeT(new Right(Maybe::fromValue("H")));
+	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("H")));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -38,7 +37,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
 
 	// create a MaybeT that represents an `Either Maybe`
         $mt = $this->maybeT->pure("");
-	$expectedMt = new MaybeT(new Right(Maybe::nothing()));
+	$expectedMt = new MaybeT(Either::fromValue(Maybe::nothing()));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -48,7 +47,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
     public function testConcatMapForRightNothing() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Right(Maybe::nothing()));
+	$mt = new MaybeT(Either::fromValue(Maybe::nothing()));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -58,7 +57,7 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
     public function testConcatMapForLeft() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Left("I am Error!"));
+	$mt = new MaybeT(Either::left("I am Error!"));
 
 	$newMt = $mt->concatMap('firstLetter');
 
@@ -68,12 +67,12 @@ class MaybeTTest extends PHPUnit_Framework_TestCase {
     public function testPure() {
 
 	// create a MaybeT that represents an `Either Maybe`
-	$mt = new MaybeT(new Left("I am Error."));
+	$mt = new MaybeT(Either::left("I am Error."));
 
 	// create a pure value
 	$newMt = $mt->pure("Hello!");
 
-	$expectedMt = new MaybeT(new Right(Maybe::fromValue("Hello!")));
+	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("Hello!")));
 
 	$this->assertEquals($newMt, $expectedMt);
     }
@@ -90,9 +89,9 @@ function firstLetter($str) {
 	} else {
 	    $maybeLetter = Maybe::fromValue(substr($str, 0, 1));
 	}
-	$either = new Right($maybeLetter);
+	$either = Either::fromValue($maybeLetter);
     } else {
-	$either = new Left("Argument to 'firstLetter' not a string.");
+	$either = Either::left("Argument to 'firstLetter' not a string.");
     }
 
     return new MaybeT($either);

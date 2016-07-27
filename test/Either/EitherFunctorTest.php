@@ -1,14 +1,13 @@
 <?php
 
-use TMciver\Functional\Either\Left;
-use TMciver\Functional\Either\Right;
+use TMciver\Functional\Either\Either;
 
 class EitherFunctorTest extends PHPUnit_Framework_TestCase {
 
     public function testIdentityLaw() {
 
 	$id = function ($val) { return $val; };
-	$eitherVal = new Right("Hello");
+	$eitherVal = Either::fromValue("Hello");
 	$mappedEitherVal = $eitherVal->map($id);
 
 	$this->assertEquals($eitherVal, $mappedEitherVal);
@@ -17,9 +16,9 @@ class EitherFunctorTest extends PHPUnit_Framework_TestCase {
     public function testMapRight() {
 
 	$toUpper = function ($str) { return strtoupper($str); };
-	$eitherStr = new Right("hello");
+	$eitherStr = Either::fromValue("hello");
 	$mappedEitherStr = $eitherStr->map($toUpper);
-	$expectedEitherStr = new Right("HELLO");
+	$expectedEitherStr = Either::fromValue("HELLO");
 
 	$this->assertEquals($mappedEitherStr, $expectedEitherStr);
     }
@@ -27,7 +26,7 @@ class EitherFunctorTest extends PHPUnit_Framework_TestCase {
     public function testMapLeft() {
 
 	$toUpper = function ($str) { return strtoupper($str); };
-	$eitherStr = new Left("We have a problem!");
+	$eitherStr = Either::left("We have a problem!");
 	$mappedEitherStr = $eitherStr->map($toUpper);
 
 	$this->assertInstanceOf('TMciver\Functional\Either\Left', $mappedEitherStr);

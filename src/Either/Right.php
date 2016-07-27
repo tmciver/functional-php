@@ -9,7 +9,7 @@ class Right extends Either {
 
     private $val;
 
-    public function __construct($val) {
+    protected function __construct($val) {
 	$this->val = $val;
     }
 
@@ -51,16 +51,9 @@ class Right extends Either {
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Left if there's an exception.
 	try {
-	    $result = $f($this->val);
-
-	    // If the result is null, we return Left.
-	    if (is_null($result)) {
-		$eitherResult = new Left("Result of call to " . $f . " was null.");
-	    } else {
-		$eitherResult = new Right($result);
-	    }
+	    $eitherResult = Either::fromValue($f($this->val));
 	} catch (\Exception $e) {
-	    $eitherResult = new Left($e->getMessage());
+	    $eitherResult = Either::left($e->getMessage());
 	}
 
 	return $eitherResult;
@@ -75,10 +68,10 @@ class Right extends Either {
 
 	    // If the result is null, we return Left.
 	    if (is_null($eitherResult)) {
-		$eitherResult = new Left("Result of call to " . $f . " was null.");
+		$eitherResult = new Left("The result of calling a function using 'concatMap' was null.");
 	    }
 	} catch (\Exception $e) {
-	    $eitherResult = new Left($e->getMessage());
+	    $eitherResult = Either::left($e->getMessage());
 	}
 
 	return $eitherResult;

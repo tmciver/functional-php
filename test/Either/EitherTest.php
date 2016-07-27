@@ -1,13 +1,12 @@
 <?php
 
-use TMciver\Functional\Either\Right;
-use TMciver\Functional\Either\Left;
+use TMciver\Functional\Either\Either;
 
 class EitherTest extends PHPUnit_Framework_TestCase {
 
     public function testEitherGetOrElseForRight() {
 
-        $either = new Right("Hello!");
+        $either = Either::fromValue("Hello!");
         $val = $either->getOrElse("World!");
 
         $this->assertEquals("Hello!", $val);
@@ -15,7 +14,7 @@ class EitherTest extends PHPUnit_Framework_TestCase {
 
     public function testEitherGetOrElseForLeft() {
 
-        $either = new Left('');
+        $either = Either::left('');
         $val = $either->getOrElse("World!");
 
         $this->assertEquals("World!", $val);

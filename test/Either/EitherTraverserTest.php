@@ -1,7 +1,6 @@
 <?php
 
-use TMciver\Functional\Either\Right;
-use TMciver\Functional\Either\Left;
+use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\EitherArray;
 
 class EitherTraverserTest extends PHPUnit_Framework_TestCase {
@@ -14,7 +13,7 @@ class EitherTraverserTest extends PHPUnit_Framework_TestCase {
                 // no sense in creating another Left when we already have one
                 $result = $either;
             } else {
-                $result = new Right($either->get() + 1);
+                $result = Either::fromValue($either->get() + 1);
             }
 
             return $result;
@@ -25,25 +24,25 @@ class EitherTraverserTest extends PHPUnit_Framework_TestCase {
 
         $arrayOfEither = new EitherArray([]);
         $eitherOfArray = $arrayOfEither->sequence();
-        $expected = new Right([]);
+        $expected = Either::fromValue([]);
 
         $this->assertEquals($eitherOfArray, $expected);
     }
 
     public function testSequenceForAllRight() {
 
-        $arrayOfEither = new EitherArray([new Right(1), new Right(2), new Right(3)]);
+        $arrayOfEither = new EitherArray([Either::fromValue(1), Either::fromValue(2), Either::fromValue(3)]);
         $eitherOfArray = $arrayOfEither->sequence();
-        $expected = new Right([1, 2, 3]);
+        $expected = Either::fromValue([1, 2, 3]);
 
         $this->assertEquals($eitherOfArray, $expected);
     }
 
     public function testSequenceForSomeLeft() {
 
-        $arrayOfEither = new EitherArray([new Right(1), new Left('Some Error'), new Right(3)]);
+        $arrayOfEither = new EitherArray([Either::fromValue(1), Either::left('Some Error'), Either::fromValue(3)]);
         $eitherOfArray = $arrayOfEither->sequence();
-        $expected = new Left('Some Error');
+        $expected = Either::left('Some Error');
 
         $this->assertEquals($eitherOfArray, $expected);
     }
@@ -52,25 +51,25 @@ class EitherTraverserTest extends PHPUnit_Framework_TestCase {
 
         $arrayOfEither = new EitherArray([]);
         $eitherOfArray = $arrayOfEither->traverse($this->traverseFn);
-        $expected = new Right([]);
+        $expected = Either::fromValue([]);
 
         $this->assertEquals($eitherOfArray, $expected);
     }
 
     public function testTraverseForAllRight() {
 
-        $arrayOfEither = new EitherArray([new Right(1), new Right(2), new Right(3)]);
+        $arrayOfEither = new EitherArray([Either::fromValue(1), Either::fromValue(2), Either::fromValue(3)]);
         $eitherOfArray = $arrayOfEither->traverse($this->traverseFn);
-        $expected = new Right([2, 3, 4]);
+        $expected = Either::fromValue([2, 3, 4]);
 
         $this->assertEquals($eitherOfArray, $expected);
     }
 
     public function testTraverseForForSomeLeft() {
 
-        $arrayOfEither = new EitherArray([new Right(1), new Left('An error.'), new Right(3)]);
+        $arrayOfEither = new EitherArray([Either::fromValue(1), Either::left('An error.'), Either::fromValue(3)]);
         $eitherOfArray = $arrayOfEither->traverse($this->traverseFn);
-        $expected = new Left('An error.');
+        $expected = Either::left('An error.');
 
         $this->assertEquals($eitherOfArray, $expected);
     }

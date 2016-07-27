@@ -30,7 +30,7 @@ class EitherArray extends AssociativeArray {
         if ($foundLeft) {
             $result = $left;
         } else {
-            $result = new Right($vals);
+            $result = Either::fromValue($vals);
         }
 
         return $result;

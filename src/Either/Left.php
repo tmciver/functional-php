@@ -8,7 +8,7 @@ class Left extends Either {
 
     private $val;
 
-    public function __construct($val) {
+    protected function __construct($val) {
 	$this->val = $val;
     }
 

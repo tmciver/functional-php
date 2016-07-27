@@ -9,8 +9,28 @@ use TMciver\Functional\Either\Right;
 abstract class Either {
     use Monoid, Monad;
 
+    public static function fromValue($val) {
+        if (is_null($val)) {
+            $either = new Left('Attempted to create TMciver\Functional\Either\Right with a null value.');
+        } else {
+            $either = new Right($val);
+        }
+
+        return $either;
+    }
+
+    public static function left($val) {
+        if (is_null($val)) {
+            $either = new Left('Attempted to create TMciver\Functional\Either\Left with a null value.');
+        } else {
+            $either = new Left($val);
+        }
+
+        return $either;
+    }
+
     public function pure($val) {
-	return new Right($val);
+	return self::fromValue($val);
     }
 
     public function identity() {

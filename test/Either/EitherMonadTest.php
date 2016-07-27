@@ -1,7 +1,6 @@
 <?php
 
-use TMciver\Functional\Either\Left;
-use TMciver\Functional\Either\Right;
+use TMciver\Functional\Either\Either;
 
 class EitherMonadTest extends PHPUnit_Framework_TestCase {
 
@@ -9,7 +8,7 @@ class EitherMonadTest extends PHPUnit_Framework_TestCase {
 
 	// using `pure` in this lib requres having a reference to an object of
 	// the desired type, so here, we'll just create a Left Either.
-	$either = new Left('');
+	$either = Either::left('');
 
 	// create a wrapped val
 	$wrappedVal = $either->pure("Hello!");
@@ -20,9 +19,9 @@ class EitherMonadTest extends PHPUnit_Framework_TestCase {
 
     public function testConcatMapForRight() {
 
-	$eitherInt = new Right(1);
+	$eitherInt = Either::fromValue(1);
 	$eitherIntPlusOne = $eitherInt->concatMap(function ($i) {
-	    return new Right($i + 1);
+	    return Either::fromValue($i + 1);
 	});
 
 	$this->assertEquals($eitherIntPlusOne->get(), 2);
@@ -30,9 +29,9 @@ class EitherMonadTest extends PHPUnit_Framework_TestCase {
 
     public function testConcatMapForLeft() {
 
-	$eitherInt = new Left("Error!");
+	$eitherInt = Either::left("Error!");
 	$eitherIntPlusOne = $eitherInt->concatMap(function ($i) {
-	    return new Right($i + 1);
+	    return Either::fromValue($i + 1);
 	});
 
 	$this->assertInstanceOf('TMciver\Functional\Either\Left', $eitherIntPlusOne);
