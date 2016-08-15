@@ -11,7 +11,7 @@ following command:
 
 Then, run the unit tests with
 
-    $ phpunit --bootstrap vendor/autoload.php test
+    $ phpunit
 
 ## Usage
 
@@ -58,12 +58,12 @@ function head($array) {
    if (is_array($array)) {
       if (count($array) > 0) {
 	     $vals = array_values($array);
-	     $h = new Just($array[0]);
+	     $h = Maybe::fromValue($array[0]);
 	  } else {
-	     $h = new Nothing();
+	     $h = Maybe::nothing();
 	  }
    } else {
-      $h = new Nothing();
+      $h = Maybe::nothing();
    }
 
    return $h;
@@ -87,17 +87,17 @@ could map the value we get over a regular function like so:
 
 ```php
 $a = ['apples', 'oranges', 'bananas'];
-$maybeUppercaseOfFirstElement = head($a)->fmap('strtoupper');
+$maybeUppercaseOfFirstElement = head($a)->map('strtoupper');
 ```
 
 In this case `$maybeUppercaseOfFirstElement` would be `Just('APPLES')`.  But if
 `$a` had been an empty array, then it would have been `Nothing()` and the
-`strtoupper` function would never have been run.  You can also chain `fmap`s:
+`strtoupper` function would never have been run.  You can also chain `map`s:
 
 ```php
 $a = ['apples', 'oranges', 'bananas'];
-$maybeUppercaseOfFirstLetterOfFirstElement = head($a)->fmap('strtoupper')
-                                                     ->fmap(function ($str) {
+$maybeUppercaseOfFirstLetterOfFirstElement = head($a)->map('strtoupper')
+                                                     ->map(function ($str) {
 													    return substr($str, 0, 1);
 													 });
 ```
@@ -105,37 +105,43 @@ $maybeUppercaseOfFirstLetterOfFirstElement = head($a)->fmap('strtoupper')
 If you can forgive the very long but descriptive name,
 `$maybeUppercaseOfFirstLetterOfFirstElement` would be `Just('A')` in this case
 (it still has that value if you can't forgive it).  There are a couple of things
-to note here.  First, `fmap` takes a `callable`.  In PHP `callable`s take
-several forms but one of them is a string and in the first call to `fmap`, I
+to note here.  First, `map` takes a `callable`.  In PHP `callable`s take
+several forms but one of them is a string and in the first call to `map`, I
 passed in the string version of a built-in PHP function.  In the second case I
 pass in an anonymous function, also a `callable`.
 
-Second, `callable`s passed into `fmap` must be functions of one argument and
+Second, `callable`s passed into `map` must be functions of one argument and
 that argument will be the value _wrapped_ in the `Maybe`.  Third, the value
 returned by this function will _automatically_ be wrapped back up in a `Maybe`.
-So the result of calling `fmap` on a `Maybe` is again a `Maybe` which is what
-allows us to chain calls to `fmap` this way.
+So the result of calling `map` on a `Maybe` is again a `Maybe` which is what
+allows us to chain calls to `map` this way.
 
 #### Maybe Monad
 
 Monad is similar to Functor.  It is implemented using the `Monad` interface
-which also contains only a single method, namely `bind`.  But whereas `fmap`
-takes a _normal_ function, `bind` takes a function that returns a `Monad` of the
-same type on which `bind` is currently being called.
+which also contains only a single method, namely `flatMap`.  But whereas `map`
+takes a _normal_ function, `flatMap` takes a function that returns a `Monad` of the
+same type on which `flatMap` is currently being called.
 
 For example, say we have an integer contained in a `Just`:
 
 ```php
 use TMciver\Functional\Just;
 
-$maybeAnInt = new Just(1);
+$maybeAnInt = Maybe::fromValue(1);
 ```
 
 and we want to apply the following function to the contained integer:
 
 ```php
 function maybeAddOne($i) {
-	return new Just($i + 1);
+    if ($i % 2 == 0) { // is even
+	    $maybeVal = Maybe::fromValue($i + 1);
+	} else {
+	    $maybeVal = Maybe::nothing();
+	}
+
+    return $maybeVal;
 }
 ```
 
@@ -143,16 +149,16 @@ function maybeAddOne($i) {
 a Maybe).  Then you simply do
 
 ```php
-$maybeAnIntPlusOne = $maybeAnInt->bind(function($j) {
+$maybeAnIntPlusOne = $maybeAnInt->flatMap(function($j) {
 	return maybeAddOne($j);
 });
 ```
 
-Note that `bind` can be called with any `callable` so the above could also have
+Note that `flatMap` can be called with any `callable` so the above could also have
 been written:
 
 ```php
-$maybeAnIntPlusOne = $maybeAnInt->bind('maybeAddOne');
+$maybeAnIntPlusOne = $maybeAnInt->flatMap('maybeAddOne');
 ```
 
 See
