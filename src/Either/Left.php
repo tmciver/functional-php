@@ -37,7 +37,16 @@ class Left extends Either {
     }
 
     public function orElse(callable $f, array $args) {
-	return call_user_func_array($f, $args);
+
+        // Since we don't know if $f will throw an exception, we wrap the call
+	// in a try/catch. The result wiil be Left if there's an exception.
+	try {
+	    $eitherResult = call_user_func_array($f, $args);
+	} catch (\Exception $e) {
+	    $eitherResult = Either::left($e->getMessage());
+	}
+
+	return $eitherResult;
     }
 
     public function get() {

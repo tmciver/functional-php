@@ -29,7 +29,18 @@ class Nothing extends Maybe {
     }
 
     public function orElse(callable $f, array $args) {
-	return call_user_func_array($f, $args);
+
+        // Since we don't know if $f will throw an exception, we wrap the call
+	// in a try/catch. The result wiil be Left if there's an exception.
+	try {
+	    $maybeResult = call_user_func_array($f, $args);
+	} catch (\Exception $e) {
+            // Unfortunately, we lose the error context. That's just the nature
+            // of using Maybe in a language that has exceptions.
+	    $maybeResult = Maybe::nothing();
+	}
+
+	return $maybeResult;
     }
 
     public function isNothing() {
