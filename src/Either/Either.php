@@ -9,9 +9,9 @@ use TMciver\Functional\Either\Right;
 abstract class Either {
     use Monoid, Monad;
 
-    public static function fromValue($val) {
+    public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Either\Right with a null value.') {
         if (is_null($val)) {
-            $either = new Left('Attempted to create TMciver\Functional\Either\Right with a null value.');
+            $either = new Left($errorMsg);
         } else {
             $either = new Right($val);
         }

@@ -19,4 +19,13 @@ class EitherTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals("World!", $val);
     }
+
+    public function testEitherErrorMessage() {
+
+        $errMsg = 'No power in the \'verse can stop me.';
+        $either = Either::fromValue(null, $errMsg);
+        $expected = Either::left($errMsg);
+
+        $this->assertEquals($expected, $either);
+    }
 }
