@@ -30,6 +30,10 @@ abstract class Maybe {
 	return self::fromValue($val);
     }
 
+    public function fail($msg = '') {
+	return self::nothing();
+    }
+
     public function identity() {
         return self::$nothing;
     }

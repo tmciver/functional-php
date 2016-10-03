@@ -24,7 +24,7 @@ class Just extends Maybe {
 	try {
 	    $maybeResult = Maybe::fromValue($f($this->val));
 	} catch (\Exception $e) {
-	    $maybeResult = Maybe::nothing();
+	    $maybeResult = self::fail();
 	}
 
 	return $maybeResult;
@@ -39,10 +39,10 @@ class Just extends Maybe {
 
 	    // If the result is null, we return Nothing.
 	    if (is_null($maybeResult)) {
-		$maybeResult = Maybe::nothing();
+		$maybeResult = self::fail();
 	    }
 	} catch (\Exception $e) {
-	    $maybeResult = Maybe::nothing();
+	    $maybeResult = self::fail();
 	}
 
 	return $maybeResult;

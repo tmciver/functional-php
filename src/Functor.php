@@ -10,4 +10,10 @@ trait Functor {
      * @return An instance of Functor whose type is the same as this Functor.
      */
     abstract function map(callable $f);
+
+    /**
+     * @param $msg (string) An error message.
+     * @return An instance of Functor whose type is the same as this Functor.
+     */
+    abstract function fail($msg);
 }

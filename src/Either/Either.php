@@ -33,6 +33,10 @@ abstract class Either {
 	return self::fromValue($val);
     }
 
+    public function fail($msg) {
+	return self::left($msg);
+    }
+
     public function identity() {
         return new Left('');
     }

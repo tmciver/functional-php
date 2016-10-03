@@ -19,6 +19,10 @@ class MaybeT {
 	}));
     }
 
+    public function fail($msg) {
+        return new MaybeT($this->monad->pure(Maybe::nothing()));
+    }
+
     public function flatMap(callable $f) {
 	$newMonad = $this->monad->flatMap(function ($maybe) use ($f) {
 	    if ($maybe->isNothing()) {

@@ -53,7 +53,7 @@ class Right extends Either {
 	try {
 	    $eitherResult = Either::fromValue($f($this->val));
 	} catch (\Exception $e) {
-	    $eitherResult = Either::left($e->getMessage());
+	    $eitherResult = self::fail($e->getMessage());
 	}
 
 	return $eitherResult;
@@ -68,10 +68,10 @@ class Right extends Either {
 
 	    // If the result is null, we return Left.
 	    if (is_null($eitherResult)) {
-		$eitherResult = new Left("The result of calling a function using 'flatMap' was null.");
+		$eitherResult = self::fail("The result of calling a function using 'flatMap' was null.");
 	    }
 	} catch (\Exception $e) {
-	    $eitherResult = Either::left($e->getMessage());
+	    $eitherResult = self::fail($e->getMessage());
 	}
 
 	return $eitherResult;
