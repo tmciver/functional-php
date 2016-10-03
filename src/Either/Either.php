@@ -11,7 +11,7 @@ abstract class Either {
 
     public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Either\Right with a null value.') {
         if (is_null($val)) {
-            $either = new Left($errorMsg);
+            $either = self::fail($errorMsg);
         } else {
             $either = new Right($val);
         }
@@ -21,7 +21,7 @@ abstract class Either {
 
     public static function left($val) {
         if (is_null($val)) {
-            $either = new Left('Attempted to create TMciver\Functional\Either\Left with a null value.');
+            $either = self::fail('Attempted to create TMciver\Functional\Either\Left with a null value.');
         } else {
             $either = new Left($val);
         }
