@@ -45,23 +45,33 @@ class ArrayTest extends PHPUnit_Framework_TestCase {
 	$this->assertEquals($expected, $eitherResult);
     }
 
-    // This 
-    /* public function testTraverseForThrownException() {
+    public function testTraverseForThrownException() {
 
-       $intsArray = new AssociativeArray([2, 0, 6]);
-       $eitherResults = $intsArray->traverse(function ($i) {
-       if ($i == 0) {
-       throw new \Exception('Found zero!');
-       } else {
-       return Either::fromValue($i);
-       }
-       }, Either::class);
-       $expected = null;
+        $intsArray = new AssociativeArray([2, 0, 6]);
+        $instance = Either::left('');
+        $eitherResults = $intsArray->traverse(function ($i) {
+            if ($i == 0) {
+                throw new \Exception('Found zero!');
+            } else {
+                return Either::fromValue($i);
+            }
+        }, $instance);
+        $expected = $instance->fail();
 
-       //print_r($eitherResults);
+        $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
+    }
 
-       $this->assertEquals($expected, $eitherResults);
-     * }*/
+    public function testTraverseForReturningNull() {
+
+        $intsArray = new AssociativeArray([2, 0, 6]);
+        $instance = Either::left('');
+        $eitherResults = $intsArray->traverse(function ($ignore) {
+            return null;
+        }, $instance);
+        $expected = $instance->fail();
+
+        $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
+    }
 }
 
 /**

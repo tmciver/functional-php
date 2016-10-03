@@ -33,7 +33,7 @@ abstract class Either {
 	return self::fromValue($val);
     }
 
-    public function fail($msg) {
+    public function fail($msg = 'There was a problem; calling `Either::fail()`.') {
 	return self::left($msg);
     }
 

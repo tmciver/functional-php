@@ -19,11 +19,20 @@ class AssociativeArray {
 	$init = $monad->pure([]);
 
 	// Define the folding function.
-	$foldingFn = function ($acc, $curr) use ($f) {
+	$foldingFn = function ($acc, $curr) use ($f, $monad) {
 
 	    // Call $f on the current value of the array, $curr. The return
 	    // value should be a monadic value.
-	    $returnedMonad = $f($curr);
+            try {
+                $returnedMonad = $f($curr);
+
+                // If the result is null, we fail.
+                if (is_null($returnedMonad)) {
+                    $returnedMonad = $monad->fail('A call the callable passed to `AssociativeArray::traverse` returned null.');
+                }
+            } catch (\Exception $e) {
+                $returnedMonad = $monad->fail('A call the callable passed to `AssociativeArray::traverse` threw an exception: ' . $e->getMessage());
+            }
 
 	    // Put the value wrapped by the above monadic value in the array
 	    // held by the accumulator, $acc, to get the new accumulator.
