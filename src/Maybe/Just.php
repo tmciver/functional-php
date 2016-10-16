@@ -22,7 +22,8 @@ class Just extends Maybe {
 	// Since we don't know if $f will throw an exception, we wrap the call
 	// in a try/catch. The result wiil be Nothing if there's an exception.
 	try {
-	    $maybeResult = Maybe::fromValue($f($this->val));
+            $ret = call_user_func($f, $this->val);
+	    $maybeResult = Maybe::fromValue($ret);
 	} catch (\Exception $e) {
 	    $maybeResult = self::fail();
 	}

@@ -2,6 +2,7 @@
 
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\Nothing;
+use TMciver\Functional\Test\StaticClass;
 
 class MaybeTest extends PHPUnit_Framework_TestCase {
 
@@ -39,5 +40,15 @@ class MaybeTest extends PHPUnit_Framework_TestCase {
         }, []);
 
         $this->assertEquals($maybe, $maybeSame);
+    }
+
+    public function testStaticMethodCall() {
+
+        $maybe = Maybe::fromValue("Hello world!");
+        $f = ['\TMciver\Functional\Test\StaticClass', 'toUpperCase'];
+        $maybeUpperCase = $maybe->map($f);
+        $expexted = Maybe::fromValue("HELLO WORLD!");
+
+        $this->assertEquals($expexted, $maybeUpperCase);
     }
 }
