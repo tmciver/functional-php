@@ -32,6 +32,10 @@ class Left extends Either {
 	return $this;
     }
 
+    public function __invoke() {
+        return $this;
+    }
+
     public function accept($eitherVisitor) {
 	return $eitherVisitor->visitLeft($this);
     }

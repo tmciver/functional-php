@@ -16,6 +16,10 @@ class Nothing extends Maybe {
 	return $this;
     }
 
+    public function __invoke() {
+        return $this;
+    }
+
     public function append($appendee) {
         return $appendee;
     }

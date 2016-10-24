@@ -17,11 +17,6 @@ trait Monad {
     abstract function flatMap(callable $f);
 
     /**
-     * @param A value to be put into a minimal context.
-     */
-    abstract function pure($val);
-
-    /**
      * Removes one layer of structure.
      * @return The type of the return value should be the same type as this Monad.
      */
