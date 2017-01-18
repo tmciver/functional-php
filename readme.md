@@ -1,5 +1,41 @@
 # Functional PHP
 
+## Contents
+
+* [About](#about)
+* [Running Tests](#running-tests)
+* [Usage](#usage)
+  - [Maybe](#maybe)
+    - [Accessing the Value](#accessing-the-value)
+    - [Converting](#converting)
+    - [Applying a Regular Function](#applying-a-regular-function)
+    - [Applying a Function That Returns Maybe](#apply-a-function-that-returns-maybe)
+    - [Combining Maybes](#combining-maybes)
+  - [Either](#either) (TBD)
+  - [MaybeT](#maybet) (TBD)
+  - [AssociativeArray](#associativearray)
+
+## About
+
+This library is designed to give users some Category-Theory-like facilities
+available in a language like Haskell.  Supported types include:
+
+* `Maybe`
+* `MaybeT`
+* `Either`
+* `AssociativeArray`
+
+Supported typeclasses include:
+
+* `SemiGroup`
+* `Monoid`
+* `Functor`
+* `Monad`
+* `Applicative`
+* `Traversable`
+
+Note that not all supported types are instances of the above type classes.
+
 ## Running Tests
 
 This project uses [Composer](getcomposer.org) for dependency management and
@@ -15,43 +51,191 @@ Then, run the unit tests with
 
 ## Usage
 
-Currently this library only supports Functors and Monads (Applicative is on the
+Currently this library supports Functors and Monads (Applicative is on the
 way) and there are three data types that support them: `Maybe`, `Either` and
 `MaybeT`.  If you're familiar with Functors and Monads from another language
 such as Haskell, then this should be intuitive.
 
 ### Maybe
 
-`Maybe` is intended to be used to represent the lack of a value.  Typically, you
-would use `Maybe` when you might ordinarily return a null value from a
-function.  Note that `Maybe` should not be used to represent an error condition;
-that's what `Either` is for.
+`Maybe` is intended to be used to represent the situation where there is the
+possibility of having an absense of a value.  Typically, you would use `Maybe`
+when you might ordinarily return a null value from a function.  Some people also
+use `Maybe` to represent an error condition.
 
-#### Maybe Example
-
-The main data structure in PHP is the array.  But someone with a background in
-functional programming might find this data structure a bit strange and the
-functions that operate on it to behave unexpectedly.  For instance, the first
-thing one might want to do with an array is to get the first element of the
-array.  Surpisingly, there is not a single function that does this but an
-implemenation that one can find online is the following:
+`Maybe` is impelemented as an abstract class with two concrete sub-classes:
+`Just` and `Nothing`.  But you cannot instantiate these sub-classes directly;
+you must use static creation methods defined in the `Maybe` class.  If you want
+to put a regular value in a `Maybe` context, use the `fromValue()` static method
+like so:
 
 ```php
-// $array initialized elsewhere
-reset($array);
-$firstElement = current($array);
+$maybeInt = Maybe::fromValue($myInt);
 ```
 
-So `current` returns the current element but that may not necessarily be the
-first element which is why the call to `reset` is necessary.  But `reset`
-mutates a pointer internally held by the array and a functional programmer has
-an expectation that their data structures are not going to be mutated out from
-under them.  Let's see if we can do better.
+After the above code executes, `$maybeInt` will be an instance of `Just`,
+_unless_ `$myInst` was null in which case `$maybeInt` will be an instance of
+`Nothing`.  If you want to represent the absence of value, use the `nothing()`
+static method:
 
-A function to get the first element of an array or list is typically called
-`head`.  In Haskell calling `head` on an empty list is an error and halts the
-program if not handled appropriately but we can do better in this respect as
-well.  Our version of `head` will return a `Maybe`.
+```php
+$maybeInt = Maybe::nothing();
+```
+
+#### Accessing the Value
+
+Once you have a `Maybe` value there are several things you can do with it (many
+of these things are described in the sections that follow) but the first
+question that often comes up for developers that are not familiar with a type
+like `Maybe` is: "how do I get the value out?"  If the `Maybe` we have is an
+instance of `Just`, then the answer is simple: we can return the wrapped value.
+The `Just` class defines a `get()` method that returns the value wrapped by the
+`Just`:
+
+```php
+// DON'T DO THIS!
+if ($myMaybe instanceof Just) {
+   $myVal = $myMaybe->get();
+}
+```
+
+But what if our `Maybe` is an instance of `Nothing`?  In that case the most
+sensible thing is to return some default value. Enter `getOrElse()`:
+
+```php
+// preferred
+$a = Maybe::fromValue(5);
+$b = Maybe::nothing();
+
+$a->getOrElse(0);  // yields 5
+$b->getOrElse(0);  // yields 0
+```
+
+#### Converting
+
+It is extremely common to want to convert your `Maybe` into some other type.
+For example, you may want to convert a `Maybe` into an HTTP response.  You could
+use PHP's `instanceof` operator like so:
+
+```php
+// Ugly, but gets the job done.
+if ($myMaybe instanceof Just) {
+   $myVal = $myMaybe->get();
+   $response = response("<p>$myVal is: " . $myVal . ".</p>");
+} else {
+   $response = response("There was no value!", 400);
+}
+```
+
+A slightly better but equivalent way is to use the provided `isNothing()`
+method:
+
+```php
+// A little better.
+if ($myMaybe->isNothing()) {
+   $response = response("There was no value!", 400);
+} else {
+   $myVal = $myMaybe->get();
+   $response = response("<p>$myVal is: " . $myVal . ".</p>");
+}
+```
+
+The best way to convert a `Maybe` to something else is to use
+the [Visitor Pattern](https://en.wikipedia.org/wiki/Visitor_pattern) which is
+provided for by this library.  In this case you could create a `Maybe` visitor
+as follows:
+
+```php
+class MaybeToHttpResponse implements MaybeVisitor {
+
+   public function visitJust($just) {
+      $myVal = $just->get();
+      return response("<p>$myVal is: " . $myVal . ".</p>");
+   }
+
+   public function visitNothing($nothing) {
+      return response("There was no value!", 400);
+   }
+}
+```
+
+And you do the conversion by creating an instance of this visitor and passing it
+to the `accept()` method of the `Maybe`;
+
+```php
+$response = $myMaybe->accept(new MaybeToHttpResponse());
+```
+
+And that's it!  Some balk at the boilerplate required to use the Visitor Pattern
+and it's a valid criticism.  It also requires the instantiation of an object
+which may bother you if you care about such things.  But it is the
+object-oriented way to solve the problem of how to dispatch on a dynamic type.
+Why explicity check the type of an object when the runtime will do it for you?
+
+#### Applying a Regular Function
+
+Another common desire is to simply apply a regular function to the value wrapped
+in the `Maybe` and to have the returned value wrapped back up in another
+`Maybe`.  A datatype used in this manner is known as a `Functor`.
+
+A Functor is usually defined as something that can be mapped over.  Some may
+naively think that lists/arrays are the only data structures that can be mapped
+over but this is not the case.  Lots of things can be Functors and this includes
+`Maybe`.
+
+So what could we do with the `head` function that was defined above?  Well we
+could map the value we get over a regular function like so:
+
+```php
+$a = Maybe::fromValue('apples');
+$maybeUppercase = $a->map('strtoupper');
+
+// $maybeUppercase = Just('APPLES');
+```
+
+But if `$a` had been an instance of `Nothing`, then the result would have been
+`Nothing()` and the `strtoupper` function would never have been run.  You can
+also chain `map`s:
+
+```php
+$a = Maybe::fromValue('apples');
+$maybeUppercaseOfFirstLetter = $a->map('strtoupper')
+                                 ->map(function ($str) {
+								    return substr($str, 0, 1);
+								 });
+                                 
+// $maybeUppercaseOfFirstLetter = Just('A');
+```
+
+There are a couple of things to note here.  First, `map` takes a `callable`.  In
+PHP `callable`s take several forms but one of them is a string and in the first
+call to `map`, I passed in the string version of a built-in PHP function.  In
+the second case I pass in an anonymous function, also a `callable`.
+See
+[PHP's documentation on `callable`](http://php.net/manual/en/language.types.callable.php) for
+more info.  If calling a function using a string seems strange, good; it *is*
+strange! :)
+
+Second, `callable`s passed into `map` must be functions of one argument and
+that argument will be the value _wrapped_ in the `Maybe`.  Third, the value
+returned by this function will _automatically_ be wrapped back up in a `Maybe`.
+So the result of calling `map` on a `Maybe` is again a `Maybe` which is what
+allows us to chain calls to `map` this way.
+
+#### Applying a Function That Returns Maybe
+
+It's not uncommon that the function you want to apply to the value wrapped in
+the `Maybe` itself returns a `Maybe`.  You can't simply use the `map()` method
+in this case.  To demonstrate why, let's first create a function that returns
+`Maybe`.  A classic example is the function `head()` which returns the first
+element of an array.  Strangely, PHP does not have such a function and the
+recommended approach is not straitforward as evidenced by this StackOverflow
+answer: http://stackoverflow.com/a/3771228.  But even if you use the convoluted
+solution described there, you still have to deal with a possible `NULL` value
+being returned in the case of an empty array.
+
+The following function hides the complexity of getting the first element of an
+array and returns a `Maybe` type so that we don't need to deal with `NULL`s:
 
 ```php
 function head($array) {
@@ -75,106 +259,130 @@ When given a non-empty array, the above function will return `Just($v)` where
 other cases.  See the file `test/Maybe/HeadTest.php` for examples of using this
 function.
 
-#### Maybe Functor
-
-Functors are usually defined as things that can be mapped over.  Some may
-naively think that lists/arrays are the only data structures that can be mapped
-over but this is not the case.  Lots of things can be Functors and this includes
-`Maybe`.
-
-So what could we do with the `head` function that was defined above?  Well we
-could map the value we get over a regular function like so:
+To see why we can't use this function with `map()` let's expand on the example
+we used above but instead of starting off with a string wrapped in a `Maybe`, we
+have an array of string:
 
 ```php
-$a = ['apples', 'oranges', 'bananas'];
-$maybeUppercaseOfFirstElement = head($a)->map('strtoupper');
+$a = Maybe::fromValue(['apples', 'oranges', 'bananas']);
+$b = $a->map('head');
+
+// $b = Just(Just('apples'));
 ```
 
-In this case `$maybeUppercaseOfFirstElement` would be `Just('APPLES')`.  But if
-`$a` had been an empty array, then it would have been `Nothing()` and the
-`strtoupper` function would never have been run.  You can also chain `map`s:
+As you can see we're left with a `Just` inside of a `Just` and this is almost
+certainly not what you're going to want, in general.  To fix this, we simple
+need to use the `flatMap()` method instead:
 
 ```php
-$a = ['apples', 'oranges', 'bananas'];
-$maybeUppercaseOfFirstLetterOfFirstElement = head($a)->map('strtoupper')
-                                                     ->map(function ($str) {
-													    return substr($str, 0, 1);
-													 });
+$a = Maybe::fromValue(['apples', 'oranges', 'bananas']);
+$b = $a->flatMap('head');
+
+// $b = Just('apples');
 ```
 
-If you can forgive the very long but descriptive name,
-`$maybeUppercaseOfFirstLetterOfFirstElement` would be `Just('A')` in this case
-(it still has that value if you can't forgive it).  There are a couple of things
-to note here.  First, `map` takes a `callable`.  In PHP `callable`s take
-several forms but one of them is a string and in the first call to `map`, I
-passed in the string version of a built-in PHP function.  In the second case I
-pass in an anonymous function, also a `callable`.
+A datatype used in this way is called a `Monad`.
 
-Second, `callable`s passed into `map` must be functions of one argument and
-that argument will be the value _wrapped_ in the `Maybe`.  Third, the value
-returned by this function will _automatically_ be wrapped back up in a `Maybe`.
-So the result of calling `map` on a `Maybe` is again a `Maybe` which is what
-allows us to chain calls to `map` this way.
+#### Combining Maybes
 
-#### Maybe Monad
-
-Monad is similar to Functor.  It is implemented using the `Monad` interface
-which also contains only a single method, namely `flatMap`.  But whereas `map`
-takes a _normal_ function, `flatMap` takes a function that returns a `Monad` of the
-same type on which `flatMap` is currently being called.
-
-For example, say we have an integer contained in a `Just`:
+You may find yourself in a situation where you want to combine several `Maybe`s
+into one `Maybe`.  You can do this using the `append()` method.  The following
+code shows how this works.
 
 ```php
-use TMciver\Functional\Just;
+$just1 = Maybe::fromValue(1);
+$just2 = Maybe::fromValue(2);
+$nothing = Maybe::nothing();
 
-$maybeAnInt = Maybe::fromValue(1);
+$just1->append($nothing);   // Just(1);
+$nothing->append($just1);   // Just(1);
+$just1->append($just2);     // Just([1, 2]);
+$just2->append($just1);     // Just([2, 1]);
+$nothing->append($nothing); // Nothing();
 ```
 
-and we want to apply the following function to the contained integer:
-
-```php
-function maybeAddOne($i) {
-    if ($i % 2 == 0) { // is even
-	    $maybeVal = Maybe::fromValue($i + 1);
-	} else {
-	    $maybeVal = Maybe::nothing();
-	}
-
-    return $maybeVal;
-}
-```
-
-(note that this function expects an integer argument - not an integer wrapped in
-a Maybe).  Then you simply do
-
-```php
-$maybeAnIntPlusOne = $maybeAnInt->flatMap(function($j) {
-	return maybeAddOne($j);
-});
-```
-
-Note that `flatMap` can be called with any `callable` so the above could also have
-been written:
-
-```php
-$maybeAnIntPlusOne = $maybeAnInt->flatMap('maybeAddOne');
-```
-
-See
-[PHP's documentation on `callable`](http://php.net/manual/en/language.types.callable.php)
-for more info.  If calling a function using a string seems strange, good; it
-*is* strange! :)
+Datatypes that can be `append`ed are called `Monoids`. Note that `Monoid` for
+`Maybe` is currently implemented such that `append`ing two `Just`s results in a
+`Just` containing an array of the two contained elements.  This is not strictly
+correct: if the two contained values are themselves `Monoid`s, then they should
+be likewise `append`ed
+together.  [This issue](https://github.com/tmciver/functional-php/issues/16)
+documents this problem it I hope to fix it in a future release.
 
 ### Either
 
 TBD
 
+#### AssociativeArray
+
+`AssociativeArray` is a simple wrapper around PHP's native array so array/list
+processing methods could be added to it.  Currently it only contains an
+implementation for the `Traversable` trait.
+
+To create an instance of an `AssociativeArray`, one simply calls the
+constructor:
+
+```php
+$aa = new AssociativeArray([1,2,3]);
+```
+
+##### AssociativeArray Traversable
+
+There are two methods in the `Traversable` trait: `traverse()` and
+`sequence()`.  `sequence()` is the simpler of the two so we'll start with that.
+In the case of `Maybe`, `sequence()` is most-commonly used to convert an array
+of `Maybe` to a `Maybe` of array as follows:
+
+```php
+$a = new AssociativeArray([Maybe::fromValue(1), Maybe::fromValue(2), Maybe::fromValue(3)]);
+$m = Maybe::nothing();
+$b = $a->sequence($m); // $b = Just([1,2,3]);
+```
+
+Note that an instance of an `Applicative` must be passed to the `sequence()`
+method.  This is an unfortunately consquence of dynamic typing where the type of
+the objects contained in the array is not known in the case of an empty array.
+
+The `traverse()` method is similar except that it gives you the opportunity to
+run a function on each value in the array.  To demonstrate this, we first define
+a function that returns an `Either` type (see [Either](#either)):
+
+```php
+function divide($x, $y) {
+   if ($y == 0) {
+      $eitherResult = Either::left('Division by zero!');
+   } else {
+      $eitherResult = Either::fromValue($x/$y);
+   }
+
+   return $eitherResult;
+}
+```
+
+Then we use that function in a call to `traverse()`:
+
+```php
+$dividend = 12;
+$divisors = [2, 4, 6];
+$intsArray = new AssociativeArray($divisors);
+$m = Either::left('');
+$eitherResults = $intsArray->traverse(function ($i) use ($dividend) {
+    return divide($dividend, $i);
+}, $m);
+
+// $eitherResults = Right([6,3,2]);
+```
+
+Note that both `sequence()` and `traverse()` have the characteristic that if one
+or more elements in the array is `Nothing` (in the case of `sequence()`) or if
+the function passed in to `traverse()` evaluates to `Nothing` (in the case of
+`traverse()`), then the result is also `Nothing`.  Let's show this by looking at
+a slightly modified version of the above `sequence()` example:
+
+```php
+$a = new AssociativeArray([Maybe::fromValue(1), Maybe::nothing(), Maybe::fromValue(3)]);
+$m = Maybe::nothing();
+$b = $a->sequence($m); // $b = Nothing();
+```
+
 ### MaybeT
-
-TBD
-
-### Applicative
-
-There currently exists an `Applicative` interface but it contains no methods.
-Applicative functionality will be added in the future.
