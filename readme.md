@@ -302,7 +302,38 @@ documents this problem it I hope to fix it in a future release.
 
 ### Either
 
-TBD
+`Either` is extremely similar in functionality to `Maybe`.  So similar in fact
+that I'm not going to go into detail on its use since it would be almost
+identical to what was presented for `Maybe`.  But I will note the differences
+here.
+
+Where `Maybe` is used to signal the possible lack of a value, `Either` is used
+to signal the possibility of an error.  The two sub-classes of the `Either`
+abstract class are the rather unintuitively named `Left` and `Right`.  This is
+because the `Either` type is actually more general than simply indicating an
+error; it can be used to return any two possibilities.  We use `Either` in this
+library for no other reason than because it's what Haskell does.
+
+The `Right` subclass is used to signal a successful calculation.  You create an
+instance like so:
+
+```php
+$myEither = Either::fromValue($someVal);
+```
+
+The `Left` subclass is used to signal an error and you create an instance like
+so:
+
+```php
+$myEither = Either::left('Houston, we have a problem!');
+```
+
+Notice that we created a `Left` by passing a string containing an error
+message.  This is a common way to use `Either` for signalling error but `Left`
+can contain any type and we could have just as correctly (and possibly more
+clearly) passed in a custom error or exception class.
+
+These are the only significant differences with `Maybe`.
 
 ### MaybeT
 
