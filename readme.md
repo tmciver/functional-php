@@ -307,7 +307,7 @@ that I'm not going to go into detail on its use since it would be almost
 identical to what was presented for `Maybe`.  But I will note the differences
 here.
 
-Where `Maybe` is used to signal the possible lack of a value, `Either` is used
+Where `Maybe` is used to signal a possible lack of a value, `Either` is used
 to signal the possibility of an error.  The two sub-classes of the `Either`
 abstract class are the rather unintuitively named `Left` and `Right`.  This is
 because the `Either` type is actually more general than simply indicating an
@@ -339,7 +339,7 @@ These are the only significant differences with `Maybe`.
 
 TBD
 
-#### AssociativeArray
+### AssociativeArray
 
 `AssociativeArray` is a simple wrapper around PHP's native array so array/list
 processing methods could be added to it.  Currently it only contains an
@@ -352,7 +352,7 @@ constructor:
 $aa = new AssociativeArray([1,2,3]);
 ```
 
-##### AssociativeArray Traversable
+#### AssociativeArray Traversable
 
 There are two methods in the `Traversable` trait: `traverse()` and
 `sequence()`.  `sequence()` is the simpler of the two so we'll start with that.
