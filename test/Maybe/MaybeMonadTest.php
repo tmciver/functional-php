@@ -20,9 +20,7 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
     public function testFlatMapForJust() {
 
 	$maybeInt = Maybe::fromValue(1);
-	$maybeIntPlusOne = $maybeInt->flatMap(function ($i) {
-	    return maybeAddOne($i);
-	});
+        $maybeIntPlusOne = $maybeInt->flatMap('maybeAddOne');
 
 	$this->assertEquals($maybeIntPlusOne->get(), 2);
     }
@@ -30,9 +28,7 @@ class MaybeMonadTest extends PHPUnit_Framework_TestCase {
     public function testFlatMapForNothing() {
 
 	$maybeInt = Maybe::nothing();
-	$maybeIntPlusOne = $maybeInt->flatMap(function ($i) {
-	    return maybeAddOne($i);
-	});
+	$maybeIntPlusOne = $maybeInt->flatMap('maybeAddOne');
 
 	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
     }
