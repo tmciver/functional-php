@@ -5,6 +5,7 @@ namespace TMciver\Functional\Either;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\Left;
 use TMciver\Functional\AssociativeArray;
+use TMciver\Functional\Util;
 
 class Right extends Either {
 
@@ -27,20 +28,24 @@ class Right extends Either {
         // array so that associativity is maintained.
         $firstVal = $right->val;
         $secondVal = $this->val;
-        if (!is_array($firstVal) && !is_array($secondVal)) {
-            $resultArray = [$firstVal, $secondVal];
+	if (is_string($firstVal) && is_string($secondVal)) {
+	  $appendedResult = $firstVal . $secondVal;
+	} else if (Util::is_monoid($firstVal) && Util::is_monoid($secondVal)) {
+	  $appendedResult = $firstVal->append($secondVal);
+	} else if (!is_array($firstVal) && !is_array($secondVal)) {
+            $appendedResult = [$firstVal, $secondVal];
         } else if (is_array($firstVal) && !is_array($secondVal)) {
             $firstVal[] = $secondVal;
-            $resultArray = $firstVal;
+            $appendedResult = $firstVal;
         } else if (!is_array($firstVal) && is_array($secondVal)) {
             array_unshift($secondVal, $firstVal);
-            $resultArray = $secondVal;
+            $appendedResult = $secondVal;
         } else {
             // both values are arrays
-            $resultArray = array_merge($firstVal, $secondVal);
+            $appendedResult = array_merge($firstVal, $secondVal);
         }
 
-        return new Right($resultArray);
+        return new Right($appendedResult);
     }
 
     public function getOrElse($default) {
@@ -110,3 +115,4 @@ class Right extends Either {
 	return false;
     }
 }
+

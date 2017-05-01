@@ -56,4 +56,32 @@ class MaybeMonoidTest extends PHPUnit_Framework_TestCase {
 
         $this->assertEquals($result1, $result2);
     }
+
+    public function testAppendForContainedMonoids1() {
+
+      // create two Maybe's containing strings
+      $just1 = Maybe::fromValue("Hello, ");
+      $just2 = Maybe::fromValue("World!");
+
+      // Append them
+      $appended = $just1->append($just2);
+
+      $expected = Maybe::fromValue("Hello, World!");
+
+      $this->assertEquals($appended, $expected);
+    }
+
+    public function testAppendForContainedMonoids2() {
+
+      // create two Maybe's containing Maybe's
+      $just1 = Maybe::fromValue(Maybe::fromValue(1));
+      $just2 = Maybe::fromValue(Maybe::fromValue([2, 3]));
+
+      // Append them
+      $appended = $just1->append($just2);
+
+      $expected = Maybe::fromValue(Maybe::fromValue([1, 2, 3]));
+
+      $this->assertEquals($appended, $expected);
+    }
 }

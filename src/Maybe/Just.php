@@ -5,6 +5,9 @@ namespace TMciver\Functional\Maybe;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\Nothing;
 use TMciver\Functional\AssociativeArray;
+use TMciver\Functional\Util;
+
+require_once __DIR__ . '/../Monoid.php';
 
 class Just extends Maybe {
 
@@ -79,20 +82,24 @@ class Just extends Maybe {
         // array so that associativity is maintained.
         $leftVal = $just->val;
         $rightVal = $this->val;
-        if (!is_array($leftVal) && !is_array($rightVal)) {
-            $resultArray = [$leftVal, $rightVal];
+        if (is_string($leftVal) && is_string($rightVal)) {
+	  $appendedResult = $leftVal . $rightVal;
+	} else if (Util::is_monoid($leftVal) && Util::is_monoid($rightVal)) {
+	  $appendedResult = $leftVal->append($rightVal);
+	} else if (!is_array($leftVal) && !is_array($rightVal)) {
+            $appendedResult = [$leftVal, $rightVal];
         } else if (is_array($leftVal) && !is_array($rightVal)) {
             $leftVal[] = $rightVal;
-            $resultArray = $leftVal;
+            $appendedResult = $leftVal;
         } else if (!is_array($leftVal) && is_array($rightVal)) {
             array_unshift($rightVal, $leftVal);
-            $resultArray = $rightVal;
+            $appendedResult = $rightVal;
         } else {
             // both values are arrays
-            $resultArray = array_merge($leftVal, $rightVal);
+            $appendedResult = array_merge($leftVal, $rightVal);
         }
 
-        return Maybe::fromValue($resultArray);
+        return Maybe::fromValue($appendedResult);
     }
 
     public function accept($maybeVisitor) {

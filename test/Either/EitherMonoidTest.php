@@ -1,6 +1,7 @@
 <?php
 
 use TMciver\Functional\Either\Either;
+use TMciver\Functional\Maybe\Maybe;
 
 class EitherMonoidTest extends PHPUnit_Framework_TestCase {
 
@@ -55,5 +56,33 @@ class EitherMonoidTest extends PHPUnit_Framework_TestCase {
         $result2 = $firstThree->append($right4);
 
         $this->assertEquals($result1, $result2);
+    }
+
+    public function testAppendForContainedMonoids1() {
+
+      // create two Either's containing strings
+      $right1 = Either::fromValue("Hello, ");
+      $right2 = Either::fromValue("World!");
+
+      // Append them
+      $appended = $right1->append($right2);
+
+      $expected = Either::fromValue("Hello, World!");
+
+      $this->assertEquals($appended, $expected);
+    }
+
+    public function testAppendForContainedMonoids2() {
+
+      // create two Either's containing Maybe's
+      $right1 = Either::fromValue(Maybe::fromValue(1));
+      $right2 = Either::fromValue(Maybe::fromValue([2, 3]));
+
+      // Append them
+      $appended = $right1->append($right2);
+
+      $expected = Either::fromValue(Maybe::fromValue([1, 2, 3]));
+
+      $this->assertEquals($appended, $expected);
     }
 }
