@@ -9,7 +9,7 @@ class AssociativeArray {
     protected $array;
 
     public function __construct($array) {
-        $this->array = $array;
+      $this->array = is_null($array) ? [] : $array;
     }
 
     public function traverse(callable $f, $monad) {

@@ -72,6 +72,14 @@ class ArrayTest extends PHPUnit_Framework_TestCase {
 
         $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
     }
+
+    public function testHandlingOfNullArgument() {
+      $arr = new AssociativeArray(null);
+      $monad = Either::left('');
+      $expected = Either::fromValue([]);
+
+      $this->assertEquals($arr->sequence($monad), $expected);
+    }
 }
 
 /**
