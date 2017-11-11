@@ -13,4 +13,3 @@ class Util {
     return method_exists($obj, 'append');
   }
 }
-

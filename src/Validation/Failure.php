@@ -12,6 +12,10 @@ class Failure extends Validation {
     $this->val = $val;
   }
 
+  public function map(callable $f) {
+    return $this;
+  }
+
   public function append($other) {
     return $other->appendToFailure($this);
   }
