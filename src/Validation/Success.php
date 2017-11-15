@@ -4,8 +4,6 @@ namespace TMciver\Functional\Validation;
 
 class Success extends Validation {
 
-  private $val;
-
   protected function __construct($val) {
     $this->val = $val;
   }

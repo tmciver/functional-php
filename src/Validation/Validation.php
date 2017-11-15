@@ -3,10 +3,10 @@
 namespace TMciver\Functional\Validation;
 
 use TMciver\Functional\SemiGroup;
-use TMciver\Functional\Functor;
+use TMciver\Functional\Applicative;
 
 abstract class Validation {
-  use SemiGroup, Functor;
+  use SemiGroup, Applicative;
 
   public static function fromValue($val) {
     return is_null($val) ?
@@ -27,4 +27,10 @@ abstract class Validation {
   protected abstract function appendToSuccess($success);
 
   protected abstract function appendToFailure($failure);
+
+  public function realPure($val) {
+    return is_null($val) ?
+      new Failure("Called 'Validation::pure' with a null value.") :
+      new Success($val);
+  }
 }

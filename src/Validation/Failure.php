@@ -6,8 +6,6 @@ use TMciver\Functional\Util;
 
 class Failure extends Validation {
 
-  private $val;
-
   protected function __construct($val) {
     $this->val = $val;
   }
