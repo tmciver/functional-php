@@ -2,6 +2,8 @@
 
 namespace TMciver\Functional;
 
+use TRex\Reflection\CallableReflection;
+
 class PartialFunction {
 
   private $f;
@@ -13,7 +15,8 @@ class PartialFunction {
     $this->args = $args;
 
     // calculate the number of remaining arguments
-    $rf = new \ReflectionFunction($f);
+    $cr = new CallableReflection($f);
+    $rf = $cr->getReflector();
     $numArgsNeeded = $rf->getNumberOfParameters();
     $numArgsProvided = count($args);
     $this->numArgsRemaining = $numArgsNeeded - $numArgsProvided;

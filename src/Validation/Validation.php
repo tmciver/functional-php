@@ -28,7 +28,7 @@ abstract class Validation {
 
   protected abstract function appendToFailure($failure);
 
-  public function realPure($val) {
+  public function pure($val) {
     return is_null($val) ?
       new Failure("Called 'Validation::pure' with a null value.") :
       new Success($val);

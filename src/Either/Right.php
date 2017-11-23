@@ -9,8 +9,6 @@ use TMciver\Functional\Util;
 
 class Right extends Either {
 
-    private $val;
-
     protected function __construct($val) {
 	$this->val = $val;
     }

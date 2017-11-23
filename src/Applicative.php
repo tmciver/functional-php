@@ -4,6 +4,10 @@ namespace TMciver\Functional;
 
 use TMciver\Functional\Functor;
 
+/**
+ * A fuctor with application. An applicative containing a function can be
+ * applied to an argument contained in another applicative.
+ */
 trait Applicative {
     use Functor;
 
@@ -13,19 +17,11 @@ trait Applicative {
      * @param A value to be put into a minimal context.
      * @return The given value in a context.
      */
-    final public function pure($val) {
-      $newVal = is_callable($val) ?
-	new PartialFunction($val) :
-	$val;
-
-      return $this->realPure($newVal);
-    }
-
-    abstract function realPure($val);
+    abstract public function pure($val);
 
     /**
-     * A fuctor with application. An applicative containing a function can be
-     * applied to an argument contained in another applicative.
+     * Partially applies the function contained in this Applicative to the value
+     * contained in the given applicative argument.
      *
      * @param $applicativeArgument An object whose class implements the Applicatie
      *        trait.
@@ -33,7 +29,13 @@ trait Applicative {
      *         another partially-applied function or a non-function value.
      */
     final function apply($applicativeArgument) {
-      return $applicativeArgument->map($this->val);
+      // Wrap the applicative value in a PartialFunction,
+      // if it is not already.
+      $pf = $this->val instanceof PartialFunction ?
+	$this->val :
+	new PartialFunction($this->val);
+
+      return $applicativeArgument->map($pf);
     }
 
     /**

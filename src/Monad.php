@@ -5,7 +5,7 @@ namespace TMciver\Functional;
 use TMciver\Functional\Applicative;
 
 trait Monad {
-  //use Applicative;
+  use Applicative;
 
     /**
      * @param callable $f A function of one argument whose type is the type of

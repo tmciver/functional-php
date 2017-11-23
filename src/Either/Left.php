@@ -6,8 +6,6 @@ use TMciver\Functional\Either\Either;
 
 class Left extends Either {
 
-    private $val;
-
     protected function __construct($val) {
 	$this->val = $val;
     }

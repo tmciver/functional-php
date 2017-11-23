@@ -14,6 +14,9 @@
       "TMciver\\Functional\\Test\\": "test/"
     }
   },
+  "require": {
+    "raphhh/trex-reflection": "1.0.*"
+  },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
   }
