@@ -14,6 +14,10 @@ class Failure extends Validation {
     return $this;
   }
 
+  public function flatMap(callable $f) {
+    return $this;
+  }
+
   public function append($other) {
     return $other->appendToFailure($this);
   }
