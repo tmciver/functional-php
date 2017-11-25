@@ -1,5 +1,7 @@
 <?php
 
+use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Either\Either;
 use TMciver\Functional\Validation\Validation;
 
 class ApplicativeTest extends PHPUnit_Framework_TestCase {
@@ -7,7 +9,9 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
   private $applicativesToTest;
 
   public function __construct() {
-    $this->applicativesToTest = [Validation::fromValue(1)];
+    $this->applicativesToTest = [Maybe::fromValue(1),
+				 Either::fromValue(1),
+				 Validation::fromValue(1)];
   }
 
   public function testIdentity() {

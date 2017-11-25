@@ -77,9 +77,9 @@ class Just extends Maybe {
     protected function applyToJust($just) {
       // Wrap the applicative value in a PartialFunction,
       // if it is not already.
-      $pf = $right->val instanceof PartialFunction ?
-	$right->val :
-	new PartialFunction($right->val);
+      $pf = $just->val instanceof PartialFunction ?
+	$just->val :
+	new PartialFunction($just->val);
 
       return $this->map($pf);
     }
