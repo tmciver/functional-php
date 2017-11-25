@@ -6,8 +6,20 @@ use TMciver\Functional\Either\Either;
 
 class Left extends Either {
 
+  private $val;
+
     protected function __construct($val) {
 	$this->val = $val;
+    }
+
+    public function apply($ignore) {
+      return $this;
+    }
+
+    public function applyToRight($right) {
+      // The argument $right contains the function but since the argument
+      // is a Left (this object), we return $this.
+      return $this;
     }
 
     public function append($either) {

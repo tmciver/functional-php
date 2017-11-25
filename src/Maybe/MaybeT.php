@@ -39,6 +39,10 @@ class MaybeT {
 	return new MaybeT($newMonad);
     }
 
+    public function apply($applicativeArgument) {
+      throw new \Exception("Not yet implemented.");
+    }
+
     public function __invoke() {
 
         // Get the arguments the function was called with. This ought to be an

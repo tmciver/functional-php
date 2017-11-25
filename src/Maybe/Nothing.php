@@ -20,6 +20,14 @@ class Nothing extends Maybe {
         return $this;
     }
 
+    public function apply($maybeArg) {
+      return $this;
+    }
+
+    protected function applyToJust($just) {
+      return $this;
+    }
+
     public function append($appendee) {
         return $appendee;
     }

@@ -18,6 +18,19 @@ class Failure extends Validation {
     return $this;
   }
 
+  public function apply($applicativeArgument) {
+    return $applicativeArgument->applyToFailure($this);
+  }
+
+  protected function applyToSuccess($success) {
+    return $this;
+  }
+
+  protected function applyToFailure($failure) {
+    // it's nice to be able to reuse this functionality!
+    return $this->appendToFailure($failure);
+  }
+
   public function append($other) {
     return $other->appendToFailure($this);
   }

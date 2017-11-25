@@ -11,8 +11,6 @@ use TMciver\Functional\Functor;
 trait Applicative {
     use Functor;
 
-    protected $val;
-
     /**
      * @param A value to be put into a minimal context.
      * @return The given value in a context.
@@ -28,15 +26,7 @@ trait Applicative {
      * @return An Applicative of the same class as this one containing either
      *         another partially-applied function or a non-function value.
      */
-    final function apply($applicativeArgument) {
-      // Wrap the applicative value in a PartialFunction,
-      // if it is not already.
-      $pf = $this->val instanceof PartialFunction ?
-	$this->val :
-	new PartialFunction($this->val);
-
-      return $applicativeArgument->map($pf);
-    }
+    public abstract function apply($applicativeArgument);
 
     /**
      * The __invoke magic method allows the Applicative to be called like a

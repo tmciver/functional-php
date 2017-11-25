@@ -41,6 +41,8 @@ abstract class Either {
         return new Left('');
     }
 
+    protected abstract function applyToRight($right);
+
     /**
      * Function for doing double dispatch from Right::append.
      */

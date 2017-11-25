@@ -5,12 +5,29 @@ namespace TMciver\Functional\Either;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\Left;
 use TMciver\Functional\AssociativeArray;
+use TMciver\Functional\PartialFunction;
 use TMciver\Functional\Util;
 
 class Right extends Either {
 
+  private $val;
+
     protected function __construct($val) {
 	$this->val = $val;
+    }
+
+    public function apply($eitherArg) {
+      return $eitherArg->applyToRight($this);
+    }
+
+    protected function applyToRight($right) {
+      // Wrap the applicative value in a PartialFunction,
+      // if it is not already.
+      $pf = $right->val instanceof PartialFunction ?
+	$right->val :
+	new PartialFunction($right->val);
+
+      return $this->map($pf);
     }
 
     public function append($appendee) {

@@ -38,6 +38,8 @@ abstract class Maybe {
         return self::$nothing;
     }
 
+    protected abstract function applyToJust($just);
+
     /**
      * Function for doing double dispatch from Just::append.
      */

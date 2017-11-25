@@ -24,23 +24,9 @@ abstract class Validation {
     return self::failure($msg);
   }
 
-  public function flatMap(callable $f) {
+  protected abstract function applyToSuccess($success);
 
-	// Since we don't know if $f will throw an exception, we wrap the call
-	// in a try/catch. The result wiil be Nothing if there's an exception.
-	try {
-	    $validationResult = $f($this->val);
-
-	    // If the result is null, we return Nothing.
-	    if (is_null($validationResult)) {
-		$validationResult = self::fail();
-	    }
-	} catch (\Exception $e) {
-	    $validationResult = self::fail();
-	}
-
-	return $validationResult;
-    }
+  protected abstract function applyToFailure($failure);
 
   protected abstract function appendToSuccess($success);
 

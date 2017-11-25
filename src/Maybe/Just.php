@@ -5,11 +5,14 @@ namespace TMciver\Functional\Maybe;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\Nothing;
 use TMciver\Functional\AssociativeArray;
+use TMciver\Functional\PartialFunction;
 use TMciver\Functional\Util;
 
 require_once __DIR__ . '/../Monoid.php';
 
 class Just extends Maybe {
+
+  private $val;
 
     protected function __construct($val) {
 	$this->val = $val;
@@ -65,6 +68,20 @@ class Just extends Maybe {
         return $maybeArgs->map(function($args) {
             return call_user_func_array($this->val, $args);
         });
+    }
+
+    public function apply($maybeArg) {
+      return $maybeArg->applyToJust($this);
+    }
+
+    protected function applyToJust($just) {
+      // Wrap the applicative value in a PartialFunction,
+      // if it is not already.
+      $pf = $right->val instanceof PartialFunction ?
+	$right->val :
+	new PartialFunction($right->val);
+
+      return $this->map($pf);
     }
 
     public function append($appendee) {
