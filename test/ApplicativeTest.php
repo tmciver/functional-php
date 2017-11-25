@@ -1,6 +1,7 @@
 <?php
 
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Validation\Validation;
 
@@ -9,9 +10,15 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
   private $applicativesToTest;
 
   public function __construct() {
+
+    // Set up a MaybeT instance. I need to figure out a better way
+    // to do this.
+    $maybeT = new MaybeT(Either::fromValue(Maybe::fromValue(1)));
+
     $this->applicativesToTest = [Maybe::fromValue(1),
 				 Either::fromValue(1),
-				 Validation::fromValue(1)];
+				 Validation::fromValue(1),
+				 $maybeT];
   }
 
   public function testIdentity() {

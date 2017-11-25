@@ -4,6 +4,7 @@ namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\Monad;
 use TMciver\Functional\AssociativeArray;
+use TMciver\Functional\PartialFunction;
 
 class MaybeT {
     use Monad;
@@ -40,7 +41,14 @@ class MaybeT {
     }
 
     public function apply($applicativeArgument) {
-      throw new \Exception("Not yet implemented.");
+
+      return $this->flatMap(function($f) use ($applicativeArgument) {
+	  // Wrap the applicative value in a PartialFunction,
+	  // if it is not already.
+	  $pf = $f instanceof PartialFunction ? $f : new PartialFunction($f);
+
+	  return $applicativeArgument->map($pf);
+	});
     }
 
     public function __invoke() {
