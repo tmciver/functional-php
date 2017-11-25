@@ -1,13 +1,17 @@
 <?php
 
 use TMciver\Functional\Validation\Validation;
+use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Either\Either;
 
 class MonadTest extends PHPUnit_Framework_TestCase {
 
   private $monadTestData;
 
   public function __construct() {
-    $this->monadTestData = [new ValidationTestData()];
+    $this->monadTestData = [new ValidationTestData(),
+			    new MaybeTestData(),
+			    new EitherTestData()];
   }
 
   public function testLeftIdentity() {
@@ -85,5 +89,27 @@ class ValidationTestData implements MonadTestData {
   }
   function getMonadFunctionG() {
     return function($i) { return Validation::fromValue($i . ''); };
+  }
+}
+
+class MaybeTestData implements MonadTestData {
+  function getValue() { return 1; }
+  function getMonadInstance() { return Maybe::fromValue(1); }
+  function getMonadFunctionF() {
+    return function($i) { return Maybe::fromValue($i + 1); };
+  }
+  function getMonadFunctionG() {
+    return function($i) { return Maybe::fromValue($i . ''); };
+  }
+}
+
+class EitherTestData implements MonadTestData {
+  function getValue() { return 1; }
+  function getMonadInstance() { return Either::fromValue(1); }
+  function getMonadFunctionF() {
+    return function($i) { return Either::fromValue($i + 1); };
+  }
+  function getMonadFunctionG() {
+    return function($i) { return Either::fromValue($i . ''); };
   }
 }
