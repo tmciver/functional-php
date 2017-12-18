@@ -1,6 +1,7 @@
 <?php
 
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 
 class MonadTest extends PHPUnit_Framework_TestCase {
@@ -9,7 +10,8 @@ class MonadTest extends PHPUnit_Framework_TestCase {
 
   public function __construct() {
     $this->monadTestData = [new MaybeTestData(),
-			    new EitherTestData()];
+			    new EitherTestData(),
+			    new MaybeTTestData()];
   }
 
   public function testLeftIdentity() {
@@ -98,5 +100,22 @@ class EitherTestData implements MonadTestData {
   }
   function getMonadFunctionG() {
     return function($i) { return Either::fromValue($i . ''); };
+  }
+}
+
+class MaybeTTestData implements MonadTestData {
+  private $maybeT;
+
+  public function __construct() {
+    $this->maybeT = new MaybeT(Either::fromValue(Maybe::fromValue(1)));
+  }
+
+  function getValue() { return 1; }
+  function getMonadInstance() { return $this->maybeT; }
+  function getMonadFunctionF() {
+    return function($i) { return $this->maybeT->pure($i + 1); };
+  }
+  function getMonadFunctionG() {
+    return function($i) { return $this->maybeT->pure($i . ''); };
   }
 }
