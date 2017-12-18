@@ -24,9 +24,9 @@ class PartialFunction {
 
   public function __invoke() {
     $args = func_get_args();
-    $allArgs = array_merge($this->args, $args);
-    $numArgs = count($allArgs);
+    $numArgs = count($args);
     $numArgsRemaining = $this->numArgsRemaining - $numArgs;
+    $allArgs = array_merge($this->args, $args);
 
     return ($numArgsRemaining > 0) ?
       new PartialFunction($this->f, $allArgs) :

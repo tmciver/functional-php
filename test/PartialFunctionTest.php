@@ -26,10 +26,11 @@ class PartialFunctionTest extends PHPUnit_Framework_TestCase {
 
   public function testInvokeWithArgsOneAtATime() {
 
-    $pf = new PartialFunction(add);
-    $pf2 = $pf(1);
-    $result = $pf2(2);
-    $expectedResult = 3;
+    $pf = new PartialFunction(substr);
+    $pf2 = $pf('hello world!');
+    $pf3 = $pf2(6);
+    $result = $pf3(5);
+    $expectedResult = 'world';
 
     $this->assertEquals($expectedResult, $result);
   }
