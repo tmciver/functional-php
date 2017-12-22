@@ -21,8 +21,9 @@ trait Applicative {
      * Partially applies the function contained in this Applicative to the value
      * contained in the given applicative argument.
      *
-     * @param $applicativeArgument An object whose class implements the Applicatie
-     *        trait.
+     * @param $applicativeArgument | null: An object whose class implements the
+     *        Applicatie trait. If null is passed, then the wrapped function
+     *        should be called without arguments.
      * @return An Applicative of the same class as this one containing either
      *         another partially-applied function or a non-function value.
      */
@@ -39,10 +40,16 @@ trait Applicative {
      */
     public function __invoke() {
       $args = func_get_args();
-      $callback = function ($applicativeFun, $applicativeArg) {
-	return $applicativeFun->apply($applicativeArg);
-      };
-      $result = array_reduce($args, $callback, $this);
+      $numArgs = count($args);
+
+      if ($numArgs > 0) {
+	$callback = function ($applicativeFun, $applicativeArg) {
+	  return $applicativeFun->apply($applicativeArg);
+	};
+	$result = array_reduce($args, $callback, $this);
+      } else {
+	$result = $this->apply();
+      }
 
       return $result;
     }
