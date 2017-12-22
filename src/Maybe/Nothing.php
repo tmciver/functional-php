@@ -16,11 +16,11 @@ class Nothing extends Maybe {
 	return $this;
     }
 
-    public function __invoke() {
-        return $this;
+    protected function applyNoArg() {
+      return $this;
     }
 
-    public function apply($maybeArg) {
+    protected function applyToArg($ignore) {
       return $this;
     }
 

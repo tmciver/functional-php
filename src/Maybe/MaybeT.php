@@ -40,23 +40,20 @@ class MaybeT {
 	return new MaybeT($newMonad);
     }
 
-    public function apply($applicativeArgument = null) {
+    protected function applyNoArg() {
+      return $this->map(function ($f) {
+	  return call_user_func($f);
+	});
+    }
 
-      if (is_null($applicativeArgument)) {
-	$result = $this->map(function ($f) {
-	    return call_user_func($f);
-	  });
-      } else {
-	$result = $this->flatMap(function($f) use ($applicativeArgument) {
-	    // Wrap the applicative value in a PartialFunction,
-	    // if it is not already.
-	    $pf = $f instanceof PartialFunction ? $f : new PartialFunction($f);
+    protected function applyToArg($applicativeArgument) {
+      return $this->flatMap(function($f) use ($applicativeArgument) {
+	  // Wrap the applicative value in a PartialFunction,
+	  // if it is not already.
+	  $pf = $f instanceof PartialFunction ? $f : new PartialFunction($f);
 
-	    return $applicativeArgument->map($pf);
-	  });
-      }
-
-      return $result;
+	  return $applicativeArgument->map($pf);
+	});
     }
 
     public function pure($val) {

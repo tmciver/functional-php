@@ -12,7 +12,11 @@ class Left extends Either {
 	$this->val = $val;
     }
 
-    public function apply($ignore) {
+    protected function applyNoArg() {
+      return $this;
+    }
+
+    protected function applyToArg($ignore) {
       return $this;
     }
 
@@ -40,10 +44,6 @@ class Left extends Either {
 
     public function flatMap(callable $f) {
 	return $this;
-    }
-
-    public function __invoke() {
-        return $this;
     }
 
     public function accept($eitherVisitor) {

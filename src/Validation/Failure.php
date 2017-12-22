@@ -18,7 +18,11 @@ class Failure extends Validation {
     return $this;
   }
 
-  public function apply($applicativeArgument) {
+  protected function applyNoArg() {
+    return $this;
+  }
+
+  protected function applyToArg($applicativeArgument) {
     return $applicativeArgument->applyToFailure($this);
   }
 

@@ -44,7 +44,11 @@ class Success extends Validation {
     return $validationResult;
   }
 
-  public function apply($applicativeArgument) {
+  protected function applyNoArg() {
+    return call_user_func($this->val);
+  }
+
+  protected function applyToArg($applicativeArgument) {
     return $applicativeArgument->applyToSuccess($this);
   }
 

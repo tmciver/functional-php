@@ -27,7 +27,21 @@ trait Applicative {
      * @return An Applicative of the same class as this one containing either
      *         another partially-applied function or a non-function value.
      */
-    public abstract function apply($applicativeArgument);
+    final public function apply($applicativeArgument = null) {
+      return is_null($applicativeArgument) ?
+	$this->applyNoArg() :
+	$this->applyToArg($applicativeArgument);
+    }
+
+    /**
+     * Calls the wrapped function with no arguments.
+     */
+    protected abstract function applyNoArg();
+
+    /**
+     * Calls the wrapped function on the value wrapped in the supplied argument.
+     */
+    protected abstract function applyToArg($applicativeArgument);
 
     /**
      * The __invoke magic method allows the Applicative to be called like a

@@ -16,7 +16,11 @@ class Right extends Either {
 	$this->val = $val;
     }
 
-    public function apply($eitherArg) {
+    protected function applyNoArg() {
+      return new Right(call_user_func($this->val));
+    }
+
+    protected function applyToArg($eitherArg) {
       return $eitherArg->applyToRight($this);
     }
 
@@ -96,22 +100,6 @@ class Right extends Either {
 	}
 
 	return $eitherResult;
-    }
-
-    public function __invoke() {
-
-        // Get the arguments the function was called with. This ought to be an
-        // array or Eithers.
-        $args = func_get_args();
-
-        // Convert the array of Eithers to an Either of array by sequencing.
-        $eitherArgs = (new AssociativeArray($args))->sequence($this);
-
-        // Call the callable wrapped by this context ($this->val) with the
-        // wrapped args, wrap it back up in an Either and return it.
-        return $eitherArgs->map(function($args) {
-            return call_user_func_array($this->val, $args);
-        });
     }
 
     public function accept($eitherVisitor) {

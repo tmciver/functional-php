@@ -54,23 +54,11 @@ class Just extends Maybe {
 	return $maybeResult;
     }
 
-    public function __invoke() {
-
-        // Get the arguments the function was called with. This ought to be an
-        // array or Maybes.
-        $args = func_get_args();
-
-        // Convert the array of Maybes to a Maybe of array by sequencing.
-        $maybeArgs = (new AssociativeArray($args))->sequence($this);
-
-        // Call the callable wrapped by this context ($this->val) with the
-        // wrapped args, wrap it back up in a Maybe and return it.
-        return $maybeArgs->map(function($args) {
-            return call_user_func_array($this->val, $args);
-        });
+    protected function applyNoArg() {
+      return new Just(call_user_func($this->val));
     }
 
-    public function apply($maybeArg) {
+    protected function applyToArg($maybeArg) {
       return $maybeArg->applyToJust($this);
     }
 
