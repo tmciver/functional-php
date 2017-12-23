@@ -5,6 +5,19 @@ use TMciver\Functional\Maybe\Maybe;
 
 class ValidationApplicativeTest extends PHPUnit_Framework_TestCase {
 
+  public function testApplicativeForNoArgs() {
+
+    // The function
+    $maybeFn = Maybe::fromValue(function() { return 42; });
+
+    // Call the function
+    $maybeResult = $maybeFn();
+
+    $expectedResult = Maybe::fromValue(42);
+
+    $this->assertEquals($expectedResult, $maybeResult);
+  }
+
   public function testApplyForSuccessSuccess() {
 
     $validationFunction = Validation::fromValue(addOne);
