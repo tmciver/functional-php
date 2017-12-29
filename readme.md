@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/tmciver/functional-php.svg?style=svg)](https://circleci.com/gh/tmciver/functional-php)
+
 # Functional PHP
 
 ## Contents
