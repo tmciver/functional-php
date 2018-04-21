@@ -45,13 +45,9 @@ Then, run the unit tests with
 
 ### Using Docker
 
-You can build a docker image used for testing with the following command:
+If you have docker installed you can run tests with:
 
-    $ docker build . -t tmciver/functional-php
-
-Then, run the tests by running the docker image:
-
-    $ docker run tmciver/functional-php
+    $ make test
 
 ## Typeclasses
 
