@@ -96,4 +96,14 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals($expected, $tail);
   }
+
+  public function testSize() {
+    $list1 = $this->empty->add(3)->add(2)->add(1);
+    $list2 = $this->empty;
+    $expected1 = 3;
+    $expected2 = 0;
+
+    $this->assertEquals($expected1, $list1->size());
+    $this->assertEquals($expected2, $list2->size());
+  }
 }

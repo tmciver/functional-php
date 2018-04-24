@@ -25,4 +25,8 @@ class EmptyList extends LinkedList {
   public function tail() {
     return $this;
   }
+
+  public function size() {
+    return 0;
+  }
 }

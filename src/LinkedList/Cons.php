@@ -57,4 +57,8 @@ class Cons extends LinkedList {
   public function tail() {
     return $this->tail;
   }
+
+  public function size() {
+    return 1 + $this->tail->size();
+  }
 }
