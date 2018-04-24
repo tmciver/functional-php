@@ -53,4 +53,8 @@ class Cons extends LinkedList {
   public function head() {
     return Maybe::fromValue($this->value);
   }
+
+  public function tail() {
+    return $this->tail;
+  }
 }

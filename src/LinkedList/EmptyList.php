@@ -21,4 +21,8 @@ class EmptyList extends LinkedList {
   public function head() {
     return Maybe::$nothing;
   }
+
+  public function tail() {
+    return $this;
+  }
 }

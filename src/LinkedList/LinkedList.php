@@ -19,4 +19,9 @@ abstract class LinkedList {
    */
   public abstract function head();
 
+  /**
+   * @return the tail of this LinkedList as LinkedList.
+   */
+  public abstract function tail();
+
 }

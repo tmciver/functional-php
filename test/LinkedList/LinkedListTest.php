@@ -80,4 +80,20 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals($expected, $headMaybe);
   }
+
+  public function testTailWhenNonEmpty() {
+    $myList = $this->empty->add(3)->add(2)->add(1);
+    $tail = $myList->tail();
+    $expected = $this->empty->add(3)->add(2);
+
+    $this->assertEquals($expected, $tail);
+  }
+
+  public function testTailWhenEmpty() {
+    $myList = $this->empty;
+    $tail = $myList->tail();
+    $expected = $this->empty;
+
+    $this->assertEquals($expected, $tail);
+  }
 }
