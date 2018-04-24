@@ -1,6 +1,7 @@
 <?php
 
 use TMciver\Functional\LinkedList\EmptyList;
+use TMciver\Functional\Maybe\Maybe;
 
 class ListTest extends PHPUnit_Framework_TestCase {
 
@@ -16,7 +17,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $newList = $myList->add(4);
     $expected = $this->empty->add(3)->add(2)->add(1)->add(4);
 
-    $this->assertEquals($newList, $expected);
+    $this->assertEquals($expected, $newList);
   }
 
   public function testRemoveElementThatExists() {
@@ -25,7 +26,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $newList = $myList->remove(3);
     $expected = $this->empty->add(2)->add(1);
 
-    $this->assertEquals($newList, $expected);
+    $this->assertEquals($expected, $expected);
   }
 
   public function testRemoveElementThatDoesNotExist() {
@@ -34,7 +35,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $newList = $myList->remove(4);
     $expected = $myList; // list should be unchanged
 
-    $this->assertEquals($newList, $expected);
+    $this->assertEquals($expected, $newList);
   }
 
   public function testRemoveOnlyFirstElement() {
@@ -43,7 +44,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $newList = $myList->remove(2);
     $expected = $this->empty->add(3)->add(2)->add(1);
 
-    $this->assertEquals($newList, $expected);
+    $this->assertEquals($expected, $newList);
   }
 
   public function testContainsWhenItContains() {
@@ -52,7 +53,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $hasElement = $myList->contains(3);
     $expected = true;
 
-    $this->assertEquals($hasElement, $expected);
+    $this->assertEquals($expected, $hasElement);
   }
 
   public function testContainsWhenItDoesNotContain() {
@@ -61,6 +62,22 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $hasElement = $myList->contains(4);
     $expected = false;
 
-    $this->assertEquals($hasElement, $expected);
+    $this->assertEquals($expected, $hasElement);
+  }
+
+  public function testHeadWhenNonEmpty() {
+    $myList = $this->empty->add(3)->add(2)->add(1);
+    $headMaybe = $myList->head();
+    $expected = Maybe::fromValue(1);
+
+    $this->assertEquals($expected, $headMaybe);
+  }
+
+  public function testHeadWhenEmpty() {
+    $myList = $this->empty;
+    $headMaybe = $myList->head();
+    $expected = Maybe::$nothing;
+
+    $this->assertEquals($expected, $headMaybe);
   }
 }

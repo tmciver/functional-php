@@ -2,6 +2,8 @@
 
 namespace TMciver\Functional\LinkedList;
 
+use TMciver\Functional\Maybe\Maybe;
+
 class EmptyList extends LinkedList {
 
   public function add($value) {
@@ -14,5 +16,9 @@ class EmptyList extends LinkedList {
 
   public function contains($value) {
     return false;
+  }
+
+  public function head() {
+    return Maybe::$nothing;
   }
 }

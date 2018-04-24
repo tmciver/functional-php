@@ -6,4 +6,17 @@ use TMciver\Functional\Collection;
 
 abstract class LinkedList {
   use Collection;
+
+  /**
+   * Alias for Collection::add
+   */
+  public function cons($value) {
+    return $this->add($value);
+  }
+
+  /**
+   * @return TMciver\Functional\Maybe\Maybe containing value.
+   */
+  public abstract function head();
+
 }

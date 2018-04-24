@@ -2,6 +2,8 @@
 
 namespace TMciver\Functional\LinkedList;
 
+use TMciver\Functional\Maybe\Maybe;
+
 class Cons extends LinkedList {
 
   private $value;
@@ -46,5 +48,9 @@ class Cons extends LinkedList {
     } else {
       return $this->tail->contains($value);
     }
+  }
+
+  public function head() {
+    return Maybe::fromValue($this->value);
   }
 }
