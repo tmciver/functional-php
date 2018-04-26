@@ -11,9 +11,9 @@ abstract class LinkedList {
 
   private static $empty1;
 
-  public static function init() {
-    self::$empty1 = new Nil();
-  }
+  /* public static function init() { */
+  /*   self::$empty1 = new Nil(); */
+  /* } */
 
   public static function empty() {
     return self::$empty1;
@@ -42,4 +42,4 @@ abstract class LinkedList {
 
 }
 
-LinkedList::init();
+LinkedList::$empty1 = new Nil();
