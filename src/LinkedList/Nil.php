@@ -4,7 +4,9 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
 
-class EmptyList extends LinkedList {
+class Nil extends LinkedList {
+
+  public function __construct() {}
 
   public function add($value) {
     return new Cons($value, $this);

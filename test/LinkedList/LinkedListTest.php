@@ -1,6 +1,6 @@
 <?php
 
-use TMciver\Functional\LinkedList\EmptyList;
+use TMciver\Functional\LinkedList\Nil;
 use TMciver\Functional\Maybe\Maybe;
 
 class ListTest extends PHPUnit_Framework_TestCase {
@@ -8,7 +8,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
   private $empty;
 
   public function __construct() {
-    $this->empty = new EmptyList();
+    $this->empty = new Nil();
   }
 
   public function testAdd() {
