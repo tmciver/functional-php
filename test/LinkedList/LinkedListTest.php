@@ -1,37 +1,39 @@
 <?php
 
-use TMciver\Functional\LinkedList\Nil;
+use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\Maybe\Maybe;
 
 class ListTest extends PHPUnit_Framework_TestCase {
 
-  private $empty;
+  private $listFactory;
+  private $emptyList;
 
   public function __construct() {
-    $this->empty = new Nil();
+    $this->listFactory = new LinkedListFactory();
+    $this->emptyList = $this->listFactory->empty();
   }
 
   public function testAdd() {
 
-    $myList = $this->empty->add(3)->add(2)->add(1);
-    $newList = $myList->add(4);
-    $expected = $this->empty->add(3)->add(2)->add(1)->add(4);
+    $myList = $this->listFactory->fromNativeArray([2, 3, 4]);
+    $newList = $myList->cons(1);
+    $expected = $this->listFactory->fromNativeArray([1, 2, 3, 4]);
 
     $this->assertEquals($expected, $newList);
   }
 
   public function testRemoveElementThatExists() {
 
-    $myList = $this->empty->add(3)->add(2)->add(1);
+    $myList = $this->listFactory->fromNativeArray([1, 2, 3]);
     $newList = $myList->remove(3);
-    $expected = $this->empty->add(2)->add(1);
+    $expected = $this->listFactory->fromNativeArray([1, 2]);
 
     $this->assertEquals($expected, $expected);
   }
 
   public function testRemoveElementThatDoesNotExist() {
 
-    $myList = $this->empty->add(3)->add(2)->add(1);
+    $myList = $this->listFactory->fromNativeArray([1, 2, 3]);
     $newList = $myList->remove(4);
     $expected = $myList; // list should be unchanged
 
@@ -40,16 +42,16 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
   public function testRemoveOnlyFirstElement() {
 
-    $myList = $this->empty->add(3)->add(2)->add(1)->add(2); // [2, 1, 2, 3]
+    $myList = $this->listFactory->fromNativeArray([2, 1, 2, 3]);
     $newList = $myList->remove(2);
-    $expected = $this->empty->add(3)->add(2)->add(1);
+    $expected = $this->listFactory->fromNativeArray([1, 2, 3]);
 
     $this->assertEquals($expected, $newList);
   }
 
   public function testContainsWhenItContains() {
 
-    $myList = $this->empty->add(3)->add(2)->add(1);
+    $myList = $this->listFactory->fromNativeArray([1, 2, 3]);
     $hasElement = $myList->contains(3);
     $expected = true;
 
@@ -58,7 +60,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
   public function testContainsWhenItDoesNotContain() {
 
-    $myList = $this->empty->add(3)->add(2)->add(1);
+    $myList = $this->listFactory->fromNativeArray([1, 2, 3]);
     $hasElement = $myList->contains(4);
     $expected = false;
 
@@ -66,7 +68,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testHeadWhenNonEmpty() {
-    $myList = $this->empty->add(3)->add(2)->add(1);
+    $myList = $this->listFactory->fromNativeArray([1, 2, 3]);
     $headMaybe = $myList->head();
     $expected = Maybe::fromValue(1);
 
@@ -74,7 +76,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testHeadWhenEmpty() {
-    $myList = $this->empty;
+    $myList = $this->emptyList;
     $headMaybe = $myList->head();
     $expected = Maybe::$nothing;
 
@@ -82,24 +84,24 @@ class ListTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testTailWhenNonEmpty() {
-    $myList = $this->empty->add(3)->add(2)->add(1);
+    $myList = $this->listFactory->fromNativeArray([1, 2, 3]);
     $tail = $myList->tail();
-    $expected = $this->empty->add(3)->add(2);
+    $expected = $this->listFactory->fromNativeArray([2, 3]);
 
     $this->assertEquals($expected, $tail);
   }
 
   public function testTailWhenEmpty() {
-    $myList = $this->empty;
+    $myList = $this->emptyList;
     $tail = $myList->tail();
-    $expected = $this->empty;
+    $expected = $this->emptyList;
 
     $this->assertEquals($expected, $tail);
   }
 
   public function testSize() {
-    $list1 = $this->empty->add(3)->add(2)->add(1);
-    $list2 = $this->empty;
+    $list1 = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $list2 = $this->emptyList;
     $expected1 = 3;
     $expected2 = 0;
 

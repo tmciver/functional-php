@@ -1,34 +1,29 @@
 <?php
 
 use TMciver\Functional\LinkedList\LinkedListFactory;
-use TMciver\Functional\LinkedList\Nil;
 
 class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
 
-  private $empty;
+  private $listFactory;
+  private $emptyList;
 
   public function __construct() {
-    $this->empty = new Nil();
+    $this->listFactory = new LinkedListFactory();
+    $this->emptyList = $this->listFactory->empty();
   }
 
   public function testFromNativeArrayNonEmpty() {
-    $ll = LinkedListFactory::fromNativeArray([1, 2, 3]);
-    $expected = $this->empty->add(3)->add(2)->add(1);
+    $ll = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $expected = $this->listFactory->empty()->cons(3)->cons(2)->cons(1);
 
     $this->assertEquals($expected, $ll);
   }
 
   public function testFromNativeArrayEmpty() {
-    $ll = LinkedListFactory::fromNativeArray([]);
-    $expected = $this->empty;
+    $ll = $this->listFactory->fromNativeArray([]);
+    $expected = $this->emptyList;
 
     $this->assertEquals($expected, $ll);
   }
 
-  public function testFromNativeArrayNull() {
-    $ll = LinkedListFactory::fromNativeArray(null);
-    $expected = $this->empty;
-
-    $this->assertEquals($expected, $ll);
-  }
 }
