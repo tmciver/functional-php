@@ -6,6 +6,10 @@ use TMciver\Functional\Maybe\Maybe;
 
 class Nil extends LinkedList {
 
+  /**
+   * @internal
+   * Clients should not construct Nils directly; use `LinkedListFactory` instead.
+   */
   public function __construct() {}
 
   public function add($value) {

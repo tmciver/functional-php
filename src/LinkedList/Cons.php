@@ -9,6 +9,10 @@ class Cons extends LinkedList {
   private $value;
   private $tail;
 
+  /**
+   * @internal
+   * Clients should not construct Conses directly; use `LinkedListFactory` instead.
+   */
   public function __construct($value, $list) {
     $this->value = $value;
     $this->tail = $list;
