@@ -18,6 +18,22 @@ class FunctorTest extends PHPUnit_Framework_TestCase {
       $this->assertEquals($functor, $newFunctor);
     }
   }
+
+  public function testComposition() {
+    $f = function ($x) { return $x + 1; };
+    $g = function ($x) { return $x * 2; };
+    $fAndThenG = function ($x) use ($f, $g) {
+	return $g($f($x));
+    };
+
+    foreach ($this->functorData as $functorData) {
+      $functor = $functorData->getIntFunctor();
+      $fMapGMapFunctor = $functor->map($f)->map($g);
+      $fAndThenGFunctor = $functor->map($fAndThenG);
+
+      $this->assertEquals($fMapGMapFunctor, $fAndThenGFunctor);
+    }
+  }
 }
 
 interface FunctorInstance {
