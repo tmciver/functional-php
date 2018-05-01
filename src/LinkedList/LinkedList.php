@@ -3,9 +3,10 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Collection;
+use TMciver\Functional\Functor;
 
 abstract class LinkedList {
-  use Collection;
+  use Collection, Functor;
 
   /**
    * Alias for Collection::add
@@ -24,4 +25,11 @@ abstract class LinkedList {
    */
   public abstract function tail();
 
+  public function map($f) {
+    throw new \Exception('Not yet implemented.');
+  }
+
+  public function fail() {
+    return (new LinkedListFactory())->empty();
+  }
 }
