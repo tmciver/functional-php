@@ -108,4 +108,12 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($expected1, $list1->size());
     $this->assertEquals($expected2, $list2->size());
   }
+
+  public function testMap() {
+    $list = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $listPlusOne = $list->map(function ($x) { return $x + 1;});
+    $expected = $this->listFactory->fromNativeArray([2, 3, 4]);
+
+    $this->assertEquals($expected, $listPlusOne);
+  }
 }
