@@ -65,4 +65,8 @@ class Cons extends LinkedList {
   public function size() {
     return 1 + $this->tail->size();
   }
+
+  public function map(callable $f) {
+    return new Cons($f($this->value), $this->tail->map($f));
+  }
 }

@@ -25,10 +25,6 @@ abstract class LinkedList {
    */
   public abstract function tail();
 
-  public function map($f) {
-    throw new \Exception('Not yet implemented.');
-  }
-
   public function fail() {
     return (new LinkedListFactory())->empty();
   }

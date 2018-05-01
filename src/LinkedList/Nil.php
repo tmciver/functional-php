@@ -35,4 +35,8 @@ class Nil extends LinkedList {
   public function size() {
     return 0;
   }
+
+  public function map(callable $f) {
+    return $this;
+  }
 }
