@@ -3,10 +3,10 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Collection;
-use TMciver\Functional\Functor;
+use TMciver\Functional\Applicative;
 
 abstract class LinkedList {
-  use Collection, Functor;
+  use Collection, Applicative;
 
   /**
    * Alias for Collection::add
@@ -28,4 +28,12 @@ abstract class LinkedList {
   public function fail() {
     return (new LinkedListFactory())->empty();
   }
+
+  public function pure($val) {
+    return (new LinkedListFactory())->pure($val);
+  }
+
+  public abstract function toNativeArray();
+
+  public abstract function concat($otherList);
 }

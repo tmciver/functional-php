@@ -4,6 +4,7 @@ use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Validation\Validation;
+use TMciver\Functional\LinkedList\LinkedListFactory;
 
 class ApplicativeTest extends PHPUnit_Framework_TestCase {
 
@@ -15,9 +16,12 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
     // to do this.
     $maybeT = new MaybeT(Either::fromValue(Maybe::fromValue(1)));
 
+    // These exist as a kludge for creating Applicatives; they're not the actual
+    // Applicatives.
     $this->applicativesToTest = [Maybe::fromValue(1),
 				 Either::fromValue(1),
 				 Validation::fromValue(1),
+				 (new LinkedListFactory())->pure(1),
 				 $maybeT];
   }
 

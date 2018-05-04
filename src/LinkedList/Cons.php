@@ -3,6 +3,7 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\PartialFunction;
 
 class Cons extends LinkedList {
 
@@ -62,11 +63,42 @@ class Cons extends LinkedList {
     return $this->tail;
   }
 
+  public function toNativeArray() {
+    // TODO: find a better way. This certainly has terrible performance.
+    return array_merge([$this->value], $this->tail->toNativeArray());
+  }
+
   public function size() {
     return 1 + $this->tail->size();
   }
 
   public function map(callable $f) {
     return new Cons($f($this->value), $this->tail->map($f));
+  }
+
+  protected function applyNoArg() {
+    return $this->map(function ($f) {
+	return call_user_func($f);
+      });
+  }
+
+  protected function applyToArg($argList) {
+    // Wrap the applicative value in a PartialFunction,
+    // if it is not already.
+    $pf = $this->value instanceof PartialFunction ?
+      $this->value :
+      new PartialFunction($this->value);
+
+    // Apply the PartialFunction to each argument in $argList
+    $headList = $argList->map($pf);
+
+    // Do the tail applications
+    $tailList = $this->tail->applyToArg($argList);
+
+    return $headList->concat($tailList);
+  }
+
+  public function concat($otherList) {
+    return new Cons($this->value, $this->tail->concat($otherList));
   }
 }

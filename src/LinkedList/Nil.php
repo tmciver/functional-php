@@ -32,11 +32,27 @@ class Nil extends LinkedList {
     return $this;
   }
 
+  public function toNativeArray() {
+    return [];
+  }
+
   public function size() {
     return 0;
   }
 
   public function map(callable $f) {
     return $this;
+  }
+
+  protected function applyNoArg() {
+    return $this;
+  }
+
+  protected function applyToArg($ignore) {
+    return $this;
+  }
+
+  public function concat($otherList) {
+    return $otherList;
   }
 }

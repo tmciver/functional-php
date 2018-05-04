@@ -3,6 +3,8 @@
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\Maybe\Maybe;
 
+require_once __DIR__ . '/../util.php';
+
 class ListTest extends PHPUnit_Framework_TestCase {
 
   private $listFactory;
@@ -115,5 +117,71 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $expected = $this->listFactory->fromNativeArray([2, 3, 4]);
 
     $this->assertEquals($expected, $listPlusOne);
+  }
+
+  public function testConcatBothNonNil() {
+    $list1 = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $list2 = $this->listFactory->fromNativeArray([4, 5, 6]);
+
+    $result = $list1->concat($list2);
+    $expected = $this->listFactory->fromNativeArray([1, 2, 3, 4, 5, 6]);
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testConcatNilAndNonNil() {
+    $list1 = $this->listFactory->empty();
+    $list2 = $this->listFactory->fromNativeArray([4, 5, 6]);
+
+    $result = $list1->concat($list2);
+    $expected = $this->listFactory->fromNativeArray([4, 5, 6]);
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testConcatNonNilAndNil() {
+    $list1 = $this->listFactory->fromNativeArray([4, 5, 6]);
+    $list2 = $this->listFactory->empty();
+
+    $result = $list1->concat($list2);
+    $expected = $this->listFactory->fromNativeArray([4, 5, 6]);
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testApply() {
+    $fs = $this->listFactory->fromNativeArray([addOne, multiplyByTwo]);
+    $args = $this->listFactory->fromNativeArray([1, 2]);
+    $result = $fs->apply($args);
+    $expected = $this->listFactory->fromNativeArray([2, 3, 2, 4]);
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testInvoke() {
+    $fs = $this->listFactory->fromNativeArray([addOne, multiplyByTwo]);
+    $args = $this->listFactory->fromNativeArray([1, 2]);
+    $result = $fs($args);
+    $expected = $this->listFactory->fromNativeArray([2, 3, 2, 4]);
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testInvokeNoArgs() {
+    $f = function () { return 1; };
+    $fs = $this->listFactory->pure($f);
+    $result = $fs();
+    $expected = $this->listFactory->pure(1);
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testToNativeArray() {
+    $nArray = [1, 2, 3];
+    $list = $this->listFactory->fromNativeArray($nArray);
+    $expected = $nArray;
+    $result = $list->toNativeArray();
+
+    $this->assertEquals($expected, $result);
   }
 }
