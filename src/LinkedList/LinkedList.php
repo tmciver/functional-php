@@ -4,9 +4,10 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Collection;
 use TMciver\Functional\Applicative;
+use TMciver\Functional\SemiGroup;
 
 abstract class LinkedList {
-  use Collection, Applicative;
+  use Collection, SemiGroup, Applicative;
 
   /**
    * Alias for Collection::add
@@ -31,6 +32,10 @@ abstract class LinkedList {
 
   public function pure($val) {
     return (new LinkedListFactory())->pure($val);
+  }
+
+  public function append($other) {
+    throw new \Exception('Not yet implemented.');
   }
 
   public abstract function toNativeArray();
