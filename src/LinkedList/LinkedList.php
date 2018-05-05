@@ -4,10 +4,10 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Collection;
 use TMciver\Functional\Applicative;
-use TMciver\Functional\SemiGroup;
+use TMciver\Functional\Monoid;
 
 abstract class LinkedList {
-  use Collection, SemiGroup, Applicative;
+  use Collection, Monoid, Applicative;
 
   /**
    * Alias for Collection::add
@@ -34,11 +34,13 @@ abstract class LinkedList {
     return (new LinkedListFactory())->pure($val);
   }
 
-  public function append($other) {
-    throw new \Exception('Not yet implemented.');
+  final public function concat($otherList) {
+    return $this->append($otherList);
   }
 
   public abstract function toNativeArray();
 
-  public abstract function concat($otherList);
+  final public function identity() {
+    return (new LinkedListFactory())->empty();
+  }
 }

@@ -98,7 +98,7 @@ class Cons extends LinkedList {
     return $headList->concat($tailList);
   }
 
-  public function concat($otherList) {
-    return new Cons($this->value, $this->tail->concat($otherList));
+  final public function append($other) {
+    return new Cons($this->value, $this->tail->append($other));
   }
 }

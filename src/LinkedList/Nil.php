@@ -52,7 +52,7 @@ class Nil extends LinkedList {
     return $this;
   }
 
-  public function concat($otherList) {
-    return $otherList;
+  final public function append($other) {
+    return $other;
   }
 }
