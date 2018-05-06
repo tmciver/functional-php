@@ -184,4 +184,13 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals($expected, $result);
   }
+
+  public function testFilter() {
+    $list = $this->listFactory->fromNativeArray([1, 2, 3, 4]);
+    $isOdd = function ($v) { return $v % 2 != 0; };
+    $filteredList = $list->filter($isOdd);
+    $excpected = $this->listFactory->fromNativeArray([2, 4]);
+
+    $this->assertEquals($excpected, $filteredList);
+  }
 }

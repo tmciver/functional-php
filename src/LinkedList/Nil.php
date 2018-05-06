@@ -55,4 +55,8 @@ class Nil extends LinkedList {
   final public function append($other) {
     return $other;
   }
+
+  final public function filter($f) {
+    return $this;
+  }
 }

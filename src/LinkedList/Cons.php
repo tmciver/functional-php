@@ -101,4 +101,8 @@ class Cons extends LinkedList {
   final public function append($other) {
     return new Cons($this->value, $this->tail->append($other));
   }
+
+  final public function filter($f) {
+    throw new \Exception('Not yet implemented.');
+  }
 }

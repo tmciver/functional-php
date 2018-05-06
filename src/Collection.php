@@ -7,4 +7,5 @@ trait Collection {
   abstract function remove($value);
   abstract function contains($value);
   abstract function size();
+  abstract function filter($f);
 }
