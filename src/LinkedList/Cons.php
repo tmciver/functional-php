@@ -103,6 +103,12 @@ class Cons extends LinkedList {
   }
 
   final public function filter($f) {
-    throw new \Exception('Not yet implemented.');
+    // First, filter the tail
+    $filteredTail = $this->tail->filter($f);
+
+    // Then, filter this node.
+    return $f($this->value)
+      ? new Cons($this->value, $filteredTail)
+      : $filteredTail;
   }
 }
