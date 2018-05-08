@@ -76,6 +76,12 @@ class Cons extends LinkedList {
     return new Cons($f($this->value), $this->tail->map($f));
   }
 
+  public function flatMap(callable $f) {
+    $headList = $f($this->value);
+
+    return $headList->concat($this->tail->flatMap($f));
+  }
+
   protected function applyNoArg() {
     return $this->map(function ($f) {
 	return call_user_func($f);

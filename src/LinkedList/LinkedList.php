@@ -3,11 +3,11 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Collection;
-use TMciver\Functional\Applicative;
+use TMciver\Functional\Monad;
 use TMciver\Functional\Monoid;
 
 abstract class LinkedList {
-  use Collection, Monoid, Applicative;
+  use Collection, Monoid, Monad;
 
   /**
    * Alias for Collection::add

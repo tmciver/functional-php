@@ -3,6 +3,7 @@
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
+use TMciver\Functional\LinkedList\LinkedListFactory;
 
 class MonadTest extends PHPUnit_Framework_TestCase {
 
@@ -11,7 +12,8 @@ class MonadTest extends PHPUnit_Framework_TestCase {
   public function __construct() {
     $this->monadTestData = [new MaybeTestData(),
 			    new EitherTestData(),
-			    new MaybeTTestData()];
+			    new MaybeTTestData(),
+			    new LinkedListTestData()];
   }
 
   public function testLeftIdentity() {
@@ -117,5 +119,22 @@ class MaybeTTestData implements MonadTestData {
   }
   function getMonadFunctionG() {
     return function($i) { return $this->maybeT->pure($i . ''); };
+  }
+}
+
+class LinkedListTestData implements MonadTestData {
+  private $factory;
+  function __construct() {
+    $this->factory = new LinkedListFactory();
+  }
+  function getValue() { return 1; }
+  function getMonadInstance() { return $this->factory->fromNativeArray([1, 2, 3]); }
+  function getMonadFunctionF() {
+    return function($i) { return $this->factory->fromNativeArray([$i + 1, $i + 2, $i + 3]); };
+  }
+  function getMonadFunctionG() {
+    return function($i) {
+      return $this->factory->fromNativeArray(str_split(str_repeat(".", $i)));
+    };
   }
 }

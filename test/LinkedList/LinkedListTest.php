@@ -119,6 +119,15 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($expected, $listPlusOne);
   }
 
+  public function testFlatMap() {
+    $list = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $f = function($i) { return $this->listFactory->fromNativeArray([$i + 1, $i + 2, $i + 3]); };
+    $result = $list->flatMap($f);
+    $expected = $this->listFactory->fromNativeArray([2, 3, 4, 3, 4, 5, 4, 5, 6]);
+
+    $this->assertEquals($expected, $result);
+  }
+
   public function testConcatBothNonNil() {
     $list1 = $this->listFactory->fromNativeArray([1, 2, 3]);
     $list2 = $this->listFactory->fromNativeArray([4, 5, 6]);

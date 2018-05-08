@@ -44,6 +44,10 @@ class Nil extends LinkedList {
     return $this;
   }
 
+  public function flatMap(callable $f) {
+    return $this;
+  }
+
   protected function applyNoArg() {
     return $this;
   }
