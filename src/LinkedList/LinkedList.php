@@ -43,4 +43,8 @@ abstract class LinkedList {
   final public function identity() {
     return (new LinkedListFactory())->empty();
   }
+
+  final public function toLinkedList() {
+    return $this;
+  }
 }

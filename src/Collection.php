@@ -15,4 +15,9 @@ trait Collection {
    *         collection that satisfy the predicate $f.
    */
   abstract function filter($f);
+
+  /**
+   * Convert this structure to a `LinkedList`.
+   */
+  abstract function toLinkedList();
 }

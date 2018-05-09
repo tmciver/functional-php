@@ -3,6 +3,8 @@
 namespace TMciver\Functional;
 
 trait Foldable {
+  // not sure if it's a good idea to extend Collection . . .
+  use Collection;
 
   /**
    * Left-associative fold of a structure.
@@ -15,9 +17,4 @@ trait Foldable {
    * @return A value that has the same type as $init.
    */
   abstract function foldLeft($init, callable $f);
-
-  /**
-   * Convert this structure to a `LinkedList`.
-   */
-  abstract function toLinkedList();
 }
