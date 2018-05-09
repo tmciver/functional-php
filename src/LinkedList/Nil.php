@@ -63,4 +63,8 @@ class Nil extends LinkedList {
   final public function filter($f) {
     return $this;
   }
+
+  final public function foldLeft($init, $f) {
+    return $init;
+  }
 }

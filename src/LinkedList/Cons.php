@@ -117,4 +117,9 @@ class Cons extends LinkedList {
       ? new Cons($this->value, $filteredTail)
       : $filteredTail;
   }
+
+  final public function foldLeft($init, $f) {
+    $acc = $f($init, $this->value);
+    return $this->tail->foldLeft($acc, $f);
+  }
 }
