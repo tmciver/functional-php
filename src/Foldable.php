@@ -17,4 +17,16 @@ trait Foldable {
    * @return A value that has the same type as $init.
    */
   abstract function foldLeft($init, callable $f);
+
+  /**
+   * Right-associative fold of a structure.
+   *
+   * @param $init The seed value for the fold. This value is the result in the
+   *        case of an empty structure.
+   * @param $f The folding function. A function of two arguments: the first
+   *        argument is an element of the `Foldable` structure; the second
+   *        should be of the same type as $init (and the return type).
+   * @return A value that has the same type as $init.
+   */
+  abstract function foldRight($init, callable $f);
 }

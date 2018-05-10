@@ -220,4 +220,22 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals($expected, $sum);
   }
+
+  public function testFoldRightNonNil() {
+    $list = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $concat = function ($i, $str) { return '(' . $i . '+' . $str . ')'; };
+    $result = $list->foldRight('0', $concat);
+    $expected = '(1+(2+(3+0)))';
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testFoldRightNil() {
+    $list = $this->listFactory->empty();
+    $add = function ($x, $sum) { return $sum + $x; };
+    $sum = $list->foldRight(0, $add);
+    $expected = 0;
+
+    $this->assertEquals($expected, $sum);
+  }
 }
