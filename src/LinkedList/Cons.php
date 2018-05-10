@@ -122,4 +122,9 @@ class Cons extends LinkedList {
     $acc = $f($init, $this->value);
     return $this->tail->foldLeft($acc, $f);
   }
+
+  final public function foldRight($init, $f) {
+    $acc = $this->tail->foldRight($init, $f);
+    return $f($this->value, $acc);
+  }
 }

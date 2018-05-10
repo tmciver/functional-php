@@ -47,8 +47,4 @@ abstract class LinkedList {
   final public function toLinkedList() {
     return $this;
   }
-
-  public function foldRight($init, $f) {
-    throw new \Exception('Not yet implemented.');
-  }
 }
