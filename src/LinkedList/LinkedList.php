@@ -2,12 +2,12 @@
 
 namespace TMciver\Functional\LinkedList;
 
-use TMciver\Functional\Collection;
+use TMciver\Functional\Foldable;
 use TMciver\Functional\Monad;
 use TMciver\Functional\Monoid;
 
 abstract class LinkedList {
-  use Collection, Monoid, Monad;
+  use Foldable, Monoid, Monad;
 
   /**
    * Alias for Collection::add

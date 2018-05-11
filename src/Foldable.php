@@ -29,4 +29,13 @@ trait Foldable {
    * @return A value that has the same type as $init.
    */
   abstract function foldRight($init, callable $f);
+
+  public function foldMap($monoid, callable $toMonoid) {
+    $init = $monoid->identity();
+    $f = function ($acc, $x) use ($toMonoid) {
+      return $acc->append($toMonoid($x));
+    };
+
+    return $this->foldLeft($init, $f);
+  }
 }

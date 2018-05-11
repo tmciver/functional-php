@@ -118,12 +118,12 @@ class Cons extends LinkedList {
       : $filteredTail;
   }
 
-  final public function foldLeft($init, $f) {
+  final public function foldLeft($init, callable $f) {
     $acc = $f($init, $this->value);
     return $this->tail->foldLeft($acc, $f);
   }
 
-  final public function foldRight($init, $f) {
+  final public function foldRight($init, callable $f) {
     $acc = $this->tail->foldRight($init, $f);
     return $f($this->value, $acc);
   }

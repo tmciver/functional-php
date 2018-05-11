@@ -64,11 +64,11 @@ class Nil extends LinkedList {
     return $this;
   }
 
-  final public function foldLeft($init, $f) {
+  final public function foldLeft($init, callable $f) {
     return $init;
   }
 
-  final public function foldRight($init, $f) {
+  final public function foldRight($init, callable $f) {
     return $init;
   }
 }

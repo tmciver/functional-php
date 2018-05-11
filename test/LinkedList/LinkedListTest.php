@@ -238,4 +238,14 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals($expected, $sum);
   }
+
+  public function testFoldMap() {
+    $monoid = Maybe::nothing();
+    $list = $this->listFactory->fromNativeArray(["hello", " world!"]);
+    $toMonoid = function ($v) { return Maybe::fromValue($v); };
+    $result = $list->foldMap($monoid, $toMonoid);
+    $expected = Maybe::fromValue("hello world!");
+
+    $this->assertEquals($expected, $result);
+  }
 }
