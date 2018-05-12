@@ -26,4 +26,10 @@ class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($expected, $ll);
   }
 
+  public function testRange() {
+    $list = $this->listFactory->range(2, 11, 2);
+    $expected = $this->listFactory->fromNativeArray([2, 4, 6, 8, 10]);
+
+    $this->assertEquals($expected, $list);
+  }
 }

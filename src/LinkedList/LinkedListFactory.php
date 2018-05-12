@@ -33,4 +33,8 @@ class LinkedListFactory {
       return array_reduce(array_reverse($array), $fn, self::$empty);
     }
   }
+
+  public function range($start, $end, $step = 1) {
+    throw new \Exception('Not yet implemented.');
+  }
 }
