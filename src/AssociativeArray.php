@@ -12,6 +12,8 @@ class AssociativeArray {
       $this->array = is_null($array) ? [] : $array;
     }
 
+    // TODO: This is broken. It returns an instance of the given Monad wrapping
+    // a PHP _native_ array; not an AssociativeArray.
     public function traverse(callable $f, $monad) {
 
 	// Initial value for the fold: an empty array wrapped in a default
