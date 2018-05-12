@@ -65,10 +65,10 @@ abstract class LinkedList {
 
 	// If the result is null, we fail.
 	if (is_null($returnedMonad)) {
-	  $returnedMonad = $monad->fail('A call the callable passed to `LinkedList::traverse` returned null.');
+	  $returnedMonad = $monad->fail('The callable passed to `LinkedList::traverse` returned null.');
 	}
       } catch (\Exception $e) {
-	$returnedMonad = $monad->fail('A call the callable passed to `LinkedList::traverse` threw an exception: ' . $e->getMessage());
+	$returnedMonad = $monad->fail('The callable passed to `LinkedList::traverse` threw an exception: ' . $e->getMessage());
       }
 
       // Put the value wrapped by the above monadic value in the array
