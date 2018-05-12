@@ -35,6 +35,6 @@ class LinkedListFactory {
   }
 
   public function range($start, $end, $step = 1) {
-    throw new \Exception('Not yet implemented.');
+    return $this->fromNativeArray(range($step, $end, $step));
   }
 }
