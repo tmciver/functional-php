@@ -254,9 +254,55 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $list = $this->listFactory->fromNativeArray([Maybe::fromValue("hello"),
 						 $monoid, // throw in a Nothing for good measure
 						 Maybe::fromValue(" world!")]);
-    //$toMonoid = function ($v) { return Maybe::fromValue($v); };
     $result = $list->fold($monoid);
     $expected = Maybe::fromValue("hello world!");
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testTraverseNonNil() {
+    $monad = Maybe::nothing();
+    $list = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $f = function ($x) { return Maybe::fromValue(strval($x)); };
+    $result = $list->traverse($f, $monad);
+    $expected = Maybe::fromValue($this->listFactory->fromNativeArray(['1', '2', '3']));
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testTraverseNil() {
+    $monad = Maybe::nothing();
+    $list = $this->listFactory->empty();
+    $f = function ($x) { return Maybe::fromValue(strval($x)); };
+    $result = $list->traverse($f, $monad);
+    $expected = Maybe::fromValue($this->listFactory->empty());
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testSequence() {
+    $monad = Maybe::nothing();
+    // List of Maybe Ints (LinkedList[Maybe[Int]])
+    $list = $this->listFactory->fromNativeArray([Maybe::fromValue(1),
+						 Maybe::fromValue(2),
+						 Maybe::fromValue(3),]);
+    // Maybe of List of Int (Maybe[LinkedList[Int]])
+    $result = $list->sequence($monad);
+    $expected = Maybe::fromValue($this->listFactory->fromNativeArray([1, 2, 3]));
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testSequenceForListContainingNothing() {
+    $monad = Maybe::nothing();
+    // List of Maybe Ints (LinkedList[Maybe[Int]])
+    $list = $this->listFactory->fromNativeArray([Maybe::fromValue(1),
+						 Maybe::fromValue(2),
+						 $monad, // throw in a Nothing for good measure
+						 Maybe::fromValue(3),]);
+    // Maybe of List of Int (Maybe[LinkedList[Int]])
+    $result = $list->sequence($monad);
+    $expected = Maybe::nothing();
 
     $this->assertEquals($expected, $result);
   }
