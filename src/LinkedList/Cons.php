@@ -9,6 +9,7 @@ class Cons extends LinkedList {
 
   private $value;
   private $tail;
+  // TODO: store size of whole list
 
   /**
    * @internal
@@ -17,14 +18,6 @@ class Cons extends LinkedList {
   public function __construct($value, $list) {
     $this->value = $value;
     $this->tail = $list;
-  }
-
-  /**
-   * Adds the given value to the head of this list.
-   * @param $value The value to add.
-   */
-  public function add($value) {
-    return new Cons($value, $this);
   }
 
   /**

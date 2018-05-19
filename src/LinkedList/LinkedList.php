@@ -11,6 +11,14 @@ abstract class LinkedList {
   use Foldable, Traversable, Monoid, Monad;
 
   /**
+   * Adds the given value to the head of this list.
+   * @param $value The value to add.
+   */
+  public function add($value) {
+    return new Cons($value, $this);
+  }
+
+  /**
    * Alias for Collection::add
    */
   public function cons($value) {

@@ -24,13 +24,10 @@ class LinkedListFactory {
    * Creates a `LinkedList` from a native PHP array.
    */
   public function fromNativeArray(array $array) {
-    if (is_null($array) || empty($array)) {
+    if (empty($array)) {
       return self::$empty;
     } else {
-      $fn = function ($list, $item) {
-	return $list->cons($item);
-      };
-      return array_reduce(array_reverse($array), $fn, self::$empty);
+      return new ArrayBackedLinkedList($array);
     }
   }
 

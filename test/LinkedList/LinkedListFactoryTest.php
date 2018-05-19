@@ -1,6 +1,7 @@
 <?php
 
 use TMciver\Functional\LinkedList\LinkedListFactory;
+use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 
 class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
 
@@ -14,7 +15,8 @@ class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
 
   public function testFromNativeArrayNonEmpty() {
     $ll = $this->listFactory->fromNativeArray([1, 2, 3]);
-    $expected = $this->listFactory->empty()->cons(3)->cons(2)->cons(1);
+    $expectedArray = $this->listFactory->empty()->cons(3)->cons(2)->cons(1)->toNativeArray();
+    $expected = new ArrayBackedLinkedList($expectedArray);
 
     $this->assertEquals($expected, $ll);
   }

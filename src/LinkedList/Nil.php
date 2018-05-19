@@ -12,10 +12,6 @@ class Nil extends LinkedList {
    */
   public function __construct() {}
 
-  public function add($value) {
-    return new Cons($value, $this);
-  }
-
   public function remove($value) {
     return $this;
   }

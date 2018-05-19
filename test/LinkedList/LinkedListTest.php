@@ -1,6 +1,7 @@
 <?php
 
 use TMciver\Functional\LinkedList\LinkedListFactory;
+use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 use TMciver\Functional\Maybe\Maybe;
 
 require_once __DIR__ . '/../util.php';
@@ -16,9 +17,9 @@ class ListTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testAdd() {
-
     $myList = $this->listFactory->fromNativeArray([2, 3, 4]);
-    $newList = $myList->cons(1);
+    // TODO: hacky way to make test pass until we have a proper way to test for equality.
+    $newList = new ArrayBackedLinkedList($myList->cons(1)->toNativeArray());
     $expected = $this->listFactory->fromNativeArray([1, 2, 3, 4]);
 
     $this->assertEquals($expected, $newList);
@@ -46,6 +47,7 @@ class ListTest extends PHPUnit_Framework_TestCase {
 
     $myList = $this->listFactory->fromNativeArray([2, 1, 2, 3]);
     $newList = $myList->remove(2);
+    //print_r($newList);
     $expected = $this->listFactory->fromNativeArray([1, 2, 3]);
 
     $this->assertEquals($expected, $newList);
@@ -264,7 +266,11 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $monad = Maybe::nothing();
     $list = $this->listFactory->fromNativeArray([1, 2, 3]);
     $f = function ($x) { return Maybe::fromValue(strval($x)); };
-    $result = $list->traverse($f, $monad);
+
+    // TODO: another hack to make test pass until we have proper equality testing.
+    $result = $list->traverse($f, $monad)->map(function ($l) {
+	return new ArrayBackedLinkedList($l->toNativeArray());
+      });
     $expected = Maybe::fromValue($this->listFactory->fromNativeArray(['1', '2', '3']));
 
     $this->assertEquals($expected, $result);
@@ -286,8 +292,11 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $list = $this->listFactory->fromNativeArray([Maybe::fromValue(1),
 						 Maybe::fromValue(2),
 						 Maybe::fromValue(3),]);
+    // TODO: another hack to make test pass until we have proper equality testing.
     // Maybe of List of Int (Maybe[LinkedList[Int]])
-    $result = $list->sequence($monad);
+    $result = $list->sequence($monad)->map(function ($l) {
+	return new ArrayBackedLinkedList($l->toNativeArray());
+      });
     $expected = Maybe::fromValue($this->listFactory->fromNativeArray([1, 2, 3]));
 
     $this->assertEquals($expected, $result);
