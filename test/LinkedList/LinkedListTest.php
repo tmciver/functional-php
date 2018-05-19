@@ -1,5 +1,6 @@
 <?php
 
+use TMciver\Functional\LinkedList\Cons;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 use TMciver\Functional\Maybe\Maybe;
@@ -314,5 +315,22 @@ class ListTest extends PHPUnit_Framework_TestCase {
     $expected = Maybe::nothing();
 
     $this->assertEquals($expected, $result);
+  }
+
+  public function testConsToArrayBackedLinkedListConversion() {
+    // First, set the Cons limit to something small
+    // LinkedList::CONS_CELL_LIMIT = 3
+
+    // Create a Cons LinkedList at the limit
+    $l = $this->listFactory->empty()->cons(4)->cons(3)->cons(2);
+
+    // Verify that it's a Cons LinkedList
+    $this->assertInstanceOf(Cons::class, $l);
+
+    // Add another element
+    $ll = $l->cons(1);
+
+    // Verify that the new list is now an ArrayBackedLinkedList
+    $this->assertInstanceOf(ArrayBackedLinkedList::class, $l);
   }
 }
