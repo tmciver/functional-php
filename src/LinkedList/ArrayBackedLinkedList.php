@@ -136,4 +136,8 @@ class ArrayBackedLinkedList extends LinkedList {
 
     return new ArrayBackedLinkedList($resultArray);
   }
+
+  protected function numConsCells() {
+    return 0;
+  }
 }

@@ -10,12 +10,19 @@ use TMciver\Functional\Monoid;
 abstract class LinkedList {
   use Foldable, Traversable, Monoid, Monad;
 
+  public static $CONS_CELL_LIMIT = 32;
+
   /**
    * Adds the given value to the head of this list.
    * @param $value The value to add.
    */
   public function add($value) {
-    return new Cons($value, $this);
+    if ($this->numConsCells() + 1 > self::$CONS_CELL_LIMIT) {
+      $tmpList = new Cons($value, $this);
+      return new ArrayBackedLinkedList($tmpList->toNativeArray());
+    } else {
+      return new Cons($value, $this);
+    }
   }
 
   /**
@@ -24,6 +31,8 @@ abstract class LinkedList {
   public function cons($value) {
     return $this->add($value);
   }
+
+  protected abstract function numConsCells();
 
   /**
    * @return TMciver\Functional\Maybe\Maybe containing value.

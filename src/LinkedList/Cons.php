@@ -9,7 +9,8 @@ class Cons extends LinkedList {
 
   private $value;
   private $tail;
-  // TODO: store size of whole list
+  private $size;
+  private $numConsCells;
 
   /**
    * @internal
@@ -18,6 +19,8 @@ class Cons extends LinkedList {
   public function __construct($value, $list) {
     $this->value = $value;
     $this->tail = $list;
+    $this->size = $list->size() + 1;
+    $this->numConsCells = $list->numConsCells() + 1;
   }
 
   /**
@@ -62,7 +65,7 @@ class Cons extends LinkedList {
   }
 
   public function size() {
-    return 1 + $this->tail->size();
+    return $this->size;
   }
 
   public function map(callable $f) {
@@ -119,5 +122,9 @@ class Cons extends LinkedList {
   final public function foldRight($init, callable $f) {
     $acc = $this->tail->foldRight($init, $f);
     return $f($this->value, $acc);
+  }
+
+  protected function numConsCells() {
+    return $this->numConsCells;
   }
 }
