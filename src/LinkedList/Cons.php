@@ -59,9 +59,12 @@ class Cons extends LinkedList {
     return $this->tail;
   }
 
-  public function toNativeArray() {
-    // TODO: find a better way. This certainly has terrible performance.
-    return array_merge([$this->value], $this->tail->toNativeArray());
+  protected function toNativeArrayPrivate(array &$array, $idx) {
+    // Put this Cons' value in the array at position $idx.
+    $array[$idx] = $this->value;
+
+    // Continue with the tail.
+    return $this->tail->toNativeArrayPrivate($array, $idx + 1);
   }
 
   public function size() {

@@ -28,8 +28,8 @@ class Nil extends LinkedList {
     return $this;
   }
 
-  public function toNativeArray() {
-    return [];
+  protected function toNativeArrayPrivate(array &$array, $idx) {
+    return $array;
   }
 
   public function size() {

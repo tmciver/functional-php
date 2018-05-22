@@ -190,9 +190,10 @@ class ListTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testToNativeArray() {
-    $nArray = [1, 2, 3];
-    $list = $this->listFactory->fromNativeArray($nArray);
-    $expected = $nArray;
+    // create an array that is part ArrayBackedLinkedList and part Cons's
+    $nArray = [3, 4, 5];
+    $list = $this->listFactory->fromNativeArray($nArray)->cons(2)->cons(1);
+    $expected = [1, 2, 3, 4, 5];
     $result = $list->toNativeArray();
 
     $this->assertEquals($expected, $result);

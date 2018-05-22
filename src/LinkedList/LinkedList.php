@@ -56,7 +56,14 @@ abstract class LinkedList {
     return $this->append($otherList);
   }
 
-  public abstract function toNativeArray();
+  final public function toNativeArray() {
+    // initialize an array of the proper size with NULLs
+    $array = array_fill(0, $this->size(), NULL);
+
+    return $this->toNativeArrayPrivate($array, 0);
+  }
+
+  protected abstract function toNativeArrayPrivate(array &$array, $idx);
 
   final public function identity() {
     return (new LinkedListFactory())->empty();

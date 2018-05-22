@@ -38,8 +38,9 @@ class ArrayBackedLinkedList extends LinkedList {
     }
   }
 
-  public function toNativeArray() {
-    return $this->array;
+  protected function toNativeArrayPrivate(array &$array, $idx) {
+    array_splice($array, $idx, $this->size, $this->array);
+    return $array;
   }
 
   public function remove($value) {
