@@ -1,5 +1,7 @@
 <?php
 
+namespace TMciver\Functional\Test\LinkedList;
+
 use TMciver\Functional\LinkedList\Cons;
 use TMciver\Functional\LinkedList\LinkedList;
 use TMciver\Functional\LinkedList\LinkedListFactory;
@@ -8,23 +10,30 @@ use TMciver\Functional\Maybe\Maybe;
 
 require_once __DIR__ . '/../util.php';
 
-class ListTest extends PHPUnit_Framework_TestCase {
+abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
 
-  private $listFactory;
-  private $emptyList;
+  protected $listFactory;
+  protected $emptyList;
 
   public function __construct() {
     $this->listFactory = new LinkedListFactory();
     $this->emptyList = $this->listFactory->empty();
   }
 
-  public function testAdd() {
-    $myList = $this->listFactory->fromNativeArray([2, 3, 4]);
-    // TODO: hacky way to make test pass until we have a proper way to test for equality.
-    $newList = new ArrayBackedLinkedList($myList->cons(1)->toNativeArray());
+  // Use the Template Pattern (https://en.wikipedia.org/wiki/Template_method_pattern)
+  // for constructing different kinds of LinkedList.
+  protected abstract function makeListFromArray(array $array);
+
+  protected function assertLinkedListsEqual($l1, $l2) {
+    return $l1->toNativeArray() == $l2->toNativeArray();
+  }
+
+  public function testCons() {
+    $myList = $this->makeListFromArray([2, 3, 4]);
+    $newList = $myList->cons(1);
     $expected = $this->listFactory->fromNativeArray([1, 2, 3, 4]);
 
-    $this->assertEquals($expected, $newList);
+    $this->assertLinkedListsEqual($expected, $newList);
   }
 
   public function testRemoveElementThatExists() {
