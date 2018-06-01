@@ -8,6 +8,7 @@
 * [Running Tests](#running-tests)
 * [Typeclasses](#typeclasses)
 * [Types](#types)
+    * [LinkedList](#linkedlist)
     * [Maybe](#maybe)
         - [Accessing the Value](#accessing-the-wrapped-value)
         - [Maybe as Functor](#maybe-as-functor)
@@ -66,6 +67,7 @@ Note that not all types support all typeclasses.
 
 This library supports the following types:
 
+* `LinkedList`
 * `Maybe`
 * `Either`
 * `MaybeT`
@@ -73,6 +75,152 @@ This library supports the following types:
 * `AssociativeArray`
 
 Note that not all supported types are instances of the above type classes.
+
+### LinkedList
+
+The `LinkedList` type is an [abstract data type](https://en.wikipedia.org/wiki/Abstract_data_type) implementing a typical linked list data structure.
+
+#### Creating
+
+`LinkedList`'s should be created using an instance of the `LinkedListFactory` class. For example, you can create an empty list:
+
+```php
+$listFactory = new LinkedListFactory();
+
+$emptyList = $listFactory->empty();
+```
+
+You can create a `LinkedList` from a PHP like so:
+
+```php
+$arr = ['apples', 'oranges', 'bananas'];
+$l = $listFactory->fromNativeArray($arr);
+// $l = LinkedList('apples', 'oranges', 'bananas');
+```
+
+You can also easily create a range of values:
+
+```php
+$l = $listFactory->range('a', 'f', 2);
+// $l = LinkedList('a', 'c', 'e');
+```
+
+#### LinkedList Monoid
+
+`LinkedList`s can be `append`ed:
+
+```php
+$l1 = $listFactory->range(1, 2, 3);
+$l2 = $listFactory->range(4, 5, 6);
+$l3 = $l1->append($l2);
+// $l3 = LinkedList(1, 2, 3, 4, 5, 6);
+```
+
+#### LinkedList Functor
+
+As expected, `LinkedList`s are functors.  Simply pass a function of one
+argument to the `map` method:
+
+```php
+$l = $listFactory->range(1, 2, 3);
+$linc = $l->map(function ($x) { return $x + 1; });
+// $linc = LinkedList(2, 3, 4);
+```
+
+#### LinkedList Monad
+
+They are also monads:
+
+```php
+$l = $listFactory->fromNativeArray(["Hello", "world"]);
+$explodedStrs = $l->flatMap(function ($s) {
+  return str_split($s);
+});
+// $explodedStrs = LinkedList('H', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd');
+```
+
+#### LinkedList Applicative
+
+The list applicative may be a little unintuitive if you've never seen it before.
+It allows you to apply each function in a list of functions to each of a list of
+arguments.  An example may make it a bit clearer.
+
+```php
+$args = $listFactory->fromNativeArray(["Hello", "world"]);
+$firstThree = function ($s) { return substr($s, 0, 3); };
+$fs = $listFactory->fromNativeArray(['strtoupper', $firstThree]);
+
+$result = $fs->apply($args);
+// $result = LinkedList("HELLO", "WORLD", "Hel", "wor");
+```
+
+The `__invoke` magic method can also be used to achieve the same result:
+
+```php
+$result = $fs($args);
+// $result = LinkedList("HELLO", "WORLD", "Hel", "wor");
+```
+
+You can even call a `LinkedList` of no-argument functions:
+
+```php
+$one = function () { return 1; };
+$fs = $listFactory->fromNativeArray(['time', $one]);
+$vals = $fs();
+// $vals = LinkedList(1527883005, 1);
+```
+
+#### LinkedList Traversable
+
+The `traverse` method of the `Traversable` typeclass is another method that at
+first may seem a little strange but is actually quite useful.  `traverse` takes
+as its first argument a function that takes an element of the `LinkedList` and
+returns some monad.  As its second argument takes an instance of that same
+monad.  The return value of `traverse` is an instance of the monad wrapping a
+`LinkedList` containing the values that were wrapped in monads returned by the
+passed-in function.  That was a mouthful but it's more intuitive when seen in an
+example.  First, let's define a function that returns a `Maybe`:
+
+```php
+$divideTwelveBy = function ($denom) {
+  return ($den == 0) ?
+    Maybe::nothing() :
+	Maybe::fromValue(12 / $denom);
+};
+```
+
+Then we'll traverse a list of integers with that function:
+
+```php
+$l = $listFactory->fromNativeArray([1, 2, 3, 4]);
+$divisions = $l->traverse($divideTwelveBy);
+// $divisions = Just(LinkedList(12, 6, 4, 3));
+```
+
+`traverse` is useful for when you want map over a `LinkedList` but the result of
+doing so would give you a `LinkedList` of some monad.  Using `traverse` inverts
+the `LinkedList` and the monad.
+
+But note what happens in this example of using `Maybe` as the monad if one of the calls to `$divideTwelveBy` returns `Nothing`:
+
+```php
+$l = $listFactory->fromNativeArray([1, 0, 3, 4]);
+$divisions = $l->traverse($divideTwelveBy);
+// $divisions = Nothing;
+```
+
+The `Traversable` typeclass also has a method `sequence` that is useful for the
+situation when you already have a `LinkedList` of some monad:
+
+```php
+$l = $listFactory->fromNativeArray([
+	Maybe::fromValue(1),
+	Maybe::fromValue(2),
+	Maybe::fromValue(3)
+]);
+$m = $l->sequence();
+// $m = Just(LinkedList(1, 2, 3));
+```
 
 ### Maybe
 
