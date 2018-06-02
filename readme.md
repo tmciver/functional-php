@@ -90,7 +90,7 @@ $listFactory = new LinkedListFactory();
 $emptyList = $listFactory->empty();
 ```
 
-You can create a `LinkedList` from a PHP like so:
+You can create a `LinkedList` from a PHP array like so:
 
 ```php
 $arr = ['apples', 'oranges', 'bananas'];
@@ -122,7 +122,7 @@ As expected, `LinkedList`s are functors.  Simply pass a function of one
 argument to the `map` method:
 
 ```php
-$l = $listFactory->range(1, 2, 3);
+$l = $listFactory->fromNativeArray([1, 2, 3]);
 $linc = $l->map(function ($x) { return $x + 1; });
 // $linc = LinkedList(2, 3, 4);
 ```
@@ -146,9 +146,9 @@ It allows you to apply each function in a list of functions to each of a list of
 arguments.  An example may make it a bit clearer.
 
 ```php
-$args = $listFactory->fromNativeArray(["Hello", "world"]);
 $firstThree = function ($s) { return substr($s, 0, 3); };
 $fs = $listFactory->fromNativeArray(['strtoupper', $firstThree]);
+$args = $listFactory->fromNativeArray(["Hello", "world"]);
 
 $result = $fs->apply($args);
 // $result = LinkedList("HELLO", "WORLD", "Hel", "wor");
@@ -175,7 +175,7 @@ $vals = $fs();
 The `traverse` method of the `Traversable` typeclass is another method that at
 first may seem a little strange but is actually quite useful.  `traverse` takes
 as its first argument a function that takes an element of the `LinkedList` and
-returns some monad.  As its second argument takes an instance of that same
+returns some monad.  As its second argument ot takes an instance of that same
 monad.  The return value of `traverse` is an instance of the monad wrapping a
 `LinkedList` containing the values that were wrapped in monads returned by the
 passed-in function.  That was a mouthful but it's more intuitive when seen in an
@@ -201,7 +201,8 @@ $divisions = $l->traverse($divideTwelveBy);
 doing so would give you a `LinkedList` of some monad.  Using `traverse` inverts
 the `LinkedList` and the monad.
 
-But note what happens in this example of using `Maybe` as the monad if one of the calls to `$divideTwelveBy` returns `Nothing`:
+But note what happens in this example if one of the calls to `$divideTwelveBy`
+returns `Nothing`:
 
 ```php
 $l = $listFactory->fromNativeArray([1, 0, 3, 4]);
