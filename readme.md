@@ -60,6 +60,7 @@ The following typeclasses are supported:
 * `Monad`
 * `Applicative`
 * `Traversable`
+* `Foldable`
 
 Note that not all types support all typeclasses.
 
@@ -221,6 +222,66 @@ $l = $listFactory->fromNativeArray([
 ]);
 $m = $l->sequence();
 // $m = Just(LinkedList(1, 2, 3));
+```
+
+#### LinkedList Foldable
+
+`LinkedList`s can also be folded in various ways.  Here's the classic example of
+summing a list of integers:
+
+```php
+$l = $listFactory->fromNativeArray([1, 2, 3, 4]);
+$add = function ($x, $y) { return $x + $y; };
+$sum = $l->foldLeft(0, $add);
+// $sum = 10
+```
+
+Or multiplying the elements of the same list:
+
+```php
+$mult = function ($x, $y) { return $x * $y; };
+$product = $l->foldLeft(1, $mult);
+// $product = 24
+```
+
+There's also `foldRight` which can be used, among other things, to concatenate
+two `LinkedList`s:
+
+```php
+$l1 = $listFactory->fromNativeArray([1, 2, 3]);
+$l2 = $listFactory->fromNativeArray([4, 5, 6]);
+$cons = function ($x, $l) { return $l->cons($x); };
+$l1PlusL2 = $l1->foldLeft($l2, $cons);
+// $l1PlusL2 = LinkedList(1, 2, 3, 4, 5, 6);
+```
+
+Then there's `fold` which takes some monoid as it's argument.  The idea with
+`fold` is that it presumes that the elements are all some monoid and combines
+each of them by `append`ing them all together.  The monoid argument is needed in
+the case that the `LinkedList` is empty.
+
+```php
+$nothing = Maybe::nothing();
+$monoid = $nothing;
+$list = $this->makeListFromArray([Maybe::fromValue("hello"),
+                                  $nothing,
+				                  Maybe::fromValue(" world!")]);
+$result = $list->fold($monoid);
+// $result = Just("hello world!")
+```
+
+`foldMap` is similar to `fold` but takes as a second parameter a function that
+converts each element to a monoid and then appends them.  Here we have a
+`LinkedList` of strings; not a `LinkedList` of `Maybe` strings as above.  The
+`$toMonoid` function converts them before `append`ing them.
+
+```php
+$nothing = Maybe::nothing();
+$monoid = $nothing;
+$list = $this->makeListFromArray(["hello", " world!"]);
+$toMonoid = function ($v) { return Maybe::fromValue($v); };
+$result = $list->foldMap($monoid, $toMonoid);
+// $result = Just("hello world!")
 ```
 
 ### Maybe
