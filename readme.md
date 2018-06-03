@@ -111,8 +111,8 @@ $l = $listFactory->range('a', 'f', 2);
 `LinkedList`s can be `append`ed:
 
 ```php
-$l1 = $listFactory->range(1, 2, 3);
-$l2 = $listFactory->range(4, 5, 6);
+$l1 = $listFactory->fromNativeArray([1, 2, 3]);
+$l2 = $listFactory->fromNativeArray([4, 5, 6]);
 $l3 = $l1->append($l2);
 // $l3 = LinkedList(1, 2, 3, 4, 5, 6);
 ```
@@ -251,7 +251,7 @@ two `LinkedList`s:
 $l1 = $listFactory->fromNativeArray([1, 2, 3]);
 $l2 = $listFactory->fromNativeArray([4, 5, 6]);
 $cons = function ($x, $l) { return $l->cons($x); };
-$l1PlusL2 = $l1->foldLeft($l2, $cons);
+$l1PlusL2 = $l1->foldRight($l2, $cons);
 // $l1PlusL2 = LinkedList(1, 2, 3, 4, 5, 6);
 ```
 
