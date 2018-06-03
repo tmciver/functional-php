@@ -284,6 +284,19 @@ $result = $list->foldMap($monoid, $toMonoid);
 // $result = Just("hello world!")
 ```
 
+#### LinkedList Collection
+
+`LinkedList` also implements the `Collection` trait.  All operations work as
+expected and we will not describe them in detail except to give an example of
+filtering a `LinkedList`.
+
+```php
+$l = $listFactory->fromNativeArray([1, 2, 3, 4, 5]);
+$isOdd = function ($n) { return $n % 2 == 1; };
+$lOdd = $l->filter($isOdd);
+// $lOdd = LinkedList(1, 3, 5)
+```
+
 ### Maybe
 
 `Maybe` is intended to be used to represent the situation where there is the
