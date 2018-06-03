@@ -99,7 +99,7 @@ $l = $listFactory->fromNativeArray($arr);
 // $l = LinkedList('apples', 'oranges', 'bananas');
 ```
 
-You can also easily create a range of values:
+You can also easily create a range of values.  This works exactly the same as the standard library function [range](http://php.net/manual/en/function.range.php).
 
 ```php
 $l = $listFactory->range('a', 'f', 2);
@@ -134,8 +134,8 @@ They are also monads:
 
 ```php
 $l = $listFactory->fromNativeArray(["Hello", "world"]);
-$explodedStrs = $l->flatMap(function ($s) {
-  return str_split($s);
+$explodedStrs = $l->flatMap(function ($s) use ($listFactory) {
+  return $listFactory->fromNativeArray(str_split($s));
 });
 // $explodedStrs = LinkedList('H', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd');
 ```
@@ -176,7 +176,7 @@ $vals = $fs();
 The `traverse` method of the `Traversable` typeclass is another method that at
 first may seem a little strange but is actually quite useful.  `traverse` takes
 as its first argument a function that takes an element of the `LinkedList` and
-returns some monad.  As its second argument ot takes an instance of that same
+returns some monad.  As its second argument it takes an instance of that same
 monad.  The return value of `traverse` is an instance of the monad wrapping a
 `LinkedList` containing the values that were wrapped in monads returned by the
 passed-in function.  That was a mouthful but it's more intuitive when seen in an
@@ -184,9 +184,9 @@ example.  First, let's define a function that returns a `Maybe`:
 
 ```php
 $divideTwelveBy = function ($denom) {
-  return ($den == 0) ?
+  return ($denom == 0) ?
     Maybe::nothing() :
-	Maybe::fromValue(12 / $denom);
+    Maybe::fromValue(12 / $denom);
 };
 ```
 
@@ -198,9 +198,9 @@ $divisions = $l->traverse($divideTwelveBy);
 // $divisions = Just(LinkedList(12, 6, 4, 3));
 ```
 
-`traverse` is useful for when you want map over a `LinkedList` but the result of
-doing so would give you a `LinkedList` of some monad.  Using `traverse` inverts
-the `LinkedList` and the monad.
+`traverse` is useful for when you want to map over a `LinkedList` but the result
+of doing so would give you a `LinkedList` of some monad.  Using `traverse`
+inverts the `LinkedList` and the monad.
 
 But note what happens in this example if one of the calls to `$divideTwelveBy`
 returns `Nothing`:
@@ -216,9 +216,9 @@ situation when you already have a `LinkedList` of some monad:
 
 ```php
 $l = $listFactory->fromNativeArray([
-	Maybe::fromValue(1),
-	Maybe::fromValue(2),
-	Maybe::fromValue(3)
+    Maybe::fromValue(1),
+    Maybe::fromValue(2),
+    Maybe::fromValue(3)
 ]);
 $m = $l->sequence();
 // $m = Just(LinkedList(1, 2, 3));
@@ -265,13 +265,13 @@ $nothing = Maybe::nothing();
 $monoid = $nothing;
 $list = $this->makeListFromArray([Maybe::fromValue("hello"),
                                   $nothing,
-				                  Maybe::fromValue(" world!")]);
+                                  Maybe::fromValue(" world!")]);
 $result = $list->fold($monoid);
 // $result = Just("hello world!")
 ```
 
 `foldMap` is similar to `fold` but takes as a second parameter a function that
-converts each element to a monoid and then appends them.  Here we have a
+converts each element to a monoid and then `append`s them.  Here we have a
 `LinkedList` of strings; not a `LinkedList` of `Maybe` strings as above.  The
 `$toMonoid` function converts them before `append`ing them.
 
