@@ -12,6 +12,10 @@ class Nil extends LinkedList {
    */
   public function __construct() {}
 
+  public function isEmpty() {
+    return true;
+  }
+
   public function remove($value) {
     return $this;
   }

@@ -44,6 +44,11 @@ abstract class LinkedList {
    */
   public abstract function tail();
 
+  /**
+   * @return True is this LinkedList is empty, False otherwise.
+   */
+  public abstract function isEmpty();
+
   public function fail() {
     return (new LinkedListFactory())->empty();
   }

@@ -335,4 +335,16 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
     // Verify that the new list is now an ArrayBackedLinkedList
     $this->assertInstanceOf(ArrayBackedLinkedList::class, $ll);
   }
+
+  public function testIsEmptyWhenEmpty() {
+    $l = $this->makeListFromArray([]);
+
+    $this->assertTrue($l->isEmpty());
+  }
+
+  public function testIsEmptyWhenNotEmpty() {
+    $l = $this->makeListFromArray([1, 2, 3]);
+
+    $this->assertFalse($l->isEmpty());
+  }
 }

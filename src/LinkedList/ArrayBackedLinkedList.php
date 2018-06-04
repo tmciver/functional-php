@@ -38,6 +38,10 @@ class ArrayBackedLinkedList extends LinkedList {
     }
   }
 
+  public function isEmpty() {
+    return empty($this->array);
+  }
+
   protected function toNativeArrayPrivate(array &$array, $idx) {
     array_splice($array, $idx, $this->size, $this->array);
     return $array;

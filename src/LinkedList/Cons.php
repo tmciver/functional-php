@@ -23,6 +23,10 @@ class Cons extends LinkedList {
     $this->numConsCells = $list->numConsCells() + 1;
   }
 
+  public function isEmpty() {
+    return false;
+  }
+
   /**
    * Removes the first occurrence of given value from this list.
    * @param $value The value to remove.
