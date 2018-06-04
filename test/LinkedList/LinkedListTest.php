@@ -347,4 +347,20 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertFalse($l->isEmpty());
   }
+
+  public function testTakeZero() {
+    $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
+    $none = $l->take(0);
+    $expected = $this->makeListFromArray([]);
+
+    $this->assertLinkedListsEqual($expected, $none);
+  }
+
+  public function testTakeGreaterThanZero() {
+    $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
+    $none = $l->take(3);
+    $expected = $this->makeListFromArray([1, 2, 3]);
+
+    $this->assertLinkedListsEqual($expected, $none);
+  }
 }

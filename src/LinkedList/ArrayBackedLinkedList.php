@@ -38,6 +38,12 @@ class ArrayBackedLinkedList extends LinkedList {
     }
   }
 
+  public function take($n) {
+    return ($this->isEmpty()) ?
+      new Nil() :
+      new ArrayBackedLinkedList(array_slice($this->array, 0, $n));
+  }
+
   public function isEmpty() {
     return empty($this->array);
   }

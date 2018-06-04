@@ -32,6 +32,10 @@ class Nil extends LinkedList {
     return $this;
   }
 
+  public function take($n) {
+    return $this;
+  }
+
   protected function toNativeArrayPrivate(array &$array, $idx) {
     return $array;
   }

@@ -27,6 +27,16 @@ class Cons extends LinkedList {
     return false;
   }
 
+  public function take($n) {
+    if ($n < 1) {
+      $l = new Nil();
+    } else {
+      $l = new Cons($this->value, $this->tail->take($n - 1));
+    }
+
+    return $l;
+  }
+
   /**
    * Removes the first occurrence of given value from this list.
    * @param $value The value to remove.

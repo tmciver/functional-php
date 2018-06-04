@@ -45,6 +45,13 @@ abstract class LinkedList {
   public abstract function tail();
 
   /**
+   * @param $n the number of elements of the LinkedList to take.
+   * @return A new LinkedList of the first $n elements of this LinkedList.
+   *         Returns an empty LinkedList if this LinkedList is empty.
+   */
+  public abstract function take($n);
+
+  /**
    * @return True is this LinkedList is empty, False otherwise.
    */
   public abstract function isEmpty();
