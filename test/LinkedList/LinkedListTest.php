@@ -379,4 +379,35 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertLinkedListsEqual($expected, $result);
   }
+
+  public function testToStringForSmallList() {
+    $l = $this->makeListFromArray([1, 2, 3]);
+    $lStr = (string)$l;
+    $expected = "LinkedList(1, 2, 3)";
+
+    $this->assertEquals($expected, $lStr);
+  }
+
+  public function testToStringForEmptyList() {
+    $l = $this->makeListFromArray([]);
+    $lStr = (string)$l;
+    $expected = "LinkedList()";
+
+    $this->assertEquals($expected, $lStr);
+  }
+
+  public function testToStringForLargeList() {
+    // set LinkedList::$TO_STRING_MAX to something small
+    $currMax = LinkedList::$TO_STRING_MAX;
+    LinkedList::$TO_STRING_MAX = 3;
+    $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
+
+    $lStr = (string)$l;
+    $expected = "LinkedList(1, 2, 3, . . .)";
+
+    // reset LinkedList::$TO_STRING_MAX
+    LinkedList::$TO_STRING_MAX = $currMax;
+
+    $this->assertEquals($expected, $lStr);
+  }
 }

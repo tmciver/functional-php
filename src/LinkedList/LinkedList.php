@@ -6,11 +6,13 @@ use TMciver\Functional\Foldable;
 use TMciver\Functional\Traversable;
 use TMciver\Functional\Monad;
 use TMciver\Functional\Monoid;
+use TMciver\Functional\Maybe\MaybeVisitor;
 
 abstract class LinkedList {
   use Foldable, Traversable, Monoid, Monad;
 
   public static $CONS_CELL_LIMIT = 32;
+  public static $TO_STRING_MAX = 10;
 
   /**
    * Adds the given value to the head of this list.
@@ -127,5 +129,29 @@ abstract class LinkedList {
 
     // Finally, perform the fold.
     return $this->foldRight($init, $foldingFn);
+  }
+
+  public final function __toString() {
+    $toStringify = $this->take(self::$TO_STRING_MAX);
+    $acc = $this->head()->accept(new ToStringHelperMaybeVisitor());
+    $tmpStr = $toStringify->tail()->foldLeft($acc, function ($acc, $x) {
+	return $acc . ", " . (string)$x;
+      });
+    $str = ($this->size() > $toStringify->size()) ?
+      $tmpStr . ", . . .)" :
+      $tmpStr . ")";
+
+    return $str;
+  }
+
+}
+
+class ToStringHelperMaybeVisitor implements MaybeVisitor {
+  function visitNothing($nothing) {
+    return "LinkedList(";
+  }
+
+  function visitJust($just) {
+    return "LinkedList(" . (string)$just->get();
   }
 }
