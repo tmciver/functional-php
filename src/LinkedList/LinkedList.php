@@ -14,6 +14,8 @@ abstract class LinkedList {
   public static $CONS_CELL_LIMIT = 32;
   public static $TO_STRING_MAX = 10;
 
+  private $str;
+
   /**
    * Adds the given value to the head of this list.
    * @param $value The value to add.
@@ -132,16 +134,18 @@ abstract class LinkedList {
   }
 
   public final function __toString() {
-    $toStringify = $this->take(self::$TO_STRING_MAX);
-    $acc = $this->head()->accept(new ToStringHelperMaybeVisitor());
-    $tmpStr = $toStringify->tail()->foldLeft($acc, function ($acc, $x) {
-	return $acc . ", " . (string)$x;
-      });
-    $str = ($this->size() > $toStringify->size()) ?
-      $tmpStr . ", . . .)" :
-      $tmpStr . ")";
+    if (is_null($this->str)) {
+	$toStringify = $this->take(self::$TO_STRING_MAX);
+	$acc = $this->head()->accept(new ToStringHelperMaybeVisitor());
+	$tmpStr = $toStringify->tail()->foldLeft($acc, function ($acc, $x) {
+	    return $acc . ", " . (string)$x;
+	  });
+	$this->str = ($this->size() > $toStringify->size()) ?
+	  $tmpStr . ", . . .)" :
+	  $tmpStr . ")";
+      }
 
-    return $str;
+    return $this->str;
   }
 
 }
