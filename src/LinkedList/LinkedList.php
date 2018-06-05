@@ -52,6 +52,13 @@ abstract class LinkedList {
   public abstract function take($n);
 
   /**
+   * @param $n the number of elements of the LinkedList to drop.
+   * @return A new LinkedList containing all of this LinkedList but the first $n
+   *         elements. Returns an empty LinkedList if this LinkedList is empty.
+   */
+  public abstract function drop($n);
+
+  /**
    * @return True is this LinkedList is empty, False otherwise.
    */
   public abstract function isEmpty();

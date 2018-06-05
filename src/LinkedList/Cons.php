@@ -37,6 +37,12 @@ class Cons extends LinkedList {
     return $l;
   }
 
+  public function drop($n) {
+    return ($n == 0) ?
+      $this :
+      $this->tail->drop($n - 1);
+  }
+
   /**
    * Removes the first occurrence of given value from this list.
    * @param $value The value to remove.

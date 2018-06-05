@@ -25,7 +25,7 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
   protected abstract function makeListFromArray(array $array);
 
   protected function assertLinkedListsEqual($l1, $l2) {
-    return $l1->toNativeArray() == $l2->toNativeArray();
+    $this->assertEquals($l1->toNativeArray(), $l2->toNativeArray());
   }
 
   public function testCons() {
@@ -362,5 +362,21 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
     $expected = $this->makeListFromArray([1, 2, 3]);
 
     $this->assertLinkedListsEqual($expected, $none);
+  }
+
+  public function testDropZero() {
+    $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
+    $result = $l->drop(0);
+    $expected = $l;
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+  public function testDropGreaterThanZero() {
+    $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
+    $result = $l->drop(3);
+    $expected = $this->makeListFromArray([4, 5]);
+
+    $this->assertLinkedListsEqual($expected, $result);
   }
 }

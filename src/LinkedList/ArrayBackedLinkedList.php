@@ -44,6 +44,10 @@ class ArrayBackedLinkedList extends LinkedList {
       new ArrayBackedLinkedList(array_slice($this->array, 0, $n));
   }
 
+  public function drop($n) {
+    return new ArrayBackedLinkedList(array_slice($this->array, $n));
+  }
+
   public function isEmpty() {
     return empty($this->array);
   }
