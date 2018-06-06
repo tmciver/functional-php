@@ -135,15 +135,23 @@ abstract class LinkedList {
 
   public final function __toString() {
     if (is_null($this->str)) {
-	$toStringify = $this->take(self::$TO_STRING_MAX);
-	$acc = $this->head()->accept(new ToStringHelperMaybeVisitor());
-	$tmpStr = $toStringify->tail()->foldLeft($acc, function ($acc, $x) {
-	    return $acc . ", " . (string)$x;
-	  });
-	$this->str = ($this->size() > $toStringify->size()) ?
-	  $tmpStr . ", . . .)" :
-	  $tmpStr . ")";
-      }
+      // Take no more than self::$TO_STRING_MAX elements to stringify
+      $toStringify = $this->take(self::$TO_STRING_MAX);
+
+      // Initialize an accumulator to be used in the subsequent fold based on
+      // whether the list contains at lease one element.
+      $acc = $this->head()->accept(new ToStringHelperMaybeVisitor());
+
+      // Stringify the tail of $toStringify
+      $tmpStr = $toStringify->tail()->foldLeft($acc, function ($acc, $x) {
+	  return $acc . ", " . (string)$x;
+	});
+
+      // Complete stringification and assign to $this->str
+      $this->str = ($this->size() > $toStringify->size()) ?
+	$tmpStr . ", . . .)" :
+	$tmpStr . ")";
+    }
 
     return $this->str;
   }
