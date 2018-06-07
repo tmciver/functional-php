@@ -56,4 +56,17 @@ class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
 
     $this->assertLinkedListsEqual($expected, $result);
   }
+
+  public function testRepeat() {
+    $l = $this->listFactory->repeat('hello');
+    $result = $l->take(7);
+    $expected = $this->listFactory->fromNativeArray(['hello',
+						     'hello',
+						     'hello',
+						     'hello',
+						     'hello',
+						     'hello',
+						     'hello']);
+    $this->assertLinkedListsEqual($expected, $result);
+  }
 }

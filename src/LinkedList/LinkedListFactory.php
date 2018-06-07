@@ -65,4 +65,12 @@ class LinkedListFactory {
 
     return $cycled;
   }
+
+  /**
+   * @param $v The value to repeat.
+   * @return An infinite Linkedlist all of whose elements is $v.
+   */
+  public function repeat($v) {
+    return $this->cycle(new Cons($v, self::$empty));
+  }
 }
