@@ -13,6 +13,10 @@ class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
     $this->emptyList = $this->listFactory->empty();
   }
 
+  protected function assertLinkedListsEqual($l1, $l2) {
+    $this->assertEquals($l1->toNativeArray(), $l2->toNativeArray());
+  }
+
   public function testFromNativeArrayNonEmpty() {
     $ll = $this->listFactory->fromNativeArray([1, 2, 3]);
     $expectedArray = $this->listFactory->empty()->cons(3)->cons(2)->cons(1)->toNativeArray();
@@ -33,5 +37,23 @@ class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
     $expected = $this->listFactory->fromNativeArray([2, 4, 6, 8, 10]);
 
     $this->assertEquals($expected, $list);
+  }
+
+  public function testCycleNonEmpty() {
+    $l = $this->listFactory->fromNativeArray([1, 2, 3]);
+    $c = $this->listFactory->cycle($l);
+    $result = $c->take(7);
+    $expected = $this->listFactory->fromNativeArray([1, 2, 3, 1, 2, 3, 1]);
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+  public function testCycleEmpty() {
+    $l = $this->listFactory->empty();
+    $c = $this->listFactory->cycle($l);
+    $result = $c->take(7);
+    $expected = $this->listFactory->empty();
+
+    $this->assertLinkedListsEqual($expected, $result);
   }
 }
