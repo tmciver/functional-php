@@ -46,7 +46,6 @@ class LinkedListFactory {
       $cycled = $l;
     } else {
       // make a copy of $l that is all Cons's
-      //$id = function ($x) { return $x; };
       $cycled = $l->foldRight($this->empty(), function ($x, $l) {
 	  return $l->cons($x);
 	});

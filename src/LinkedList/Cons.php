@@ -19,7 +19,6 @@ class Cons extends LinkedList {
   public function __construct($value, $list) {
     $this->value = $value;
     $this->tail = $list;
-    $this->size = $list->size() + 1;
     $this->numConsCells = $list->numConsCells() + 1;
   }
 
@@ -88,6 +87,11 @@ class Cons extends LinkedList {
   }
 
   public function size() {
+    // Memozize the size if it's not already.
+    if (is_null($this->size)) {
+      $this->size = $this->foldLeft(0, function ($size, $x) { return $size + 1; });
+    }
+
     return $this->size;
   }
 
