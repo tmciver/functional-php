@@ -410,4 +410,31 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertEquals($expected, $lStr);
   }
+
+  public function testInterleave() {
+    $l1 = $this->makeListFromArray([1, 3, 5]);
+    $l2 = $this->makeListFromArray([2, 4, 6]);
+    $result = $l1->interleave($l2);
+    $expected  = $this->listFactory->fromNativeArray([1, 2, 3, 4, 5, 6]);
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+  public function testInterleaveInfiniteList() {
+    $l1 = $this->makeListFromArray([1, 1, 1]);
+    $l2 = $this->listFactory->repeat(0);
+    $result = $l1->interleave($l2);
+    $expected  = $this->listFactory->fromNativeArray([1, 0, 1, 0, 1, 0]);
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+  public function testInterleaveWithEmptyList() {
+    $l1 = $this->makeListFromArray([1, 3, 5]);
+    $l2 = $this->listFactory->empty();
+    $result = $l1->interleave($l2);
+    $expected  = $this->listFactory->empty();
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
 }

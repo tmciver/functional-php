@@ -6,6 +6,7 @@ use TMciver\Functional\Foldable;
 use TMciver\Functional\Traversable;
 use TMciver\Functional\Monad;
 use TMciver\Functional\Monoid;
+use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeVisitor;
 
 abstract class LinkedList {
@@ -156,6 +157,36 @@ abstract class LinkedList {
     return $this->str;
   }
 
+  public function interleave($other) {
+
+    // Get the next vals for each of the lists.
+    // :: Maybe a
+    $maybeV1 = $this->head();
+    $maybeV2 = $other->head();
+
+    // Function to cons both values to the interleaved tail.
+    // :: a -> a -> LinkedList a
+    $consTwo = function ($v1, $v2) use ($other) {
+      // First, interleave the tails of both lists.
+      $interleavedTail = $this->tail()->interleave($other->tail());
+
+      // Cons the two elements onto it.
+      return $interleavedTail->cons($v2)->cons($v1);
+    };
+
+    // Put the function into the Maybe context
+    // :: Maybe (a -> a -> LinkedList a)
+    $maybeConsTwo = Maybe::fromValue($consTwo);
+
+    // Apply the function applicatively and match on the result.
+    // If the result is Nothing, then we've reached the end of one list and we
+    // return the emtpy list. Otherwise, we return the previously constructed
+    // tail.
+    return $maybeConsTwo($maybeV1, $maybeV2)->accept(new class implements MaybeVisitor {
+	function visitNothing($nothing) { return new Nil(); }
+	function visitJust($just) { return $just->get(); }
+      });
+  }
 }
 
 class ToStringHelperMaybeVisitor implements MaybeVisitor {
