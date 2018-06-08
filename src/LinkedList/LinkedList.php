@@ -141,7 +141,10 @@ abstract class LinkedList {
 
       // Initialize an accumulator to be used in the subsequent fold based on
       // whether the list contains at lease one element.
-      $acc = $this->head()->accept(new ToStringHelperMaybeVisitor());
+      $acc = $this->head()->accept(new class implements MaybeVisitor {
+	  function visitNothing($nothing) { return "LinkedList("; }
+	  function visitJust($just) { return "LinkedList(" . (string)$just->get(); }
+	});
 
       // Stringify the tail of $toStringify
       $tmpStr = $toStringify->tail()->foldLeft($acc, function ($acc, $x) {
@@ -186,15 +189,5 @@ abstract class LinkedList {
 	function visitNothing($nothing) { return new Nil(); }
 	function visitJust($just) { return $just->get(); }
       });
-  }
-}
-
-class ToStringHelperMaybeVisitor implements MaybeVisitor {
-  function visitNothing($nothing) {
-    return "LinkedList(";
-  }
-
-  function visitJust($just) {
-    return "LinkedList(" . (string)$just->get();
   }
 }
