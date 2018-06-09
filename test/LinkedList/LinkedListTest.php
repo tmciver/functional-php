@@ -437,4 +437,24 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertLinkedListsEqual($expected, $result);
   }
+
+  public function testSortNonEmpty() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $l2 = $l->map(function ($x) { return $x; }); // TODO looks like we need a `copy` method?
+    $sortedL = $l->sort();
+    $expected = $this->listFactory->fromNativeArray([0, 2, 5, 7, 9, 12, 43]);
+
+    $this->assertLinkedListsEqual($expected, $sortedL);
+
+    // Also ensure that source list was not modified
+    $this->assertLinkedListsEqual($l2, $l);
+  }
+
+  public function testSortEmpty() {
+    $l = $this->makeListFromArray([]);
+    $sortedL = $l->sort();
+    $expected = $this->listFactory->empty();
+
+    $this->assertLinkedListsEqual($expected, $sortedL);
+  }
 }

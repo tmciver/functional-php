@@ -190,4 +190,15 @@ abstract class LinkedList {
 	function visitJust($just) { return $just->get(); }
       });
   }
+
+  /**
+   * @return A new LinkedList whose elements are the same as this one but sorted
+   *         using PHP's standard `sort` function.
+   */
+  public final function sort() {
+    $arr = $this->toNativeArray();
+    sort($arr);
+
+    return new ArrayBackedLinkedList($arr);
+  }
 }
