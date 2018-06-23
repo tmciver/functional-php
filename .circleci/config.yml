@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: composer/composer
+      - image: composer:1.6.5
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -26,7 +26,7 @@ jobs:
       #     # fallback to using the latest cache if no exact match is found
       #     - v1-dependencies-
 
-      - run: composer install -n --prefer-dist
+      - run: composer install -n
 
       # - save_cache:
       #     paths:
@@ -34,4 +34,4 @@ jobs:
       #     key: v1-dependencies-{{ checksum "composer.json" }}
         
       # run tests!
-      - run: ./vendor/bin/phpunit --bootstrap ./vendor/autoload.php
+      - run: ./vendor/bin/phpunit
