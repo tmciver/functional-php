@@ -83,4 +83,12 @@ class Nil extends LinkedList {
   protected function numConsCells() {
     return 0;
   }
+
+  /**
+   * @param $i :: int The index of the desired `LinkedList` element.
+   * @return :: Maybe[a] The desired `LinkedList` element wrapped in a `Maybe`.
+   */
+  public function nth(int $i): Maybe {
+    return Maybe::nothing();
+  }
 }

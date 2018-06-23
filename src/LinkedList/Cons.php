@@ -154,4 +154,14 @@ class Cons extends LinkedList {
   protected function numConsCells() {
     return $this->numConsCells;
   }
+
+  /**
+   * @param $i :: int The index of the desired `LinkedList` element.
+   * @return :: Maybe[a] The desired `LinkedList` element wrapped in a `Maybe`.
+   */
+  public function nth(int $i): Maybe {
+    return ($i == 0) ?
+               Maybe::fromValue($this->value) :
+               $this->tail->nth($i - 1);
+  }
 }

@@ -155,4 +155,23 @@ class ArrayBackedLinkedList extends LinkedList {
   protected function numConsCells() {
     return 0;
   }
+
+  /**
+   * @param $i :: int The index of the desired `LinkedList` element.
+   * @return :: bool; True if the given index is in the range of this
+   *         `LinkedList`; false otherwise.
+   */
+  protected function isInRange(int $i): bool {
+    return $i >= 0 && $i < $this->size;
+  }
+
+  /**
+   * @param $i :: int The index of the desired `LinkedList` element.
+   * @return :: Maybe[a] The desired `LinkedList` element wrapped in a `Maybe`.
+   */
+  public function nth(int $i): Maybe {
+    return $this->isInRange($i) ?
+      Maybe::fromValue($this->array[$i]) :
+      Maybe::nothing();
+  }
 }

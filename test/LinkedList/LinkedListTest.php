@@ -459,4 +459,29 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expected, $sortedL);
   }
 
+  public function testNthInRange() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $nth = $l->nth(3);
+    $expected = Maybe::fromValue(43);
+
+    $this->assertEquals($expected, $nth);
+  }
+
+  public function testNthNotInRange() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $nth = $l->nth(7);
+    $expected = Maybe::nothing();
+
+    $this->assertEquals($expected, $nth);
+  }
+
+  public function testNthNegativeIndex() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $nth = $l->nth(-1);
+    $expected = Maybe::nothing();
+
+    $this->assertEquals($expected, $nth);
+  }
+
+
 }
