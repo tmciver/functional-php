@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 
-class HeadTest extends PHPUnit_Framework_TestCase {
+class HeadTest extends TestCase {
 
     public function testHeadOnNonEmptyArray() {
 

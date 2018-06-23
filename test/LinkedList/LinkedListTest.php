@@ -2,6 +2,7 @@
 
 namespace TMciver\Functional\Test\LinkedList;
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\LinkedList\Cons;
 use TMciver\Functional\LinkedList\LinkedList;
 use TMciver\Functional\LinkedList\LinkedListFactory;
@@ -10,12 +11,12 @@ use TMciver\Functional\Maybe\Maybe;
 
 require_once __DIR__ . '/../util.php';
 
-abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
+abstract class LinkedListTest extends TestCase {
 
   protected $listFactory;
   protected $emptyList;
 
-  public function __construct() {
+  public function setUp() {
     $this->listFactory = new LinkedListFactory();
     $this->emptyList = $this->listFactory->empty();
   }
@@ -171,7 +172,7 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testApply() {
-    $fs = $this->makeListFromArray([addOne, multiplyByTwo]);
+    $fs = $this->makeListFromArray(['addOne', 'multiplyByTwo']);
     $args = $this->makeListFromArray([1, 2]);
     $result = $fs->apply($args);
     $expected = $this->listFactory->fromNativeArray([2, 3, 2, 4]);
@@ -180,7 +181,7 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
   }
 
   public function testInvoke() {
-    $fs = $this->makeListFromArray([addOne, multiplyByTwo]);
+    $fs = $this->makeListFromArray(['addOne', 'multiplyByTwo']);
     $args = $this->makeListFromArray([1, 2]);
     $result = $fs($args);
     $expected = $this->listFactory->fromNativeArray([2, 3, 2, 4]);
@@ -457,4 +458,5 @@ abstract class LinkedListTest extends \PHPUnit_Framework_TestCase {
 
     $this->assertLinkedListsEqual($expected, $sortedL);
   }
+
 }

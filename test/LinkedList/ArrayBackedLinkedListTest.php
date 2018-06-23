@@ -12,10 +12,6 @@ use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
  */
 class ArrayBackedLinkedListTest extends LinkedListTest {
 
-  public function __construct() {
-    parent::__construct();
-  }
-
   protected function makeListFromArray(array $array) {
     return new ArrayBackedLinkedList($array);
   }

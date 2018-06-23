@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\Either\Either;
 
-class ArrayTest extends PHPUnit_Framework_TestCase {
+class ArrayTest extends TestCase {
 
     public function testTraverseSuccessForArrayOfInt() {
 

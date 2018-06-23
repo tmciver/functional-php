@@ -1,12 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
-class MonoidTest extends PHPUnit_Framework_TestCase {
+class MonoidTest extends TestCase {
 
   private $monoidData;
 
-  public function __construct() {
+  public function setUp() {
     $this->monoidData = [new ListMonoidTestData()];
   }
 

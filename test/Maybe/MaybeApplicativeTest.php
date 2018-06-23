@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 
-class MaybeApplicativeTest extends PHPUnit_Framework_TestCase {
+class MaybeApplicativeTest extends TestCase {
 
     public function testApplicativeForNoArgs() {
 

@@ -1,10 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\Nothing;
 use TMciver\Functional\Test\StaticClass;
 
-class MaybeTest extends PHPUnit_Framework_TestCase {
+class MaybeTest extends TestCase {
 
     public function testMaybeGetOrElseForJust() {
 

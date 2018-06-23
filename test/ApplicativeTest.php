@@ -1,16 +1,19 @@
 <?php
 
+namespace TMciver\Functional\Test;
+
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Validation\Validation;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
-class ApplicativeTest extends PHPUnit_Framework_TestCase {
+class ApplicativeTest extends TestCase {
 
   private $applicativesToTest;
 
-  public function __construct() {
+  public function setUp() {
 
     // Set up a MaybeT instance. I need to figure out a better way
     // to do this.
@@ -29,7 +32,7 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
 
     // test all applicatives
     foreach($this->applicativesToTest as $applicative) {
-      $result = $applicative->pure(identity)->apply($applicative);
+      $result = $applicative->pure('identity')->apply($applicative);
 
       $this->assertEquals($applicative, $result);
     }
@@ -39,9 +42,9 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
 
     // test all applicatives
     foreach($this->applicativesToTest as $applicative) {
-      $compose = $applicative->pure(compose);
-      $f = $applicative->pure(addOne);
-      $g = $applicative->pure(addOne);
+      $compose = $applicative->pure('compose');
+      $f = $applicative->pure('addOne');
+      $g = $applicative->pure('addOne');
       $arg = $applicative->pure(1);
       $result = $compose->apply($f)->apply($g)->apply($arg);
       $expectedResult = $applicative->pure(3);
@@ -54,7 +57,7 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
 
     // test all applicatives
     foreach($this->applicativesToTest as $applicative) {
-      $f = $applicative->pure(addOne);
+      $f = $applicative->pure('addOne');
       $x = $applicative->pure(1);
       $result = $f->apply($x);
       $exptectedResult = $applicative->pure(addOne(1));
@@ -67,7 +70,7 @@ class ApplicativeTest extends PHPUnit_Framework_TestCase {
 
     // test all applicatives
     foreach($this->applicativesToTest as $applicative) {
-      $f = $applicative->pure(add);
+      $f = $applicative->pure('add');
       $x = $applicative->pure(1);
       $y = $applicative->pure(2);
       $result = $f($x, $y);

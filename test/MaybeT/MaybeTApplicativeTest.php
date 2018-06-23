@@ -1,13 +1,14 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 
-class MaybeTApplicativeTest extends PHPUnit_Framework_TestCase {
+class MaybeTApplicativeTest extends TestCase {
 
     private $maybet;
 
-    public function __construct() {
+    public function setUp() {
         $this->maybet = new MaybeT(Either::left(''));
     }
 

@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\Left;
 
-class EitherTest extends PHPUnit_Framework_TestCase {
+class EitherTest extends TestCase {
 
     public function testEitherGetOrElseForRight() {
 

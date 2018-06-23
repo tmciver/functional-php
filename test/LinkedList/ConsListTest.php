@@ -12,10 +12,6 @@ use TMciver\Functional\LinkedList\Cons;
  */
 class ConsListTest extends LinkedListTest {
 
-  public function __construct() {
-    parent::__construct();
-  }
-
   protected function makeListFromArray(array $array) {
     $init = $this->listFactory->empty();
     $reversed = array_reverse($array);

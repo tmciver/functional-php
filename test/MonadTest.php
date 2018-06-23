@@ -1,15 +1,16 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
-class MonadTest extends PHPUnit_Framework_TestCase {
+class MonadTest extends TestCase {
 
   private $monadTestData;
 
-  public function __construct() {
+  public function setUp() {
     $this->monadTestData = [new MaybeTestData(),
 			    new EitherTestData(),
 			    new MaybeTTestData(),

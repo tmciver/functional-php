@@ -1,12 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
-class FunctorTest extends PHPUnit_Framework_TestCase {
+class FunctorTest extends TestCase {
 
   private $functorData;
 
-  public function __construct() {
+  public function setUp() {
     $this->functorData = [new ListFunctorInstance()];
   }
 

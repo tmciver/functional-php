@@ -7,14 +7,11 @@
      convertErrorsToExceptions="true"
      convertNoticesToExceptions="true"
      convertWarningsToExceptions="true"
-     printerClass="PHPUnit_TextUI_ResultPrinter"
      processIsolation="false"
      stopOnError="false"
      stopOnFailure="false"
      stopOnIncomplete="false"
      stopOnSkipped="false"
-     testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
-
      strict="false"
      verbose="false"
     >

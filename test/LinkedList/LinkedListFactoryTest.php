@@ -1,14 +1,15 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 
-class LinkedListFactoryTest extends PHPUnit_Framework_TestCase {
+class LinkedListFactoryTest extends TestCase {
 
   private $listFactory;
   private $emptyList;
 
-  public function __construct() {
+  public function setUp() {
     $this->listFactory = new LinkedListFactory();
     $this->emptyList = $this->listFactory->empty();
   }
