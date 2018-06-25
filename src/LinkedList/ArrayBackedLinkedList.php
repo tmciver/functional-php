@@ -187,4 +187,20 @@ class ArrayBackedLinkedList extends LinkedList {
 
     return new ArrayBackedLinkedList($arr);
   }
+
+  final public function dropWhile(callable $f): LinkedList {
+    // Find the first element that does not satisfy the predicate.
+    $i = 0;
+    foreach ($this->array as $key => $value) {
+        if (!$f($value)) {
+          $i = $key;
+        }
+    }
+
+    // Slice the array from that point to the end.
+    $arr = array_slice($this->array, $i);
+
+    return new ArrayBackedLinkedList($arr);
+  }
+
 }

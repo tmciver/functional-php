@@ -214,4 +214,11 @@ abstract class LinkedList {
    *         element that does not satisfy the predicate.
    */
   abstract public function takeWhile(callable $f): LinkedList;
+
+  /**
+   * @param $f :: a -> bool. A predicate.
+   * @return LinkedList. Returns a suffix of this LinkedList after, and
+   *         including, the first element that does not satisfy the predicate.
+   */
+  abstract public function dropWhile(callable $f): LinkedList;
 }

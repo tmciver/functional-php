@@ -92,7 +92,12 @@ class Nil extends LinkedList {
     return Maybe::nothing();
   }
 
-  final public function takeWhile($f): LinkedList {
+  final public function takeWhile(callable $f): LinkedList {
     return $this;
   }
+
+  final public function dropWhile(callable $f): LinkedList {
+    return $this;
+  }
+
 }

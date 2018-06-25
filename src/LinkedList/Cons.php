@@ -169,4 +169,10 @@ class Cons extends LinkedList {
     $abll = new ArrayBackedLinkedList($this->toNativeArray());
     return $abll->takeWhile($f);
   }
+
+  final public function dropWhile(callable $f): LinkedList {
+    return $f($this->value) ?
+      $this->tail->dropWhile($f) :
+      $this;
+  }
 }
