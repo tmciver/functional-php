@@ -91,4 +91,8 @@ class Nil extends LinkedList {
   public function nth(int $i): Maybe {
     return Maybe::nothing();
   }
+
+  final public function takeWhile($f): LinkedList {
+    return $this;
+  }
 }

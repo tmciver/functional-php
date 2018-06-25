@@ -483,5 +483,21 @@ abstract class LinkedListTest extends TestCase {
     $this->assertEquals($expected, $nth);
   }
 
+  public function testTakeWhileNonEmpty() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $lessThanFortyTwo = function (int $i): bool { return $i < 42; };
+    $result = $l->takeWhile($lessThanFortyTwo);
+    $expected = $this->makeListFromArray([5, 9, 12]);
 
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+  public function testTakeWhileEmpty() {
+    $l = $this->makeListFromArray([]);
+    $lessThanFortyTwo = function (int $i): bool { return $i < 42; };
+    $result = $l->takeWhile($lessThanFortyTwo);
+    $expected = $this->listFactory->empty();
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
 }

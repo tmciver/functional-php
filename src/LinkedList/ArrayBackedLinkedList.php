@@ -174,4 +174,17 @@ class ArrayBackedLinkedList extends LinkedList {
       Maybe::fromValue($this->array[$i]) :
       Maybe::nothing();
   }
+
+  final public function takeWhile(callable $f): LinkedList {
+    $arr = [];
+    for ($i = 0; $i < $this->size; $i++) {
+      if ($f($this->array[$i])) {
+        $arr[] = $this->array[$i];
+      } else {
+        break;
+      }
+    }
+
+    return new ArrayBackedLinkedList($arr);
+  }
 }

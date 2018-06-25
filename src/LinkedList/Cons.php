@@ -164,4 +164,9 @@ class Cons extends LinkedList {
                Maybe::fromValue($this->value) :
                $this->tail->nth($i - 1);
   }
+
+  final public function takeWhile(callable $f): LinkedList {
+    $abll = new ArrayBackedLinkedList($this->toNativeArray());
+    return $abll->takeWhile($f);
+  }
 }

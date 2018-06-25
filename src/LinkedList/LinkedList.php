@@ -207,4 +207,11 @@ abstract class LinkedList {
    * @return :: Maybe[a] The desired `LinkedList` element wrapped in a `Maybe`.
    */
   abstract public function nth(int $i): Maybe;
+
+  /**
+   * @param $f :: a -> bool. A predicate.
+   * @return LinkedList. Returns a prefix of this LinkedList up until the first
+   *         element that does not satisfy the predicate.
+   */
+  abstract public function takeWhile(callable $f): LinkedList;
 }
