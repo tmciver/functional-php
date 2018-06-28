@@ -27,13 +27,9 @@ class Cons extends LinkedList {
   }
 
   public function take($n) {
-    if ($n < 1) {
-      $l = new Nil();
-    } else {
-      $l = new Cons($this->value, $this->tail->take($n - 1));
-    }
-
-    return $l;
+    return $n < 1 ?
+      new Nil() :
+      new Cons($this->value, $this->tail->take($n - 1));
   }
 
   public function drop($n) {
