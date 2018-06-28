@@ -4,6 +4,7 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\PartialFunction;
+use TMciver\Functional\Tuple;
 
 class Cons extends LinkedList {
 
@@ -170,5 +171,11 @@ class Cons extends LinkedList {
     return $f($this->value) ?
       $this->tail->dropWhile($f) :
       $this;
+  }
+
+  final public function splitAt(int $i) {
+    $first = $this->take($i);
+    $second = $this->drop($i);
+    return new Tuple($first, $second);
   }
 }

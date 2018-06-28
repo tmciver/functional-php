@@ -221,4 +221,12 @@ abstract class LinkedList {
    *         including, the first element that does not satisfy the predicate.
    */
   abstract public function dropWhile(callable $f): LinkedList;
+
+  /**
+   * @param $i :: int The index at which to split this `LinkedList`.
+   * @return :: Tuple. Returns a `Tuple` whose first element is the prefix of
+   *         this `LinkedList` of length $i and second element is the remainder
+   *         of the `LinkedList`.
+   */
+  abstract public function splitAt(int $i);
 }

@@ -3,6 +3,7 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Tuple;
 
 class Nil extends LinkedList {
 
@@ -99,5 +100,10 @@ class Nil extends LinkedList {
   final public function dropWhile(callable $f): LinkedList {
     return $this;
   }
+
+  final public function splitAt(int $i) {
+    return new Tuple($this, $this);
+  }
+
 
 }

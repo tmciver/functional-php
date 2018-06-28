@@ -527,4 +527,47 @@ abstract class LinkedListTest extends TestCase {
 
     $this->assertLinkedListsEqual($expected, $result);
   }
+
+  public function testSplitAtNearMiddle() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $tuple = $l->splitAt(3);
+    $expectedFirst = $this->listFactory->fromNativeArray([5, 9, 12]);
+    $expectedSecond = $this->listFactory->fromNativeArray([43, 2, 0, 7]);
+
+    $this->assertLinkedListsEqual($expectedFirst, $tuple->first());
+    $this->assertLinkedListsEqual($expectedSecond, $tuple->second());
+  }
+
+  public function testSplitAtZero() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $tuple = $l->splitAt(0);
+    $expectedFirst = $this->listFactory->empty();
+    $expectedSecond = $l;
+
+    $this->assertLinkedListsEqual($expectedFirst, $tuple->first());
+    $this->assertLinkedListsEqual($expectedSecond, $tuple->second());
+  }
+
+  public function testSplitAtNegative() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $tuple = $l->splitAt(-1);
+    $expectedFirst = $this->listFactory->empty();
+    $expectedSecond = $l;
+
+    $this->assertLinkedListsEqual($expectedFirst, $tuple->first());
+    $this->assertLinkedListsEqual($expectedSecond, $tuple->second());
+  }
+
+  public function testSplitAtPastEnd() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $tuple = $l->splitAt(8);
+    $expectedFirst = $l;
+    $expectedSecond = $this->listFactory->empty();
+
+    $this->assertLinkedListsEqual($expectedFirst, $tuple->first());
+    $this->assertLinkedListsEqual($expectedSecond, $tuple->second());
+  }
+
+
+
 }

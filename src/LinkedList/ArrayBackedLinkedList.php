@@ -3,6 +3,7 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Tuple;
 
 /**
  * This class implements the `LinkedList` API using a native PHP array.
@@ -204,5 +205,19 @@ class ArrayBackedLinkedList extends LinkedList {
 
     return new ArrayBackedLinkedList($arr);
   }
+
+  final public function splitAt(int $i) {
+    if ($i < 1) {
+      $leftLinkedList = new ArrayBackedLinkedList([]);
+      $rightLinkedList = $this;
+    } else {
+      $leftLinkedList = new ArrayBackedLinkedList(array_slice($this->array, 0, $i));
+      $rightLinkedList = new ArrayBackedLinkedList(array_slice($this->array, $i));
+    }
+    $split = new Tuple($leftLinkedList, $rightLinkedList);
+
+    return $split;
+  }
+
 
 }
