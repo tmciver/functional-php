@@ -37,7 +37,7 @@ class Cons extends LinkedList {
   }
 
   public function drop($n) {
-    return ($n == 0) ?
+    return ($n < 1) ?
       $this :
       $this->tail->drop($n - 1);
   }

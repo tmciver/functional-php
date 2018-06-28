@@ -365,6 +365,15 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expected, $none);
   }
 
+  public function testDropNegative() {
+    $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
+    $result = $l->drop(-1);
+    $expected = $l;
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+
   public function testDropZero() {
     $l = $this->makeListFromArray([1, 2, 3, 4, 5]);
     $result = $l->drop(0);
