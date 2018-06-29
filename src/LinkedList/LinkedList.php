@@ -162,6 +162,7 @@ abstract class LinkedList {
   }
 
   public function interleave($other) {
+    // TODO Come up with more efficient version.
 
     // Get the next vals for each of the lists.
     // :: Maybe a
@@ -246,5 +247,37 @@ abstract class LinkedList {
     $left = $this->filter($f);
     $right = $this->filter(function ($x) use ($f) { return !$f($x); });
     return new Tuple($left, $right);
+  }
+
+  public function zip(LinkedList $other) {
+    // TODO Come up with more efficient version.
+
+    // Get the next vals for each of the lists.
+    // :: Maybe a
+    $maybeV1 = $this->head();
+    $maybeV2 = $other->head();
+
+    // Function to zip both values to the zipped tail.
+    // :: a -> a -> LinkedList[Tuple[a, b]]
+    $zipTwo = function ($v1, $v2) use ($other) {
+      // First, zip the tails of both lists.
+      $zippedTail = $this->tail()->zip($other->tail());
+
+      // Zip a Tuple of the two elements onto it.
+      return $zippedTail->cons(new Tuple($v1, $v2));
+    };
+
+    // Put the function into the Maybe context
+    // :: Maybe (a -> a -> LinkedList a)
+    $maybeZipTwo = Maybe::fromValue($zipTwo);
+
+    // Apply the function applicatively and match on the result.
+    // If the result is Nothing, then we've reached the end of one list and we
+    // return the emtpy list. Otherwise, we return the previously constructed
+    // tail.
+    return $maybeZipTwo($maybeV1, $maybeV2)->accept(new class implements MaybeVisitor {
+        function visitNothing($nothing) { return new Nil(); }
+        function visitJust($just) { return $just->get(); }
+      });
   }
 }

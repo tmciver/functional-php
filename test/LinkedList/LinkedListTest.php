@@ -595,4 +595,43 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expectedOdds, $odds);
   }
 
+  public function testZipNonEmptyLeftLonger() {
+    $l1 = $this->makeListFromArray([1, 2, 3, 4, 5, 6, 7]);
+    $l2 = $this->makeListFromArray([10, 11, 12, 13]);
+    $l = $l1->zip($l2);
+    $expected = $this->makeListFromArray([
+      new Tuple(1, 10),
+      new Tuple(2, 11),
+      new Tuple(3, 12),
+      new Tuple(4, 13)
+    ]);
+
+    $this->assertLinkedListsEqual($expected, $l);
+  }
+
+  public function testZipNonEmptyRightLonger() {
+    $l1 = $this->makeListFromArray([1, 2, 3, 4, 5]);
+    $l2 = $this->makeListFromArray([10, 11, 12, 13, 14, 15, 16]);
+    $l = $l1->zip($l2);
+    $expected = $this->makeListFromArray([
+      new Tuple(1, 10),
+      new Tuple(2, 11),
+      new Tuple(3, 12),
+      new Tuple(4, 13),
+      new Tuple(5, 14)
+    ]);
+
+    $this->assertLinkedListsEqual($expected, $l);
+  }
+
+  public function testZipEmpty() {
+    $l1 = $this->makeListFromArray([]);
+    $l2 = $this->makeListFromArray([10, 11, 12, 13, 14, 15, 16]);
+    $l = $l1->zip($l2);
+    $expected = $this->makeListFromArray([]);
+
+    $this->assertLinkedListsEqual($expected, $l);
+  }
+
+
 }
