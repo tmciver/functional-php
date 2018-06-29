@@ -8,6 +8,7 @@ use TMciver\Functional\Monad;
 use TMciver\Functional\Monoid;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeVisitor;
+use TMciver\Functional\Tuple;
 
 abstract class LinkedList {
   use Foldable, Traversable, Monoid, Monad;
@@ -229,4 +230,21 @@ abstract class LinkedList {
    *         of the `LinkedList`.
    */
   abstract public function splitAt(int $i);
+
+  /**
+   * @param $f :: a -> bool. A predicate that takes an element of the
+   *        `LinkedList` and returns a bool.
+   * @return Tuple[LinkedList, LinkedList]. A tuple whose first element is a
+   *         `LinkedList` of all the elements of this `LinkedList` that satisfy
+   *         the predicate; the second element of the tuple is a `LinkedList`
+   *         whose element did not satisfy the predicate.
+   */
+  final public function partition(callable $f) {
+    // TODO: find a more efficient version (probably using `foldRight`); this
+    // one requires two traversals (although, an implementation using
+    // `foldRight` would necessitate the creation of `n` Tuple objects).
+    $left = $this->filter($f);
+    $right = $this->filter(function ($x) use ($f) { return !$f($x); });
+    return new Tuple($left, $right);
+  }
 }

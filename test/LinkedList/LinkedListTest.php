@@ -8,6 +8,7 @@ use TMciver\Functional\LinkedList\LinkedList;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Tuple;
 
 require_once __DIR__ . '/../util.php';
 
@@ -568,6 +569,30 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expectedSecond, $tuple->second());
   }
 
+  public function testPartitionNonEmpty() {
+    $l = $this->makeListFromArray(range(1, 20));
+    $isEven = function (int $i) { return $i % 2 == 0; };
+    $tuple = $l->partition($isEven);
+    $evens = $tuple->first();
+    $odds = $tuple->second();
+    $expectedEvens = $this->makeListFromArray([2, 4, 6, 8, 10, 12, 14, 16, 18, 20]);
+    $expectedOdds = $this->makeListFromArray([1, 3, 5, 7, 9, 11, 13, 15, 17, 19]);
 
+    $this->assertLinkedListsEqual($expectedEvens, $evens);
+    $this->assertLinkedListsEqual($expectedOdds, $odds);
+  }
+
+  public function testPartitionEmpty() {
+    $l = $this->makeListFromArray([]);
+    $isEven = function (int $i) { return $i % 2 == 0; };
+    $tuple = $l->partition($isEven);
+    $evens = $tuple->first();
+    $odds = $tuple->second();
+    $expectedEvens = $this->emptyList;
+    $expectedOdds = $this->emptyList;
+
+    $this->assertLinkedListsEqual($expectedEvens, $evens);
+    $this->assertLinkedListsEqual($expectedOdds, $odds);
+  }
 
 }
