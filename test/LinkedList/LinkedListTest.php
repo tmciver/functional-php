@@ -633,5 +633,28 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expected, $l);
   }
 
+  public function testIntersperseLongList() {
+    $l = $this->makeListFromArray(["apples", "oranges", "bananas"]);
+    $interspersed = $l->intersperse(", ");
+    $expected = $this->listFactory->fromNativeArray(["apples", ", ", "oranges", ", ", "bananas"]);
+
+    $this->assertLinkedListsEqual($expected, $interspersed);
+  }
+
+  public function testIntersperseSingletonList() {
+    $l = $this->makeListFromArray(["apples"]);
+    $interspersed = $l->intersperse(", ");
+    $expected = $this->listFactory->fromNativeArray(["apples"]);
+
+    $this->assertLinkedListsEqual($expected, $interspersed);
+  }
+
+  public function testIntersperseEmptyList() {
+    $l = $this->makeListFromArray([]);
+    $interspersed = $l->intersperse(", ");
+    $expected = $this->listFactory->fromNativeArray([]);
+
+    $this->assertLinkedListsEqual($expected, $interspersed);
+  }
 
 }

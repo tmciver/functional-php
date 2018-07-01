@@ -280,4 +280,25 @@ abstract class LinkedList {
         function visitJust($just) { return $just->get(); }
       });
   }
+
+  /**
+   * @param $sep :: a. A value whose type shoule be the same as the type of
+   *        elements of this `LinkedList`.
+   * @return A new `LinkedList` which is this `LinkedList` with $sep element
+   *         inserted between it's elements. For example, if you have a
+   *         `LinkedList` `$l = LinkedList(1, 1, 1)` and you call
+   *         `$l->intersperse(2)`, you'll get `LinkedList(1, 2, 1, 2, 1)`.
+   */
+  final public function intersperse($sep) {
+    // Create an infinite list where each element is $sep.
+    $factory = new LinkedListFactory();
+    $seps = $factory->repeat($sep);
+
+    // Interleave the infinite list of $sep with this list.
+    $l = $seps->interleave($this);
+
+    // This *almost* creates the list that we want - except it has an extra $sep
+    // at the head. So, we just take the tail.
+    return $l->tail();
+  }
 }
