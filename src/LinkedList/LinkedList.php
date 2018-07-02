@@ -17,6 +17,11 @@ abstract class LinkedList {
   public static $TO_STRING_MAX = 10;
 
   private $str;
+  protected $factory;
+
+  public function __construct(LinkedListFactory $factory) {
+    $this->factory = $factory;
+  }
 
   /**
    * Adds the given value to the head of this list.
@@ -24,10 +29,10 @@ abstract class LinkedList {
    */
   public function add($value) {
     if ($this->numConsCells() + 1 > self::$CONS_CELL_LIMIT) {
-      $tmpList = new Cons($value, $this);
-      return new ArrayBackedLinkedList($tmpList->toNativeArray());
+      $tmpList = new Cons($value, $this, $this->factory);
+      return new ArrayBackedLinkedList($tmpList->toNativeArray(), $this->factory);
     } else {
-      return new Cons($value, $this);
+      return new Cons($value, $this, $this->factory);
     }
   }
 
@@ -101,7 +106,7 @@ abstract class LinkedList {
   final public function traverse(callable $f, $monad) {
     // Initial value for the fold: an empty array wrapped in a default
     // context.
-    $init = $monad->pure(new Nil());
+    $init = $monad->pure($this->factory->empty());
 
     // Define the folding function.
     // $acc :: Monad m => m[LinkedList]
@@ -187,9 +192,12 @@ abstract class LinkedList {
     // If the result is Nothing, then we've reached the end of one list and we
     // return the emtpy list. Otherwise, we return the previously constructed
     // tail.
-    return $maybeConsTwo($maybeV1, $maybeV2)->accept(new class implements MaybeVisitor {
-	function visitNothing($nothing) { return new Nil(); }
-	function visitJust($just) { return $just->get(); }
+    return $maybeConsTwo($maybeV1, $maybeV2)->accept(new class($this->factory) implements MaybeVisitor {
+        private $listFactory;
+        function __construct(LinkedListFactory $factory) { $this->listFactory = $factory; }
+
+        function visitNothing($nothing) { return $this->listFactory->empty(); }
+        function visitJust($just) { return $just->get(); }
       });
   }
 
@@ -201,7 +209,7 @@ abstract class LinkedList {
     $arr = $this->toNativeArray();
     sort($arr);
 
-    return new ArrayBackedLinkedList($arr);
+    return $this->factory->fromNativeArray($arr);
   }
 
   /**
@@ -275,8 +283,11 @@ abstract class LinkedList {
     // If the result is Nothing, then we've reached the end of one list and we
     // return the emtpy list. Otherwise, we return the previously constructed
     // tail.
-    return $maybeZipTwo($maybeV1, $maybeV2)->accept(new class implements MaybeVisitor {
-        function visitNothing($nothing) { return new Nil(); }
+    return $maybeZipTwo($maybeV1, $maybeV2)->accept(new class($this->factory) implements MaybeVisitor {
+        private $listFactory;
+        function __construct(LinkedListFactory $factory) { $this->listFactory = $factory; }
+
+        function visitNothing($nothing) { return $this->listFactory->empty(); }
         function visitJust($just) { return $just->get(); }
       });
   }

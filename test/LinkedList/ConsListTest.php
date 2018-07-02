@@ -16,7 +16,7 @@ class ConsListTest extends LinkedListTest {
     $init = $this->listFactory->empty();
     $reversed = array_reverse($array);
     $f = function ($l, $v) {
-      return new Cons($v, $l);
+      return new Cons($v, $l, $this->listFactory);
     };
 
     return array_reduce($reversed, $f, $init);

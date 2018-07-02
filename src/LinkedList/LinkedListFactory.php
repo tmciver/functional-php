@@ -8,12 +8,12 @@ class LinkedListFactory {
 
   public function __construct() {
     // Ideally, this will be the only Nil object in the application;
-    self::$empty = is_null(self::$empty) ? new Nil() : self::$empty;
+    self::$empty = is_null(self::$empty) ? new Nil($this) : self::$empty;
   }
 
   public function pure($val) {
     // put a value into a singleton list.
-    return new Cons($val, self::$empty);
+    return new Cons($val, self::$empty, $this);
   }
 
   public function empty() {
@@ -27,7 +27,7 @@ class LinkedListFactory {
     if (empty($array)) {
       return self::$empty;
     } else {
-      return new ArrayBackedLinkedList($array);
+      return new ArrayBackedLinkedList($array, $this);
     }
   }
 
@@ -71,6 +71,6 @@ class LinkedListFactory {
    * @return An infinite Linkedlist all of whose elements is $v.
    */
   public function repeat($v) {
-    return $this->cycle(new Cons($v, self::$empty));
+    return $this->cycle(new Cons($v, self::$empty, $this));
   }
 }

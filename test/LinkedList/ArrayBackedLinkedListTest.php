@@ -13,6 +13,6 @@ use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 class ArrayBackedLinkedListTest extends LinkedListTest {
 
   protected function makeListFromArray(array $array) {
-    return new ArrayBackedLinkedList($array);
+    return new ArrayBackedLinkedList($array, $this->listFactory);
   }
 }

@@ -17,7 +17,8 @@ class Cons extends LinkedList {
    * @internal
    * Clients should not construct Conses directly; use `LinkedListFactory` instead.
    */
-  public function __construct($value, $list) {
+  public function __construct($value, $list, LinkedListFactory $factory) {
+    parent::__construct($factory);
     $this->value = $value;
     $this->tail = $list;
     $this->numConsCells = $list->numConsCells() + 1;
@@ -29,8 +30,8 @@ class Cons extends LinkedList {
 
   public function take($n) {
     return $n < 1 ?
-      new Nil() :
-      new Cons($this->value, $this->tail->take($n - 1));
+      $this->factory->empty() :
+      new Cons($this->value, $this->tail->take($n - 1), $this->factory);
   }
 
   public function drop($n) {
@@ -48,7 +49,7 @@ class Cons extends LinkedList {
       if ($this->value == $value) {
 	return $this->tail;
       } else {
-	return new Cons($this->value, $this->tail->remove($value));
+        return new Cons($this->value, $this->tail->remove($value), $this->factory);
       }
     } else {
       return $this;
@@ -93,7 +94,7 @@ class Cons extends LinkedList {
   }
 
   public function map(callable $f) {
-    return new Cons($f($this->value), $this->tail->map($f));
+    return new Cons($f($this->value), $this->tail->map($f), $this->factory);
   }
 
   public function flatMap(callable $f) {
@@ -125,7 +126,7 @@ class Cons extends LinkedList {
   }
 
   final public function append($other) {
-    return new Cons($this->value, $this->tail->append($other));
+    return new Cons($this->value, $this->tail->append($other), $this->factory);
   }
 
   final public function filter($f) {
@@ -134,7 +135,7 @@ class Cons extends LinkedList {
 
     // Then, filter this node.
     return $f($this->value)
-      ? new Cons($this->value, $filteredTail)
+      ? new Cons($this->value, $filteredTail, $this->factory)
       : $filteredTail;
   }
 
@@ -163,7 +164,7 @@ class Cons extends LinkedList {
   }
 
   final public function takeWhile(callable $f): LinkedList {
-    $abll = new ArrayBackedLinkedList($this->toNativeArray());
+    $abll = new ArrayBackedLinkedList($this->toNativeArray(), $this->factory);
     return $abll->takeWhile($f);
   }
 

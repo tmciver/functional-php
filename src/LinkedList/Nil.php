@@ -11,7 +11,9 @@ class Nil extends LinkedList {
    * @internal
    * Clients should not construct Nils directly; use `LinkedListFactory` instead.
    */
-  public function __construct() {}
+  public function __construct(LinkedListFactory $factory) {
+    parent::__construct($factory);
+  }
 
   public function isEmpty() {
     return true;

@@ -18,7 +18,8 @@ class ArrayBackedLinkedList extends LinkedList {
    * This class should only be constructed by the class itself or
    * `LinkedListFactory`.
    */
-  public function __construct(array $array) {
+  public function __construct(array $array, LinkedListFactory $factory) {
+    parent::__construct($factory);
     $this->array = array_values($array);
     $this->size = count($array);
   }
@@ -33,22 +34,22 @@ class ArrayBackedLinkedList extends LinkedList {
 
   public function tail() {
     if ($this->size <= 1) {
-      return new Nil();
+      return $this->factory->empty();
     } else {
-      return new ArrayBackedLinkedList(array_slice($this->array, 1));
+      return new ArrayBackedLinkedList(array_slice($this->array, 1), $this->factory);
     }
   }
 
   public function take($n) {
     return ($this->isEmpty()) ?
-      new Nil() :
-      new ArrayBackedLinkedList(array_slice($this->array, 0, $n));
+      $this->factory->empty() :
+      new ArrayBackedLinkedList(array_slice($this->array, 0, $n), $this->factory);
   }
 
   public function drop($n) {
     return $n < 1 ?
       $this :
-      new ArrayBackedLinkedList(array_slice($this->array, $n));
+      new ArrayBackedLinkedList(array_slice($this->array, $n), $this->factory);
   }
 
   public function isEmpty() {
@@ -72,7 +73,7 @@ class ArrayBackedLinkedList extends LinkedList {
       $a = $this->array;
       array_splice($a, $first, 1);
 
-      return new ArrayBackedLinkedList($a);
+      return new ArrayBackedLinkedList($a, $this->factory);
     } else {
       // $value was not found; just return $this
       return $this;
@@ -103,18 +104,18 @@ class ArrayBackedLinkedList extends LinkedList {
 
   public function filter($pred) {
     $filtered = array_filter($this->array, $pred);
-    return new ArrayBackedLinkedList($filtered);
+    return new ArrayBackedLinkedList($filtered, $this->factory);
   }
 
   public function append($list) {
     $merged = array_merge($this->array, $list->toNativeArray());
-    return new ArrayBackedLinkedList($merged);
+    return new ArrayBackedLinkedList($merged, $this->factory);
   }
 
   public function map(callable $f) {
     $resultArray = array_map($f, $this->array);
 
-    return new ArrayBackedLinkedList($resultArray);
+    return new ArrayBackedLinkedList($resultArray, $this->factory);
   }
 
   public function flatMap(callable $f) {
@@ -132,8 +133,8 @@ class ArrayBackedLinkedList extends LinkedList {
     };
 
     // TODO: hack until we have better equality check for LinkedLists
-    $l = array_reduce($this->array, $g, new Nil());
-    $ll = new ArrayBackedLinkedList($l->toNativeArray());
+    $l = array_reduce($this->array, $g, $this->factory->empty());
+    $ll = new ArrayBackedLinkedList($l->toNativeArray(), $this->factory);
 
     return $ll;
   }
@@ -152,7 +153,7 @@ class ArrayBackedLinkedList extends LinkedList {
     };
     $resultArray = array_reduce($this->array, $g, []);
 
-    return new ArrayBackedLinkedList($resultArray);
+    return new ArrayBackedLinkedList($resultArray, $this->factory);
   }
 
   protected function numConsCells() {
@@ -188,7 +189,7 @@ class ArrayBackedLinkedList extends LinkedList {
       }
     }
 
-    return new ArrayBackedLinkedList($arr);
+    return new ArrayBackedLinkedList($arr, $this->factory);
   }
 
   final public function dropWhile(callable $f): LinkedList {
@@ -203,16 +204,16 @@ class ArrayBackedLinkedList extends LinkedList {
     // Slice the array from that point to the end.
     $arr = array_slice($this->array, $i);
 
-    return new ArrayBackedLinkedList($arr);
+    return new ArrayBackedLinkedList($arr, $this->factory);
   }
 
   final public function splitAt(int $i) {
     if ($i < 1) {
-      $leftLinkedList = new ArrayBackedLinkedList([]);
+      $leftLinkedList = new ArrayBackedLinkedList([], $this->factory);
       $rightLinkedList = $this;
     } else {
-      $leftLinkedList = new ArrayBackedLinkedList(array_slice($this->array, 0, $i));
-      $rightLinkedList = new ArrayBackedLinkedList(array_slice($this->array, $i));
+      $leftLinkedList = new ArrayBackedLinkedList(array_slice($this->array, 0, $i), $this->factory);
+      $rightLinkedList = new ArrayBackedLinkedList(array_slice($this->array, $i), $this->factory);
     }
     $split = new Tuple($leftLinkedList, $rightLinkedList);
 
