@@ -301,4 +301,14 @@ abstract class LinkedList {
     // at the head. So, we just take the tail.
     return $l->tail();
   }
+
+  /**
+   * @return A `LinkedList` that contains the elements of this `LinkedList` in
+   *         reverse order.
+   */
+  final public function reverse() {
+    $cons = function ($acc, $x) { return $acc->cons($x); };
+    $emptyList = (new LinkedListFactory())->empty();
+    return $this->foldLeft($emptyList, $cons);
+  }
 }

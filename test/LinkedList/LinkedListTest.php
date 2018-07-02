@@ -657,4 +657,20 @@ abstract class LinkedListTest extends TestCase {
     $this->assertLinkedListsEqual($expected, $interspersed);
   }
 
+  public function testReverseNonEmpty() {
+    $l = $this->makeListFromArray([5, 9, 12, 43, 2, 0, 7]);
+    $reversed = $l->reverse();
+    $expected = $this->listFactory->fromNativeArray([7, 0, 2, 43, 12, 9, 5]);
+
+    $this->assertLinkedListsEqual($expected, $reversed);
+  }
+
+  public function testReverseEmpty() {
+    $l = $this->makeListFromArray([]);
+    $reversed = $l->reverse();
+    $expected = $this->emptyList;
+
+    $this->assertLinkedListsEqual($expected, $reversed);
+  }
+
 }
