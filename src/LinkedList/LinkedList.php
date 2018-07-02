@@ -188,17 +188,13 @@ abstract class LinkedList {
     // :: Maybe (a -> a -> LinkedList a)
     $maybeConsTwo = Maybe::fromValue($consTwo);
 
-    // Apply the function applicatively and match on the result.
+    // Apply the function applicatively and get the result (default of empty list).
     // If the result is Nothing, then we've reached the end of one list and we
     // return the emtpy list. Otherwise, we return the previously constructed
     // tail.
-    return $maybeConsTwo($maybeV1, $maybeV2)->accept(new class($this->factory) implements MaybeVisitor {
-        private $listFactory;
-        function __construct(LinkedListFactory $factory) { $this->listFactory = $factory; }
+    $interleaved = $maybeConsTwo($maybeV1, $maybeV2)->getOrElse($this->factory->empty());
 
-        function visitNothing($nothing) { return $this->listFactory->empty(); }
-        function visitJust($just) { return $just->get(); }
-      });
+    return $interleaved;
   }
 
   /**
@@ -279,17 +275,13 @@ abstract class LinkedList {
     // :: Maybe (a -> a -> LinkedList a)
     $maybeZipTwo = Maybe::fromValue($zipTwo);
 
-    // Apply the function applicatively and match on the result.
+    // Apply the function applicatively and get the result (default of empty list).
     // If the result is Nothing, then we've reached the end of one list and we
     // return the emtpy list. Otherwise, we return the previously constructed
     // tail.
-    return $maybeZipTwo($maybeV1, $maybeV2)->accept(new class($this->factory) implements MaybeVisitor {
-        private $listFactory;
-        function __construct(LinkedListFactory $factory) { $this->listFactory = $factory; }
+    $zipped = $maybeZipTwo($maybeV1, $maybeV2)->getOrElse($this->factory->empty());
 
-        function visitNothing($nothing) { return $this->listFactory->empty(); }
-        function visitJust($just) { return $just->get(); }
-      });
+    return $zipped;
   }
 
   /**
