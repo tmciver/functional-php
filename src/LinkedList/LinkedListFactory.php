@@ -82,4 +82,26 @@ class LinkedListFactory {
   public function replicate($n, $v) {
     return $this->repeat($v)->take($n);
   }
+
+  /**
+   * @param $f :: b -> Maybe (a, b). The function takes the element and returns
+   *        Nothing if it is done producing the list or returns Just (a,b), in
+   *        which case, a is a prepended to the list and b is used as the next
+   *        element in a recursive call.
+   * @param $init :: b. The seed value.
+   * @return :: Linkedlist[a]. The generated list.
+   */
+  public function unfold($f, $init) {
+    $l = $this->empty();
+    $result = $f($init);
+    while (!$result->isNothing()) {
+      $tuple = $result->get();
+      $nextVal = $tuple->first();
+      $nextB = $tuple->second();
+      $l = $l->cons($nextVal);
+      $result = $f($nextB);
+    }
+
+    return $l->reverse();
+  }
 }

@@ -3,6 +3,8 @@
 use PHPUnit\Framework\TestCase;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
+use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Tuple;
 
 class LinkedListFactoryTest extends TestCase {
 
@@ -90,6 +92,28 @@ class LinkedListFactoryTest extends TestCase {
     $expected = $this->listFactory->fromNativeArray([]);
 
     $this->assertLinkedListsEqual($expected, $l);
+  }
+
+  public function testUnfoldNonEmpty() {
+    $init = 10;
+    $f = function ($b) {
+      return $b < 1 ?
+        Maybe::nothing() :
+        Maybe::fromValue(new Tuple($b, $b - 1));
+    };
+    $result = $this->listFactory->unfold($f, $init);
+    $expected = $this->listFactory->fromNativeArray([10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
+
+    $this->assertLinkedListsEqual($expected, $result);
+  }
+
+  public function testUnfoldEmpty() {
+    $init = 10;
+    $f = function ($b) { return Maybe::nothing(); };
+    $result = $this->listFactory->unfold($f, $init);
+    $expected = $this->listFactory->fromNativeArray([]);
+
+    $this->assertLinkedListsEqual($expected, $result);
   }
 
 }
