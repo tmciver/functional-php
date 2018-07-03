@@ -73,4 +73,13 @@ class LinkedListFactory {
   public function repeat($v) {
     return $this->cycle(new Cons($v, self::$empty, $this));
   }
+
+  /**
+   * @param $n :: int. The number of elements in the returned `Linkedlist`.
+   * @param $v :: a. The value to replicate.
+   * @return A Linkedlist of length $n each of whose elements are $v.
+   */
+  public function replicate($n, $v) {
+    return $this->repeat($v)->take($n);
+  }
 }

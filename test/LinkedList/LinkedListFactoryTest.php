@@ -70,4 +70,26 @@ class LinkedListFactoryTest extends TestCase {
 						     'hello']);
     $this->assertLinkedListsEqual($expected, $result);
   }
+
+  public function testReplicatePositive() {
+    $l = $this->listFactory->replicate(5, 'a');
+    $expected = $this->listFactory->fromNativeArray(['a', 'a', 'a', 'a', 'a']);
+
+    $this->assertLinkedListsEqual($expected, $l);
+  }
+
+  public function testReplicateZero() {
+    $l = $this->listFactory->replicate(0, 'a');
+    $expected = $this->listFactory->fromNativeArray([]);
+
+    $this->assertLinkedListsEqual($expected, $l);
+  }
+
+  public function testReplicateNegative() {
+    $l = $this->listFactory->replicate(-1, 'a');
+    $expected = $this->listFactory->fromNativeArray([]);
+
+    $this->assertLinkedListsEqual($expected, $l);
+  }
+
 }
