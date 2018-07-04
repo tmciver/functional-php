@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Validation\Validation;
 use TMciver\Functional\Maybe\Maybe;
 
-class ValidationSemiGroupTest extends PHPUnit_Framework_TestCase {
+class ValidationSemiGroupTest extends TestCase {
 
   public function testAppendForSuccessSuccess() {
 

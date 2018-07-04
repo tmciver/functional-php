@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 
-class MaybeMonadTest extends PHPUnit_Framework_TestCase {
+class MaybeMonadTest extends TestCase {
 
     public function testPure() {
 

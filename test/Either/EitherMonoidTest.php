@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Maybe\Maybe;
 
-class EitherMonoidTest extends PHPUnit_Framework_TestCase {
+class EitherMonoidTest extends TestCase {
 
     public function testAppendForIdentityOnLeft() {
 

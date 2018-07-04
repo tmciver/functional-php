@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Either\Either;
 
-class EitherApplicativeTest extends PHPUnit_Framework_TestCase {
+class EitherApplicativeTest extends TestCase {
 
     public function testApplicativeForNoArgs() {
 

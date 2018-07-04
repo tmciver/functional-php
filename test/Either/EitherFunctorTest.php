@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Either\Either;
 
-class EitherFunctorTest extends PHPUnit_Framework_TestCase {
+class EitherFunctorTest extends TestCase {
 
     public function testIdentityLaw() {
 

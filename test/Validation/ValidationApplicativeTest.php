@@ -1,9 +1,10 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Validation\Validation;
 use TMciver\Functional\Maybe\Maybe;
 
-class ValidationApplicativeTest extends PHPUnit_Framework_TestCase {
+class ValidationApplicativeTest extends TestCase {
 
   public function testApplicativeForNoArgs() {
 
@@ -20,7 +21,7 @@ class ValidationApplicativeTest extends PHPUnit_Framework_TestCase {
 
   public function testApplyForSuccessSuccess() {
 
-    $validationFunction = Validation::fromValue(addOne);
+    $validationFunction = Validation::fromValue('addOne');
     $validationArg = Validation::fromValue(1);
     $validationResult = $validationFunction->apply($validationArg);
     $expected = Validation::fromValue(2);
@@ -30,7 +31,7 @@ class ValidationApplicativeTest extends PHPUnit_Framework_TestCase {
 
   public function testApplyForSuccessFailure() {
 
-    $validationFunction = Validation::fromValue(addOne);
+    $validationFunction = Validation::fromValue('addOne');
     $validationArg = Validation::failure("I am Error.");
     $validationResult = $validationFunction->apply($validationArg);
     $expected = $validationArg;

@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 
-class MaybeMonoidTest extends PHPUnit_Framework_TestCase {
+class MaybeMonoidTest extends TestCase {
 
     public function testAppendForIdentityOnLeft() {
 

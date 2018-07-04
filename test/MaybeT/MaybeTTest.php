@@ -1,14 +1,15 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 
-class MaybeTTest extends PHPUnit_Framework_TestCase {
+class MaybeTTest extends TestCase {
 
     private $maybeT; // used to create MaybeT's using 'pure'
 
-    public function __construct() {
+    public function setUp() {
         $this->maybeT = new MaybeT(Either::left(''));
     }
 

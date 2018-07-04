@@ -14,6 +14,10 @@ function addOne($i) {
     return $i + 1;
 }
 
+function multiplyByTwo($i) {
+  return 2 * $i;
+}
+
 function add($x, $y) {
   return $x + $y;
 }

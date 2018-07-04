@@ -12,6 +12,8 @@ class AssociativeArray {
       $this->array = is_null($array) ? [] : $array;
     }
 
+    // TODO: This is broken. It returns an instance of the given Monad wrapping
+    // a PHP _native_ array; not an AssociativeArray.
     public function traverse(callable $f, $monad) {
 
 	// Initial value for the fold: an empty array wrapped in a default
@@ -28,10 +30,10 @@ class AssociativeArray {
 
                 // If the result is null, we fail.
                 if (is_null($returnedMonad)) {
-                    $returnedMonad = $monad->fail('A call the callable passed to `AssociativeArray::traverse` returned null.');
+                    $returnedMonad = $monad->fail('The callable passed to `AssociativeArray::traverse` returned null.');
                 }
             } catch (\Exception $e) {
-                $returnedMonad = $monad->fail('A call the callable passed to `AssociativeArray::traverse` threw an exception: ' . $e->getMessage());
+                $returnedMonad = $monad->fail('The callable passed to `AssociativeArray::traverse` threw an exception: ' . $e->getMessage());
             }
 
 	    // Put the value wrapped by the above monadic value in the array

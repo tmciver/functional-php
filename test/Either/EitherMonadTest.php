@@ -1,8 +1,9 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Either\Either;
 
-class EitherMonadTest extends PHPUnit_Framework_TestCase {
+class EitherMonadTest extends TestCase {
 
     public function testPure() {
 

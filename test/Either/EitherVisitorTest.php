@@ -1,10 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\EitherToMaybe;
 use TMciver\Functional\Maybe\Maybe;
 
-class EitherVisitorTest extends PHPUnit_Framework_TestCase {
+class EitherVisitorTest extends TestCase {
 
     public function testEitherToMaybeForRight() {
 

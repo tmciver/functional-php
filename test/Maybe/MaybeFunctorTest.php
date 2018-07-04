@@ -1,10 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
 
 require_once __DIR__ . '/../util.php';
 
-class MaybeFunctorTest extends PHPUnit_Framework_TestCase {
+class MaybeFunctorTest extends TestCase {
 
     public function testMapForJust() {
 
