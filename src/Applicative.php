@@ -2,14 +2,14 @@
 
 namespace TMciver\Functional;
 
-use TMciver\Functional\Functor;
+use TMciver\Functional\ObjectFunctor;
 
 /**
  * A fuctor with application. An applicative containing a function can be
  * applied to an argument contained in another applicative.
  */
 trait Applicative {
-    use Functor;
+    use ObjectFunctor;
 
     /**
      * @param A value to be put into a minimal context.
