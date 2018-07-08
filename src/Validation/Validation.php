@@ -2,11 +2,11 @@
 
 namespace TMciver\Functional\Validation;
 
-use TMciver\Functional\SemiGroup;
+use TMciver\Functional\ObjectSemiGroup;
 use TMciver\Functional\Applicative;
 
 abstract class Validation {
-  use SemiGroup, Applicative;
+  use ObjectSemiGroup, Applicative;
 
   public static function fromValue($val) {
     return is_null($val) ?

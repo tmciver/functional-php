@@ -3,12 +3,12 @@
 namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\Monad;
-use TMciver\Functional\Monoid;
+use TMciver\Functional\ObjectMonoid;
 use TMciver\Functional\Maybe\Just;
 use TMciver\Functional\Maybe\Nothing;
 
 abstract class Maybe {
-    use Monoid, Monad;
+    use ObjectMonoid, Monad;
 
     public static $nothing;
 

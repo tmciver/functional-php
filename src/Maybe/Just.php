@@ -8,8 +8,6 @@ use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\PartialFunction;
 use TMciver\Functional\Util;
 
-require_once __DIR__ . '/../Monoid.php';
-
 class Just extends Maybe {
 
   private $val;

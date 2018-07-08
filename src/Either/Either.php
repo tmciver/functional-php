@@ -3,11 +3,11 @@
 namespace TMciver\Functional\Either;
 
 use TMciver\Functional\Monad;
-use TMciver\Functional\Monoid;
+use TMciver\Functional\ObjectMonoid;
 use TMciver\Functional\Either\Right;
 
 abstract class Either {
-    use Monoid, Monad;
+    use ObjectMonoid, Monad;
 
     public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Either\Right with a null value.') {
         if (is_null($val)) {

@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional;
 
-trait SemiGroup {
+trait ObjectSemiGroup {
 
     /**
      * @param $appendee object to be appended to this one.

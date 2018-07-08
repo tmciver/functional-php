@@ -5,13 +5,13 @@ namespace TMciver\Functional\LinkedList;
 use TMciver\Functional\Foldable;
 use TMciver\Functional\Traversable;
 use TMciver\Functional\Monad;
-use TMciver\Functional\Monoid;
+use TMciver\Functional\ObjectMonoid;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeVisitor;
 use TMciver\Functional\Tuple;
 
 abstract class LinkedList {
-  use Foldable, Traversable, Monoid, Monad;
+  use Foldable, Traversable, ObjectMonoid, Monad;
 
   public static $CONS_CELL_LIMIT = 32;
   public static $TO_STRING_MAX = 10;

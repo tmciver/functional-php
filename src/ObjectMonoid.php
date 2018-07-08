@@ -2,8 +2,8 @@
 
 namespace TMciver\Functional;
 
-trait Monoid {
-    use SemiGroup;
+trait ObjectMonoid {
+    use ObjectSemiGroup;
 
     /**
      * @return The identity element.
