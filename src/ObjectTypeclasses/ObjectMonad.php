@@ -1,8 +1,6 @@
 <?php
 
-namespace TMciver\Functional;
-
-use TMciver\Functional\ObjectApplicative;
+namespace TMciver\Functional\ObjectTypeclasses;
 
 trait ObjectMonad {
   use ObjectApplicative;

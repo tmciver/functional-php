@@ -4,7 +4,7 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\ObjectFoldable;
 use TMciver\Functional\ObjectTraversable;
-use TMciver\Functional\ObjectMonad;
+use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
 use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeVisitor;

@@ -1,8 +1,6 @@
 <?php
 
-namespace TMciver\Functional;
-
-use TMciver\Functional\ObjectFunctor;
+namespace TMciver\Functional\ObjectTypeclasses;
 
 /**
  * A fuctor with application. An applicative containing a function can be

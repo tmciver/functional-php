@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\ObjectMonad;
+use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
 use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
 use TMciver\Functional\Maybe\Just;
 use TMciver\Functional\Maybe\Nothing;
