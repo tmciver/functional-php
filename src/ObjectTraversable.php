@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional;
 
-trait Traversable {
+trait ObjectTraversable {
 
     /**
      * @param $f A callable of a single parameter that returns some Monad.
