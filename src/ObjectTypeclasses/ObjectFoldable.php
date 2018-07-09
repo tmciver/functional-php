@@ -1,6 +1,8 @@
 <?php
 
-namespace TMciver\Functional;
+namespace TMciver\Functional\ObjectTypeclasses;
+
+use TMciver\Functional\Collection;
 
 trait ObjectFoldable {
   // not sure if it's a good idea to extend Collection . . .
