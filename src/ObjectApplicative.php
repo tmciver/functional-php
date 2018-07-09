@@ -8,7 +8,7 @@ use TMciver\Functional\ObjectFunctor;
  * A fuctor with application. An applicative containing a function can be
  * applied to an argument contained in another applicative.
  */
-trait Applicative {
+trait ObjectApplicative {
     use ObjectFunctor;
 
     /**
@@ -18,13 +18,13 @@ trait Applicative {
     abstract public function pure($val);
 
     /**
-     * Partially applies the function contained in this Applicative to the value
+     * Partially applies the function contained in this ObjectApplicative to the value
      * contained in the given applicative argument.
      *
      * @param $applicativeArgument | null: An object whose class implements the
-     *        Applicatie trait. If null is passed, then the wrapped function
+     *        Functor trait. If null is passed, then the wrapped function
      *        should be called without arguments.
-     * @return An Applicative of the same class as this one containing either
+     * @return An ObjectApplicative of the same class as this one containing either
      *         another partially-applied function or a non-function value.
      */
     final public function apply($applicativeArgument = null) {
@@ -44,8 +44,8 @@ trait Applicative {
     protected abstract function applyToArg($applicativeArgument);
 
     /**
-     * The __invoke magic method allows the Applicative to be called like a
-     * normal function but whose implementation gives it the Applicative
+     * The __invoke magic method allows the ObjectApplicative to be called like a
+     * normal function but whose implementation gives it the ObjectApplicative
      * behavior. The implementation of __invoke should handle being called with
      * zero or more arguments and "do the right thing."
      * @return The value returned by applying the function in a context to one
