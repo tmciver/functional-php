@@ -3,7 +3,7 @@
 namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\ObjectTypeclasses\ObjectFoldable;
-use TMciver\Functional\ObjectTraversable;
+use TMciver\Functional\ObjectTypeclasses\ObjectTraversable;
 use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
 use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
 use TMciver\Functional\Maybe\Maybe;
