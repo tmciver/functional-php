@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional;
+namespace TMciver\Functional\ObjectTypeclasses;
 
 trait ObjectSemiGroup {
 

@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional\Validation;
 
-use TMciver\Functional\ObjectSemiGroup;
+use TMciver\Functional\ObjectTypeclasses\ObjectSemiGroup;
 use TMciver\Functional\ObjectApplicative;
 
 abstract class Validation {
