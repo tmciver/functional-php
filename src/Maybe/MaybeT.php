@@ -2,12 +2,12 @@
 
 namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\Monad;
+use TMciver\Functional\ObjectMonad;
 use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\PartialFunction;
 
 class MaybeT {
-    use Monad;
+    use ObjectMonad;
 
     private $monad;
 
@@ -26,18 +26,18 @@ class MaybeT {
     }
 
     public function flatMap(callable $f) {
-	$newMonad = $this->monad->flatMap(function ($maybe) use ($f) {
+	$newObjectMonad = $this->monad->flatMap(function ($maybe) use ($f) {
 	    if ($maybe->isNothing()) {
-		$newMonad = $this->monad->pure($maybe);
+		$newObjectMonad = $this->monad->pure($maybe);
 	    } else {
 		$newMaybeT = $f($maybe->get());
-		$newMonad = $newMaybeT->monad;
+		$newObjectMonad = $newMaybeT->monad;
 	    }
 
-	    return $newMonad;
+	    return $newObjectMonad;
 	});
 
-	return new MaybeT($newMonad);
+	return new MaybeT($newObjectMonad);
     }
 
     protected function applyNoArg() {

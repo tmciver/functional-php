@@ -4,7 +4,7 @@ namespace TMciver\Functional;
 
 use TMciver\Functional\ObjectApplicative;
 
-trait Monad {
+trait ObjectMonad {
   use ObjectApplicative;
 
     /**
@@ -18,7 +18,7 @@ trait Monad {
 
     /**
      * Removes one layer of structure.
-     * @return The type of the return value should be the same type as this Monad.
+     * @return The type of the return value should be the same type as this ObjectMonad.
      */
     function join() {
 

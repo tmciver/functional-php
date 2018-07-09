@@ -2,12 +2,12 @@
 
 namespace TMciver\Functional\Either;
 
-use TMciver\Functional\Monad;
+use TMciver\Functional\ObjectMonad;
 use TMciver\Functional\ObjectMonoid;
 use TMciver\Functional\Either\Right;
 
 abstract class Either {
-    use ObjectMonoid, Monad;
+    use ObjectMonoid, ObjectMonad;
 
     public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Either\Right with a null value.') {
         if (is_null($val)) {
