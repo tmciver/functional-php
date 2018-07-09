@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional\LinkedList;
 
-use TMciver\Functional\Foldable;
+use TMciver\Functional\ObjectFoldable;
 use TMciver\Functional\Traversable;
 use TMciver\Functional\ObjectMonad;
 use TMciver\Functional\ObjectMonoid;
@@ -11,7 +11,7 @@ use TMciver\Functional\Maybe\MaybeVisitor;
 use TMciver\Functional\Tuple;
 
 abstract class LinkedList {
-  use Foldable, Traversable, ObjectMonoid, ObjectMonad;
+  use ObjectFoldable, Traversable, ObjectMonoid, ObjectMonad;
 
   public static $CONS_CELL_LIMIT = 32;
   public static $TO_STRING_MAX = 10;

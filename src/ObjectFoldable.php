@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional;
 
-trait Foldable {
+trait ObjectFoldable {
   // not sure if it's a good idea to extend Collection . . .
   use Collection;
 
@@ -13,7 +13,7 @@ trait Foldable {
    *        case of an empty structure.
    * @param $f The folding function. A function of two arguments: the first
    *        argument should be of the same type as $init (and the return type);
-   *        the second argument is an element of the `Foldable` structure.
+   *        the second argument is an element of the `ObjectFoldable` structure.
    * @return A value that has the same type as $init.
    */
   abstract function foldLeft($init, callable $f);
@@ -24,7 +24,7 @@ trait Foldable {
    * @param $init The seed value for the fold. This value is the result in the
    *        case of an empty structure.
    * @param $f The folding function. A function of two arguments: the first
-   *        argument is an element of the `Foldable` structure; the second
+   *        argument is an element of the `ObjectFoldable` structure; the second
    *        should be of the same type as $init (and the return type).
    * @return A value that has the same type as $init.
    */
