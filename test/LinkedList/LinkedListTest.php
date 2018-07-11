@@ -10,6 +10,8 @@ use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeMonoid;
 use TMciver\Functional\Tuple;
+use TMciver\Functional\Int\IntSumMonoid;
+use TMciver\Functional\Int\IntProductMonoid;
 
 require_once __DIR__ . '/../util.php';
 
@@ -265,7 +267,7 @@ abstract class LinkedListTest extends TestCase {
     $this->assertEquals($expected, $result);
   }
 
-  public function testFold() {
+  public function testFoldMaybe() {
     $monoid = new MaybeMonoid();
     $list = $this->makeListFromArray([
       Maybe::fromValue("hello"),
@@ -277,6 +279,25 @@ abstract class LinkedListTest extends TestCase {
 
     $this->assertEquals($expected, $result);
   }
+
+  public function testFoldIntSum() {
+    $l = $this->makeListFromArray(range(1, 10));
+    $intSumMonoid = new IntSumMonoid();
+    $result = $l->fold($intSumMonoid);
+    $expected = 55;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testFoldIntProduct() {
+    $l = $this->makeListFromArray(range(1, 10));
+    $intProductMonoid = new IntProductMonoid();
+    $result = $l->fold($intProductMonoid);
+    $expected = 3628800;
+
+    $this->assertEquals($expected, $result);
+  }
+
 
   public function testTraverseNonNil() {
     $monad = Maybe::nothing();
