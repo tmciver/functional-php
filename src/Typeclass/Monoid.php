@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional\Typeclass;
 
-interface Monoid {
+interface Monoid extends SemiGroup {
 
   /**
    * @return The identity element.
