@@ -12,6 +12,7 @@ use TMciver\Functional\Maybe\MaybeMonoid;
 use TMciver\Functional\Tuple;
 use TMciver\Functional\Int\IntSumMonoid;
 use TMciver\Functional\Int\IntProductMonoid;
+use TMciver\Functional\String\StringMonoid;
 
 require_once __DIR__ . '/../util.php';
 
@@ -298,6 +299,15 @@ abstract class LinkedListTest extends TestCase {
     $this->assertEquals($expected, $result);
   }
 
+  public function testFoldStrings() {
+    $l = $this->makeListFromArray(["category", "theory", "is", "cool!"]);
+    $withSpaces = $l->intersperse(" ");
+    $stringMonoid = new StringMonoid();
+    $result = $withSpaces->fold($stringMonoid);
+    $expected = "category theory is cool!";
+
+    $this->assertEquals($expected, $result);
+  }
 
   public function testTraverseNonNil() {
     $monad = Maybe::nothing();
