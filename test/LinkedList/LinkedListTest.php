@@ -8,6 +8,7 @@ use TMciver\Functional\LinkedList\LinkedList;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Maybe\MaybeMonoid;
 use TMciver\Functional\Tuple;
 
 require_once __DIR__ . '/../util.php';
@@ -255,7 +256,7 @@ abstract class LinkedListTest extends TestCase {
   }
 
   public function testFoldMap() {
-    $monoid = Maybe::nothing();
+    $monoid = new MaybeMonoid();
     $list = $this->makeListFromArray(["hello", " world!"]);
     $toMonoid = function ($v) { return Maybe::fromValue($v); };
     $result = $list->foldMap($monoid, $toMonoid);
@@ -265,10 +266,12 @@ abstract class LinkedListTest extends TestCase {
   }
 
   public function testFold() {
-    $monoid = Maybe::nothing();
-    $list = $this->makeListFromArray([Maybe::fromValue("hello"),
-				      $monoid, // throw in a Nothing for good measure
-				      Maybe::fromValue(" world!")]);
+    $monoid = new MaybeMonoid();
+    $list = $this->makeListFromArray([
+      Maybe::fromValue("hello"),
+      Maybe::nothing(), // throw in a Nothing for good measure
+      Maybe::fromValue(" world!")
+    ]);
     $result = $list->fold($monoid);
     $expected = Maybe::fromValue("hello world!");
 

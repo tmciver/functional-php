@@ -3,6 +3,7 @@
 namespace TMciver\Functional\ObjectTypeclasses;
 
 use TMciver\Functional\Collection;
+use TMciver\Functional\Typeclass\Monoid;
 
 trait ObjectFoldable {
   // not sure if it's a good idea to extend Collection . . .
@@ -47,10 +48,10 @@ trait ObjectFoldable {
    * @return A value that has the same type as the return type of $toMonoid and
    *         $monoid.
    */
-  public function foldMap($monoid, callable $toMonoid) {
+  public function foldMap(Monoid $monoid, callable $toMonoid) {
     $init = $monoid->identity();
-    $f = function ($acc, $x) use ($toMonoid) {
-      return $acc->append($toMonoid($x));
+    $f = function ($acc, $x) use ($monoid, $toMonoid) {
+      return $monoid->append($acc, $toMonoid($x));
     };
 
     return $this->foldLeft($init, $f);
@@ -67,7 +68,7 @@ trait ObjectFoldable {
    *        elements. Needed for the case of an empty structure.
    * @return a value of the same type as the elements.
    */
-  public function fold($monoid) {
+  public function fold(Monoid $monoid) {
     $id = function ($x) { return $x; };
     return $this->foldMap($monoid, $id);
   }
