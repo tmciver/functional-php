@@ -3,6 +3,7 @@
 namespace TMciver\Functional\Validation;
 
 use TMciver\Functional\Util;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Failure extends Validation {
 
@@ -35,7 +36,7 @@ class Failure extends Validation {
     return $this->appendToFailure($failure);
   }
 
-  public function append($other) {
+  public function append($other, SemiGroup $semiGroup = null) {
     return $other->appendToFailure($this);
   }
 

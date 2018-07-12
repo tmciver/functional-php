@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional\Either;
 
-use TMciver\Functional\Either\Either;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Left extends Either {
 
@@ -26,7 +26,7 @@ class Left extends Either {
       return $this;
     }
 
-    public function append($either) {
+    public function append($either, SemiGroup $semiGroup = null) {
         return $either;
     }
 

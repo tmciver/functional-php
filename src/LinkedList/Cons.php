@@ -5,6 +5,7 @@ namespace TMciver\Functional\LinkedList;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\PartialFunction;
 use TMciver\Functional\Tuple;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Cons extends LinkedList {
 
@@ -125,7 +126,7 @@ class Cons extends LinkedList {
     return $headList->concat($tailList);
   }
 
-  final public function append($other) {
+  final public function append($other, SemiGroup $semiGroup = null) {
     return new Cons($this->value, $this->tail->append($other), $this->factory);
   }
 

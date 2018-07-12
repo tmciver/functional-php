@@ -2,11 +2,11 @@
 
 namespace TMciver\Functional\Either;
 
-use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\Left;
 use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\PartialFunction;
 use TMciver\Functional\Util;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Right extends Either {
 
@@ -34,7 +34,7 @@ class Right extends Either {
       return $this->map($pf);
     }
 
-    public function append($appendee) {
+    public function append($appendee, SemiGroup $semiGroup = null) {
         return $appendee->appendRight($this);
     }
 
