@@ -6,7 +6,7 @@ use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
 use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
 
 abstract class Either {
-    use ObjectMonoid, ObjectMonad;
+  use ObjectMonad;
 
     public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Either\Right with a null value.') {
         if (is_null($val)) {
@@ -41,11 +41,6 @@ abstract class Either {
     }
 
     protected abstract function applyToRight($right);
-
-    /**
-     * Function for doing double dispatch from Right::append.
-     */
-    protected abstract function appendRight($right);
 
     public abstract function getOrElse($default);
 

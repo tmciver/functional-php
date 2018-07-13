@@ -34,39 +34,6 @@ class Right extends Either {
       return $this->map($pf);
     }
 
-    public function append($appendee, SemiGroup $semiGroup = null) {
-        return $appendee->appendRight($this);
-    }
-
-    public function appendRight($right) {
-        // this is where the real work of appending two Right's is done.
-
-        // Since we can't know if the value contained in an Either is itself a
-        // monoid, we're just going to put the values in an array. But there are
-        // four cases that we have to account for to create the proper result
-        // array so that associativity is maintained.
-        $firstVal = $right->val;
-        $secondVal = $this->val;
-	if (is_string($firstVal) && is_string($secondVal)) {
-	  $appendedResult = $firstVal . $secondVal;
-	} else if (Util::is_monoid($firstVal) && Util::is_monoid($secondVal)) {
-	  $appendedResult = $firstVal->append($secondVal);
-	} else if (!is_array($firstVal) && !is_array($secondVal)) {
-            $appendedResult = [$firstVal, $secondVal];
-        } else if (is_array($firstVal) && !is_array($secondVal)) {
-            $firstVal[] = $secondVal;
-            $appendedResult = $firstVal;
-        } else if (!is_array($firstVal) && is_array($secondVal)) {
-            array_unshift($secondVal, $firstVal);
-            $appendedResult = $secondVal;
-        } else {
-            // both values are arrays
-            $appendedResult = array_merge($firstVal, $secondVal);
-        }
-
-        return new Right($appendedResult);
-    }
-
     public function getOrElse($default) {
         return $this->val;
     }

@@ -26,14 +26,6 @@ class Left extends Either {
       return $this;
     }
 
-    public function append($either, SemiGroup $semiGroup = null) {
-        return $either;
-    }
-
-    public function appendRight($right) {
-        return $right;
-    }
-
     public function getOrElse($default) {
         return $default;
     }
