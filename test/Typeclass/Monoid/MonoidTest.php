@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 abstract class MonoidTest extends TestCase {
 
-  private $monoid;
-  private $m1, $m2, $m3;
+  protected $monoid;
+  protected $m1, $m2, $m3;
 
   protected abstract function getMonoid();
   protected abstract function getOne();
