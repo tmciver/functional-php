@@ -50,16 +50,16 @@ class ValidationApplicativeTest extends TestCase {
     $this->assertEquals($expected, $validationResult);
   }
 
-  public function testApplyForFailureFailure() {
+  // public function testApplyForFailureFailure() {
 
-    $errorMsg1 = "Error!";
-    $errorMsg2 = "Another error!";
-    $validationFunction = Validation::failure($errorMsg1);
-    $validationArg = Validation::failure($errorMsg2);
+  //   $errorMsg1 = "Error!";
+  //   $errorMsg2 = "Another error!";
+  //   $validationFunction = Validation::failure($errorMsg1);
+  //   $validationArg = Validation::failure($errorMsg2);
     
-    $validationResult = $validationFunction->apply($validationArg);
-    $expected = Validation::failure($errorMsg1 . $errorMsg2);
+  //   $validationResult = $validationFunction->apply($validationArg);
+  //   $expected = Validation::failure($errorMsg1 . $errorMsg2);
 
-    $this->assertEquals($expected, $validationResult);
-  }
+  //   $this->assertEquals($expected, $validationResult);
+  // }
 }

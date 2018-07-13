@@ -259,7 +259,7 @@ abstract class LinkedListTest extends TestCase {
   }
 
   public function testFoldMap() {
-    $monoid = new MaybeMonoid();
+    $monoid = new MaybeMonoid(new StringMonoid());
     $list = $this->makeListFromArray(["hello", " world!"]);
     $toMonoid = function ($v) { return Maybe::fromValue($v); };
     $result = $list->foldMap($monoid, $toMonoid);
@@ -269,7 +269,7 @@ abstract class LinkedListTest extends TestCase {
   }
 
   public function testFoldMaybe() {
-    $monoid = new MaybeMonoid();
+    $monoid = new MaybeMonoid(new StringMonoid());
     $list = $this->makeListFromArray([
       Maybe::fromValue("hello"),
       Maybe::nothing(), // throw in a Nothing for good measure

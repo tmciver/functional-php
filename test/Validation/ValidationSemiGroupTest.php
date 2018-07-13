@@ -3,6 +3,9 @@
 use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Validation\Validation;
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Maybe\MaybeMonoid;
+use TMciver\Functional\Int\IntSumMonoid;
+use TMciver\Functional\String\StringMonoid;
 
 class ValidationSemiGroupTest extends TestCase {
 
@@ -27,44 +30,44 @@ class ValidationSemiGroupTest extends TestCase {
   }
 
   public function testAppendForFailureSuccess() {
-
+    $monoid = new StringMonoid();
     $success = Validation::fromValue(5);
     $failure = Validation::failure("hi");
-    $appended = $failure->append($success);
+    $appended = $failure->append($success, $monoid);
     $expected = $success;
 
     $this->assertEquals($appended, $expected);
   }
 
   public function testAppendForFailureFailureOfString() {
-
+    $monoid = new StringMonoid();
     $failure1 = Validation::failure("hi");
     $failure2 = Validation::failure(" there");
-    $appended = $failure1->append($failure2);
+    $appended = $failure1->append($failure2, $monoid);
     $expected = Validation::failure("hi there");
 
     $this->assertEquals($appended, $expected);
   }
 
   public function testAppendForFailureFailureOfInts() {
-
+    $monoid = new StringMonoid();
     $failure1 = Validation::failure(1);
     $failure2 = Validation::failure(2);
-    $appended = $failure1->append($failure2);
+    $appended = $failure1->append($failure2, $monoid);
     $expected = Validation::failure([1, 2]);
 
     $this->assertEquals($appended, $expected);
   }
 
-  public function testAppendForFailureFailureOfMonoid() {
+  // public function testAppendForFailureFailureOfMonoid() {
+  //   $innerMonoid = new MaybeMonoid(new IntSumMonoid());
+  //   $failure1 = Validation::failure(Maybe::fromValue(1));
+  //   $failure2 = Validation::failure(Maybe::fromValue(2));
+  //   $appended = $failure1->append($failure2, $innerMonoid);
+  //   $expected = Validation::failure(Maybe::fromValue([1, 2]));
 
-    $failure1 = Validation::failure(Maybe::fromValue(1));
-    $failure2 = Validation::failure(Maybe::fromValue(2));
-    $appended = $failure1->append($failure2);
-    $expected = Validation::failure(Maybe::fromValue([1, 2]));
-
-    $this->assertEquals($appended, $expected);
-  }
+  //   $this->assertEquals($appended, $expected);
+  // }
 
   public function testAssociativity() {
 

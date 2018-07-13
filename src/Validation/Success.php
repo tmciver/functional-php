@@ -75,7 +75,7 @@ class Success extends Validation {
     return $leftSuccess;
   }
 
-  protected function appendToFailure($leftFailure) {
+  protected function appendToFailure($leftFailure, SemiGroup $semiGroup) {
     return $this;
   }
 }

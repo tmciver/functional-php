@@ -71,11 +71,11 @@ class Just extends Maybe {
       return $this->map($pf);
     }
 
-    public function append($appendee, SemiGroup $semiGroup = null) {
-        return $appendee->appendJust($this);
+    public function append($appendee, SemiGroup $semiGroup) {
+      return $appendee->appendJust($this, $semiGroup);
     }
 
-    protected function appendJust($just) {
+    protected function appendJust($just, SemiGroup $semiGroup) {
         // this is where the real work of appending two Just's is done.
 
         // Since we can't know if the value contained in a Maybe is itself a
@@ -84,22 +84,25 @@ class Just extends Maybe {
         // array so that associativity is maintained.
         $leftVal = $just->val;
         $rightVal = $this->val;
-        if (is_string($leftVal) && is_string($rightVal)) {
-	  $appendedResult = $leftVal . $rightVal;
-	} else if (Util::is_monoid($leftVal) && Util::is_monoid($rightVal)) {
-	  $appendedResult = $leftVal->append($rightVal);
-	} else if (!is_array($leftVal) && !is_array($rightVal)) {
-            $appendedResult = [$leftVal, $rightVal];
-        } else if (is_array($leftVal) && !is_array($rightVal)) {
-            $leftVal[] = $rightVal;
-            $appendedResult = $leftVal;
-        } else if (!is_array($leftVal) && is_array($rightVal)) {
-            array_unshift($rightVal, $leftVal);
-            $appendedResult = $rightVal;
-        } else {
-            // both values are arrays
-            $appendedResult = array_merge($leftVal, $rightVal);
-        }
+
+        $appendedResult  = $semiGroup->append($leftVal, $rightVal);
+
+        // if (is_string($leftVal) && is_string($rightVal)) {
+        //   $appendedResult = $leftVal . $rightVal;
+        // } else if (Util::is_monoid($leftVal) && Util::is_monoid($rightVal)) {
+        //   $appendedResult = $leftVal->append($rightVal);
+        // } else if (!is_array($leftVal) && !is_array($rightVal)) {
+        //   $appendedResult = [$leftVal, $rightVal];
+        // } else if (is_array($leftVal) && !is_array($rightVal)) {
+        //   $leftVal[] = $rightVal;
+        //   $appendedResult = $leftVal;
+        // } else if (!is_array($leftVal) && is_array($rightVal)) {
+        //   array_unshift($rightVal, $leftVal);
+        //   $appendedResult = $rightVal;
+        // } else {
+        //   // both values are arrays
+        //   $appendedResult = array_merge($leftVal, $rightVal);
+        // }
 
         return Maybe::fromValue($appendedResult);
     }

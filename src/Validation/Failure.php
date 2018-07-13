@@ -37,14 +37,14 @@ class Failure extends Validation {
   }
 
   public function append($other, SemiGroup $semiGroup = null) {
-    return $other->appendToFailure($this);
+    return $other->appendToFailure($this, $semiGroup);
   }
 
   protected function appendToSuccess($leftSuccess) {
     return $leftSuccess;
   }
 
-  protected function appendToFailure($failure) {
+  protected function appendToFailure($failure, SemiGroup $semiGroup) {
     // Here we account for several possibilities for the types of values
     // contained by the two Failures.
     $leftVal = $failure->val;

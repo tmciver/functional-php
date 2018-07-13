@@ -2,9 +2,9 @@
 
 namespace TMciver\Functional\Int;
 
-use TMciver\Functional\Typeclass\BaseMonoid;
+use TMciver\Functional\Typeclass\Monoid;
 
-class IntProductMonoid extends BaseMonoid {
+class IntProductMonoid implements Monoid {
 
   function identity() {
     return 1;

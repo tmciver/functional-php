@@ -4,6 +4,7 @@ namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
 use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
+use TMciver\Functional\Typeclass\SemiGroup;
 use TMciver\Functional\Maybe\Just;
 use TMciver\Functional\Maybe\Nothing;
 
@@ -43,7 +44,7 @@ abstract class Maybe {
     /**
      * Function for doing double dispatch from Just::append.
      */
-    protected abstract function appendJust($just);
+    protected abstract function appendJust($just, SemiGroup $semiGroup);
 
     /**
      * @param $default The default value to return if this Maybe is an instance

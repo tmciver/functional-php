@@ -4,6 +4,7 @@ namespace TMciver\Functional\Validation;
 
 use TMciver\Functional\ObjectTypeclasses\ObjectSemiGroup;
 use TMciver\Functional\ObjectTypeclasses\ObjectApplicative;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 abstract class Validation {
   use ObjectSemiGroup, ObjectApplicative;
@@ -30,7 +31,7 @@ abstract class Validation {
 
   protected abstract function appendToSuccess($success);
 
-  protected abstract function appendToFailure($failure);
+  protected abstract function appendToFailure($failure, SemiGroup $semiGroup);
 
   public function pure($val) {
     return is_null($val) ?

@@ -34,7 +34,7 @@ class Nothing extends Maybe {
         return $appendee;
     }
 
-    protected function appendJust($just) {
+    protected function appendJust($just, SemiGroup $semiGroup) {
         return $just;
     }
 
