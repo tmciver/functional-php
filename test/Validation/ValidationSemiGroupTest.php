@@ -5,6 +5,7 @@ use TMciver\Functional\Validation\Validation;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeMonoid;
 use TMciver\Functional\Int\IntSumMonoid;
+use TMciver\Functional\Int\IntProductMonoid;
 use TMciver\Functional\String\StringMonoid;
 
 class ValidationSemiGroupTest extends TestCase {
@@ -50,24 +51,24 @@ class ValidationSemiGroupTest extends TestCase {
   }
 
   public function testAppendForFailureFailureOfInts() {
-    $monoid = new StringMonoid();
+    $monoid = new IntProductMonoid();
     $failure1 = Validation::failure(1);
     $failure2 = Validation::failure(2);
     $appended = $failure1->append($failure2, $monoid);
-    $expected = Validation::failure([1, 2]);
+    $expected = Validation::failure(2);
 
     $this->assertEquals($appended, $expected);
   }
 
-  // public function testAppendForFailureFailureOfMonoid() {
-  //   $innerMonoid = new MaybeMonoid(new IntSumMonoid());
-  //   $failure1 = Validation::failure(Maybe::fromValue(1));
-  //   $failure2 = Validation::failure(Maybe::fromValue(2));
-  //   $appended = $failure1->append($failure2, $innerMonoid);
-  //   $expected = Validation::failure(Maybe::fromValue([1, 2]));
+  public function testAppendForFailureFailureOfMonoid() {
+    $innerMonoid = new MaybeMonoid(new IntSumMonoid());
+    $failure1 = Validation::failure(Maybe::fromValue(1));
+    $failure2 = Validation::failure(Maybe::fromValue(2));
+    $appended = $failure1->append($failure2, $innerMonoid);
+    $expected = Validation::failure(Maybe::fromValue(3));
 
-  //   $this->assertEquals($appended, $expected);
-  // }
+    $this->assertEquals($appended, $expected);
+  }
 
   public function testAssociativity() {
 
