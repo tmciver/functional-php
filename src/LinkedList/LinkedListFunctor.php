@@ -2,11 +2,8 @@
 
 namespace TMciver\Functional\LinkedList;
 
-use TMciver\Functional\Typeclass\Functor;
+use TMciver\Functional\Typeclass\DefaultFunctor;
 
-class LinkedListFunctor implements Functor {
+class LinkedListFunctor extends DefaultFunctor {
 
-  function map(/*type LinkedList*/ $l, callable $f) {
-    return $l->map($f);
-  }
 }

@@ -12,10 +12,4 @@ interface Functor {
    * @return A value that has been mapped over with the same type as $v.
    */
   function map($v, callable $f);
-
-  /**
-   * @param $msg (string) An error message.
-   * @return An instance of Functor whose type is the same as this Functor.
-   */
-  //abstract function fail($msg);
 }
