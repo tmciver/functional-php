@@ -13,7 +13,7 @@ class Just extends Maybe {
 
   private $val;
 
-    protected function __construct($val) {
+    public function __construct($val) {
 	$this->val = $val;
     }
 

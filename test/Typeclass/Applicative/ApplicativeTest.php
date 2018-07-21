@@ -25,7 +25,6 @@ abstract class ApplicativeTest extends TestCase {
     // These exist as a kludge for creating Applicatives; they're not the actual
     // Applicatives.
     $this->applicativesToTest = [
-      Maybe::fromValue(1),
       Validation::fromValue(1),
       $maybeT
     ];
