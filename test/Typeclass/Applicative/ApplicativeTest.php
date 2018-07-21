@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test;
+namespace TMciver\Functional\Test\Typeclass\Applicative;
 
 use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
