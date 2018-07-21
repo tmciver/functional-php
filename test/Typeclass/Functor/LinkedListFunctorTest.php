@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test;
+namespace TMciver\Functional\Test\Typeclass\Functor;
 
 use TMciver\Functional\LinkedList\LinkedListMonad;
 use TMciver\Functional\LinkedList\LinkedListFactory;

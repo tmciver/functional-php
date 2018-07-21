@@ -1,9 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Test;
+namespace TMciver\Functional\Test\Typeclass\Functor;
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\LinkedList\LinkedListFactory;
 
 abstract class FunctorTest extends TestCase {
 
