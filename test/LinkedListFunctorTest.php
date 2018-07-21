@@ -2,13 +2,13 @@
 
 namespace TMciver\Functional\Test;
 
-use TMciver\Functional\LinkedList\LinkedListFunctor;
+use TMciver\Functional\LinkedList\LinkedListMonad;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
 class LinkedListFunctorTest extends FunctorTest {
 
   function getFunctorInstance() {
-    return new LinkedListFunctor();
+    return new LinkedListMonad();
   }
 
   function getValue() {
