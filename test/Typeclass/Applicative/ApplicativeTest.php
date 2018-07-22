@@ -7,7 +7,6 @@ use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Validation\Validation;
-use TMciver\Functional\LinkedList\LinkedListFactory;
 
 abstract class ApplicativeTest extends TestCase {
 
@@ -25,7 +24,7 @@ abstract class ApplicativeTest extends TestCase {
     // These exist as a kludge for creating Applicatives; they're not the actual
     // Applicatives.
     $this->applicativesToTest = [
-      Validation::fromValue(1),
+      //      Validation::fromValue(1),
       $maybeT
     ];
   }

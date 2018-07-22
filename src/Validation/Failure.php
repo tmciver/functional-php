@@ -7,7 +7,7 @@ use TMciver\Functional\Typeclass\SemiGroup;
 
 class Failure extends Validation {
 
-  protected function __construct($val) {
+  public function __construct($val) {
     $this->val = $val;
   }
 
@@ -15,6 +15,8 @@ class Failure extends Validation {
     return $this;
   }
 
+  // TODO Validation can't be a Monad!
+  // https://stackoverflow.com/questions/40539650/why-can-accvalidation-not-have-a-monad-instance
   public function flatMap(callable $f) {
     return $this;
   }

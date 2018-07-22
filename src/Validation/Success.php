@@ -9,7 +9,7 @@ class Success extends Validation {
 
   private $val;
 
-  protected function __construct($val) {
+  public function __construct($val) {
     $this->val = $val;
   }
 
@@ -27,6 +27,8 @@ class Success extends Validation {
     return $validationResult;
   }
 
+  // TODO Validation can't be a Monad!
+  // https://stackoverflow.com/questions/40539650/why-can-accvalidation-not-have-a-monad-instance
   public function flatMap(callable $f) {
 
     // Since we don't know if $f will throw an exception, we wrap the call
