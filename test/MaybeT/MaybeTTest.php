@@ -2,81 +2,66 @@
 
 use PHPUnit\Framework\TestCase;
 use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Either\Either;
+use TMciver\Functional\Maybe\MaybeT;
+use TMciver\Functional\Maybe\MaybeTMonad;
+use TMciver\Functional\Either\EitherMonad;
 
 class MaybeTTest extends TestCase {
 
-    private $maybeT; // used to create MaybeT's using 'pure'
+  private $maybeTMonad;
+  private $wrapperMonad;
 
-    public function setUp() {
-        $this->maybeT = new MaybeT(Either::left(''));
-    }
+  public function setUp() {
+    $this->wrapperMonad = new EitherMonad();
+    $this->maybeTMonad = new MaybeTMonad($this->wrapperMonad);
+  }
 
-    public function testMap() {
-
-	// create a MaybeT that represents an `Either Maybe`
-        $mt = $this->maybeT->pure("Hello");
+  public function testMap() {
+    $mt = $this->maybeTMonad->pure("Hello");
 	$newMt = $mt->map('strtolower');
-	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("hello")));
+    $expectedMt = $this->maybeTMonad->pure("hello");
 
 	$this->assertEquals($newMt, $expectedMt);
-    }
+  }
 
-    public function testFlatMapForRightJust1() {
-
-	// create a MaybeT that represents an `Either Maybe`
-        $mt = $this->maybeT->pure("Hello");
-	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("H")));
-
-	$newMt = $mt->flatMap('firstLetter');
+  public function testFlatMapForRightJust1() {
+    $mt = $this->maybeTMonad->pure("Hello");
+	$newMt = $mt->flatMap($this->wrapperMonad, 'firstLetter');
+    $expectedMt = $this->maybeTMonad->pure("H");
 
 	$this->assertEquals($newMt, $expectedMt);
-    }
+  }
 
-    public function testFlatMapForRightJust2() {
-
-	// create a MaybeT that represents an `Either Maybe`
-        $mt = $this->maybeT->pure("");
+  public function testFlatMapForRightJust2() {
+    $mt = $this->maybeTMonad->pure("");
 	$expectedMt = new MaybeT(Either::fromValue(Maybe::nothing()));
-
-	$newMt = $mt->flatMap('firstLetter');
+	$newMt = $mt->flatMap($this->wrapperMonad, 'firstLetter');
 
 	$this->assertEquals($newMt, $expectedMt);
-    }
+  }
 
-    public function testFlatMapForRightNothing() {
-
-	// create a MaybeT that represents an `Either Maybe`
+  public function testFlatMapForRightNothing() {
 	$mt = new MaybeT(Either::fromValue(Maybe::nothing()));
-
-	$newMt = $mt->flatMap('firstLetter');
+	$newMt = $mt->flatMap($this->wrapperMonad, 'firstLetter');
 
 	$this->assertEquals($newMt, $mt);
-    }
+  }
 
-    public function testFlatMapForLeft() {
-
-	// create a MaybeT that represents an `Either Maybe`
+  public function testFlatMapForLeft() {
 	$mt = new MaybeT(Either::left("I am Error!"));
-
-	$newMt = $mt->flatMap('firstLetter');
+	$newMt = $mt->flatMap($this->wrapperMonad, 'firstLetter');
 
 	$this->assertEquals($newMt, $mt);
-    }
+  }
 
-    public function testPure() {
-
-	// create a MaybeT that represents an `Either Maybe`
+  public function testPure() {
 	$mt = new MaybeT(Either::left("I am Error."));
-
-	// create a pure value
 	$newMt = $mt->pure("Hello!");
-
 	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("Hello!")));
 
 	$this->assertEquals($newMt, $expectedMt);
-    }
+  }
 }
 
 /**
@@ -84,17 +69,17 @@ class MaybeTTest extends TestCase {
  * @return an instance MaybeT (Either Maybe)
  */
 function firstLetter($str) {
-    if (is_string($str)) {
+  if (is_string($str)) {
 	if (empty($str)) {
-	    $maybeLetter = Maybe::nothing();
+      $maybeLetter = Maybe::nothing();
 	} else {
-	    $maybeLetter = Maybe::fromValue(substr($str, 0, 1));
+      $maybeLetter = Maybe::fromValue(substr($str, 0, 1));
 	}
 	$either = Either::fromValue($maybeLetter);
-    } else {
+  } else {
 	$either = Either::left("Argument to 'firstLetter' not a string.");
-    }
+  }
 
-    return new MaybeT($either);
+  return new MaybeT($either);
 }
 

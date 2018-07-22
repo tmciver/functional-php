@@ -13,7 +13,6 @@ class MonadTest extends TestCase {
   public function setUp() {
     $this->monadTestData = [new MaybeTestData(),
 			    new EitherTestData(),
-			    new MaybeTTestData(),
 			    new LinkedListTestData()];
   }
 
