@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\ObjectTypeclasses;
+namespace TMciver\Functional\ObjectTypeclass;
 
 use TMciver\Functional\Collection;
 use TMciver\Functional\Typeclass\Monoid;

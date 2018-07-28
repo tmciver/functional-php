@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional;
 
-use TMciver\Functional\ObjectTypeclasses\ObjectTraversable;
+use TMciver\Functional\ObjectTypeclass\ObjectTraversable;
 
 // Just a wrapper around the native PHP array to allow for cool FP goodness.
 class AssociativeArray {

@@ -2,10 +2,10 @@
 
 namespace TMciver\Functional\LinkedList;
 
-use TMciver\Functional\ObjectTypeclasses\ObjectFoldable;
-use TMciver\Functional\ObjectTypeclasses\ObjectTraversable;
-use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
-use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
+use TMciver\Functional\ObjectTypeclass\ObjectFoldable;
+use TMciver\Functional\ObjectTypeclass\ObjectTraversable;
+use TMciver\Functional\ObjectTypeclass\ObjectMonad;
+use TMciver\Functional\ObjectTypeclass\ObjectMonoid;
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Maybe\MaybeVisitor;
 use TMciver\Functional\Tuple;

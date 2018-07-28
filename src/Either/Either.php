@@ -2,8 +2,8 @@
 
 namespace TMciver\Functional\Either;
 
-use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
-use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
+use TMciver\Functional\ObjectTypeclass\ObjectMonad;
+use TMciver\Functional\ObjectTypeclass\ObjectMonoid;
 
 abstract class Either {
   use ObjectMonad;

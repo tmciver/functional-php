@@ -3,7 +3,7 @@
 namespace TMciver\Functional\Maybe;
 
 use TMciver\Functional\Typeclass\Monad;
-use TMciver\Functional\ObjectTypeclasses\ObjectFunctor;
+use TMciver\Functional\ObjectTypeclass\ObjectFunctor;
 use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\PartialFunction;
 

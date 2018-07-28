@@ -2,8 +2,8 @@
 
 namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\ObjectTypeclasses\ObjectMonad;
-use TMciver\Functional\ObjectTypeclasses\ObjectMonoid;
+use TMciver\Functional\ObjectTypeclass\ObjectMonad;
+use TMciver\Functional\ObjectTypeclass\ObjectMonoid;
 use TMciver\Functional\Typeclass\SemiGroup;
 use TMciver\Functional\Maybe\Just;
 use TMciver\Functional\Maybe\Nothing;
