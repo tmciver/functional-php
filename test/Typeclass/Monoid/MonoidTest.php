@@ -34,15 +34,15 @@ abstract class MonoidTest extends TestCase {
 
   public function testLeftIdentity() {
     $ident = $this->monoid->identity();
-    $result = $this->monoid->append($ident, $m1);
+    $result = $this->monoid->append($ident, $this->m1);
 
-    $this->assertEquals($m1, $result);
+    $this->assertEquals($this->m1, $result);
   }
 
   public function testRightIdentity() {
     $ident = $this->monoid->identity();
-    $result = $this->monoid->append($ident, $m1);
+    $result = $this->monoid->append($this->m1, $ident);
 
-    $this->assertEquals($m1, $result);
+    $this->assertEquals($this->m1, $result);
   }
 }
