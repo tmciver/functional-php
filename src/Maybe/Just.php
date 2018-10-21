@@ -76,33 +76,10 @@ class Just extends Maybe {
     }
 
     protected function appendJust($just, SemiGroup $semiGroup) {
-        // this is where the real work of appending two Just's is done.
-
-        // Since we can't know if the value contained in a Maybe is itself a
-        // monoid, we're just going to put the values in an array. But there are
-        // four cases that we have to account for to create the proper result
-        // array so that associativity is maintained.
         $leftVal = $just->val;
         $rightVal = $this->val;
 
         $appendedResult  = $semiGroup->append($leftVal, $rightVal);
-
-        // if (is_string($leftVal) && is_string($rightVal)) {
-        //   $appendedResult = $leftVal . $rightVal;
-        // } else if (Util::is_monoid($leftVal) && Util::is_monoid($rightVal)) {
-        //   $appendedResult = $leftVal->append($rightVal);
-        // } else if (!is_array($leftVal) && !is_array($rightVal)) {
-        //   $appendedResult = [$leftVal, $rightVal];
-        // } else if (is_array($leftVal) && !is_array($rightVal)) {
-        //   $leftVal[] = $rightVal;
-        //   $appendedResult = $leftVal;
-        // } else if (!is_array($leftVal) && is_array($rightVal)) {
-        //   array_unshift($rightVal, $leftVal);
-        //   $appendedResult = $rightVal;
-        // } else {
-        //   // both values are arrays
-        //   $appendedResult = array_merge($leftVal, $rightVal);
-        // }
 
         return Maybe::fromValue($appendedResult);
     }
