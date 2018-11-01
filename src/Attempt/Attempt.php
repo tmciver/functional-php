@@ -54,6 +54,16 @@ abstract class Attempt {
     public abstract function orElse(callable $f, array $args);
 
     /**
+     * Gives the caller the opportunity to recover from a failure. The provided
+     * callable is only called for a `Failure` case.
+     *
+     * @f callable a function of one argument the type of which is the type of
+     *    value held in the `Failure` case and returns an instance of
+     *    `Attempt` (usually a `Success).
+     */
+    public abstract function catch(callable $f);
+
+    /**
      * @return True if this object is an instance of the Failure class; false
      * otherwise.
      */

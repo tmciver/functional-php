@@ -81,6 +81,10 @@ class Success extends Attempt {
 	return $this;
     }
 
+    public function catch(callable $f) {
+      return $this;
+    }
+
     public function isFailure() {
 	return false;
     }

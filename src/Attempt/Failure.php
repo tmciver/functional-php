@@ -55,6 +55,23 @@ class Failure extends Attempt {
 	return $tryResult;
     }
 
+    public function catch(callable $f) {
+      // Since we don't know if $f will throw an exception, we wrap the call
+      // in a try/catch. The result will be a Failure if there's an exception.
+      try {
+          $attemptResult = $f($this->val);
+
+          // If the result is null, we return Nothing.
+          if (is_null($attemptResult)) {
+              $attemptResult = self::fail('Received a null value from the callable passed to Attempt::catch');
+          }
+      } catch (\Exception $e) {
+          $attemptResult = self::fail('Caught an exception when calling the callable passed to Attempt::catch');
+      }
+
+      return $attemptResult;
+    }
+
     public function get() {
 	return $this->val;
     }

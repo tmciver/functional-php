@@ -6,48 +6,53 @@ use TMciver\Functional\Attempt\Failure;
 
 class AttemptTest extends TestCase {
 
-    public function testAttemptGetOrElseForSuccess() {
+	public function testAttemptGetOrElseForSuccess() {
+		$try = Attempt::fromValue("Hello!");
+		$val = $try->getOrElse("World!");
 
-        $try = Attempt::fromValue("Hello!");
-        $val = $try->getOrElse("World!");
+		$this->assertEquals("Hello!", $val);
+	}
 
-        $this->assertEquals("Hello!", $val);
-    }
+	public function testAttemptGetOrElseForFailure() {
+		$try = Attempt::failure('');
+		$val = $try->getOrElse("World!");
 
-    public function testAttemptGetOrElseForFailure() {
+		$this->assertEquals("World!", $val);
+	}
 
-        $try = Attempt::failure('');
-        $val = $try->getOrElse("World!");
+	public function testOrElseForFailure() {
+		$try = Attempt::failure('');
+		$tryNoException = $try->orElse(function () {
+			throw new \Exception('I should be caught!');
+		}, []);
 
-        $this->assertEquals("World!", $val);
-    }
+		$this->assertInstanceOf(Failure::class, $tryNoException);
+	}
 
-    public function testOrElseForFailure() {
+	public function testOrElseForSuccess() {
+		$try = Attempt::fromValue('');
+		$trySame = $try->orElse(function () {
+			return Attempt::fromValue('A new Attempt!');
+		}, []);
 
-        $try = Attempt::failure('');
-        $tryNoException = $try->orElse(function () {
-            throw new \Exception('I should be caught!');
-        }, []);
+		$this->assertEquals($try, $trySame);
+	}
 
-        $this->assertInstanceOf(Failure::class, $tryNoException);
-    }
+	public function testAttemptErrorMessage() {
+		$errMsg = 'No power in the \'verse can stop me.';
+		$try = Attempt::fromValue(null, $errMsg);
+		$expected = Attempt::failure($errMsg);
 
-    public function testOrElseForSuccess() {
+		$this->assertEquals($expected, $try);
+	}
 
-        $try = Attempt::fromValue('');
-        $trySame = $try->orElse(function () {
-            return Attempt::fromValue('A new Attempt!');
-        }, []);
+	public function testCatch() {
+		$err = Attempt::failure("Wump wump");
+		$val = $err->catch(function($e) {
+			return Attempt::fromValue(42);
+		});
+		$expected = Attempt::fromValue(42);
 
-        $this->assertEquals($try, $trySame);
-    }
-
-    public function testAttemptErrorMessage() {
-
-        $errMsg = 'No power in the \'verse can stop me.';
-        $try = Attempt::fromValue(null, $errMsg);
-        $expected = Attempt::failure($errMsg);
-
-        $this->assertEquals($expected, $try);
-    }
+		$this->assertEquals($expected, $val);
+	}
 }
