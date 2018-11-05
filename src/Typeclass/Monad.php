@@ -19,4 +19,6 @@ interface Monad extends Applicative {
    * @return a value of type `a` in a context `m`.
    */
   function join($mma);
+
+  //function fail($messag);
 }

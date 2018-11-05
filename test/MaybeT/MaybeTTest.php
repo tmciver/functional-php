@@ -5,7 +5,7 @@ use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\Maybe\MaybeT;
 use TMciver\Functional\Maybe\MaybeTMonad;
-use TMciver\Functional\Either\EitherMonad;
+use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
 
 class MaybeTTest extends TestCase {
 
@@ -13,7 +13,7 @@ class MaybeTTest extends TestCase {
   private $wrapperMonad;
 
   public function setUp() {
-    $this->wrapperMonad = new EitherMonad();
+    $this->wrapperMonad = new RightFavoringEitherMonad();
     $this->maybeTMonad = new MaybeTMonad($this->wrapperMonad);
   }
 
@@ -56,7 +56,7 @@ class MaybeTTest extends TestCase {
   }
 
   public function testPure() {
-	$mt = new MaybeT(Either::left("I am Error."));
+	$mt = new MaybeT($this->wrapperMonad);
 	$newMt = $mt->pure("Hello!");
 	$expectedMt = new MaybeT(Either::fromValue(Maybe::fromValue("Hello!")));
 

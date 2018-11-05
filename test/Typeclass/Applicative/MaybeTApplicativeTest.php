@@ -3,14 +3,14 @@
 namespace TMciver\Functional\Test\Typeclass\Applicative;
 
 use TMciver\Functional\Maybe\MaybeTMonad;
-use TMciver\Functional\Either\EitherMonad;
+use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
 
 class MaybeTApplicativeTest extends ApplicativeTest {
 
   private $maybeTMonad;
 
   public function setUp() {
-    $this->maybeTMonad = new MaybeTMonad(new EitherMonad());
+    $this->maybeTMonad = new MaybeTMonad(new RightFavoringEitherMonad());
   }
 
   public function getApplicative() {

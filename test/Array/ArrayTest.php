@@ -3,18 +3,24 @@
 use PHPUnit\Framework\TestCase;
 use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\Either\Either;
+use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
 
 class ArrayTest extends TestCase {
+
+    private $monad;
+
+    protected function setUp() {
+        $this->monad = new RightFavoringEitherMonad();
+    }
 
     public function testTraverseSuccessForArrayOfInt() {
 
 	$dividend = 12;
 	$divisors = [2, 4, 6];
 	$intsArray = new AssociativeArray($divisors);
-	$instance = Either::left('');
 	$eitherResults = $intsArray->traverse(function ($i) use ($dividend) {
 	    return divide($dividend, $i);
-	}, $instance);
+	}, $this->monad);
 	$expected = Either::fromValue([6, 3, 2]);
 
 	$this->assertEquals($expected, $eitherResults);
@@ -25,10 +31,9 @@ class ArrayTest extends TestCase {
 	$dividend = 12;
 	$divisors = [2, 0, 6];
 	$intsArray = new AssociativeArray($divisors);
-	$instance = Either::left('');
 	$eitherResults = $intsArray->traverse(function ($i) use ($dividend) {
 	    return divide($dividend, $i);
-	}, $instance);
+	}, $this->monad);
 	$expected = Either::left('Division by zero!');
 
 	$this->assertEquals($expected, $eitherResults);
@@ -37,10 +42,9 @@ class ArrayTest extends TestCase {
     public function testTraverseForEmptyArray() {
 
 	$arr = new AssociativeArray([]);
-	$instance = Either::left('');
 	$eitherResult = $arr->traverse(function ($ignore) {
 	    throw new \Exception('This should not affect the traversal as it should not be called!');
-	}, $instance);
+	}, $this->monad);
 	$expected = Either::fromValue([]);
 
 	$this->assertEquals($expected, $eitherResult);
@@ -49,15 +53,14 @@ class ArrayTest extends TestCase {
     public function testTraverseForThrownException() {
 
         $intsArray = new AssociativeArray([2, 0, 6]);
-        $instance = Either::left('');
         $eitherResults = $intsArray->traverse(function ($i) {
             if ($i == 0) {
                 throw new \Exception('Found zero!');
             } else {
                 return Either::fromValue($i);
             }
-        }, $instance);
-        $expected = $instance->fail();
+        }, $this->monad);
+        $expected = $this->monad->fail();
 
         $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
     }
@@ -65,21 +68,19 @@ class ArrayTest extends TestCase {
     public function testTraverseForReturningNull() {
 
         $intsArray = new AssociativeArray([2, 0, 6]);
-        $instance = Either::left('');
         $eitherResults = $intsArray->traverse(function ($ignore) {
             return null;
-        }, $instance);
-        $expected = $instance->fail();
+        }, $this->monad);
+        $expected = $this->monad->fail();
 
         $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
     }
 
     public function testHandlingOfNullArgument() {
       $arr = new AssociativeArray(null);
-      $monad = Either::left('');
       $expected = Either::fromValue([]);
 
-      $this->assertEquals($arr->sequence($monad), $expected);
+      $this->assertEquals($arr->sequence($this->monad), $expected);
     }
 }
 

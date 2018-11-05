@@ -19,6 +19,6 @@ interface Applicative extends Functor {
    * @return A value in a context `f`. The contained value is that returned by
    * applying the function in $ff to the value in $fa.
    */
-  function apply($ff, $fa);
+  function apply($ff, $fa = null);
 }
 
