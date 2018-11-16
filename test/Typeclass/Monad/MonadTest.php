@@ -9,11 +9,37 @@ use TMciver\Functional\Either\Either;
 use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
+/**
+ * Test class for testing the monad laws of any monad.  The [Template
+ * Pattern](https://en.wikipedia.org/wiki/Template_method_pattern) is used to
+ * instantiate the necessary test data.  To create a new monad test create a
+ * sub-class of this class and provide implementations for all abstract methods.
+ */
 abstract class MonadTest extends TestCase {
 
+  /**
+   * @returns An instance of the monad to test.
+   */
   protected abstract function getMonad();
+
+  /**
+   * @returns Any value. The function returned by `$self::getMonadicFunctionF()`
+   * must be able to accept this value as an argument.
+   */
   protected abstract function getValue();
+
+  /**
+   * @returns a function that will be called with the value returned from
+   * `$self::getValue()` and returns a monad of the same type as the monad under
+   * test.
+   */
   protected abstract function getMonadicFunctionF();
+
+  /**
+   * @returns a function that will be called with the value wrapped in the monad
+   * returned by `$self::getMonadicFunctionF()` and returns a monad of the same
+   * type as the monad under test.
+   */
   protected abstract function getMonadicFunctionG();
 
   public function testLeftIdentity() {
