@@ -45,9 +45,10 @@ abstract class MonadTest extends TestCase {
   public function testLeftIdentity() {
     $val = $this->getValue();
     $monad = $this->getMonad();
+    $m = $monad->pure($val);
     $f = $this->getMonadicFunctionF();
 
-    $result1 = $monad->pure($val)->flatMap($f);
+    $result1 = $monad->flatMap($m, $f);
     $result2 = $f($val);
 
     $this->assertEquals($result1, $result2);
@@ -74,9 +75,11 @@ abstract class MonadTest extends TestCase {
     $f = $this->getMonadicFunctionF();
     $g = $this->getMonadicFunctionG();
 
-    $result1 = $monad->flatMap($m, $f)->flatMap($g);
-    $result2 = $monad->flatMap($m, function($x) use ($f, $g) {
-	  return $f($x)->flatMap($g);
+    $m1 = $monad->flatMap($m, $f);
+    $result1 = $monad->flatMap($m1, $g);
+    $result2 = $monad->flatMap($m, function($x) use ($monad, $f, $g) {
+      $m1 = $f($x);
+	  return $monad->flatMap($m1, $g);
 	});
 
     $this->assertEquals($result1, $result2);
@@ -96,23 +99,6 @@ interface MonadTestData {
   function getMonadInstance();
   function getMonadFunctionF();
   function getMonadFunctionG();
-}
-
-class MaybeTTestData implements MonadTestData {
-  private $maybeT;
-
-  public function __construct() {
-    $this->maybeT = new MaybeT(Either::fromValue(Maybe::fromValue(1)));
-  }
-
-  function getValue() { return 1; }
-  function getMonadInstance() { return $this->maybeT; }
-  function getMonadFunctionF() {
-    return function($i) { return $this->maybeT->pure($i + 1); };
-  }
-  function getMonadFunctionG() {
-    return function($i) { return $this->maybeT->pure($i . ''); };
-  }
 }
 
 class LinkedListTestData implements MonadTestData {
