@@ -6,6 +6,10 @@ use TMciver\Functional\LinkedList\LinkedListMonad;
 use TMciver\Functional\LinkedList\LinkedList;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 
+/**
+ * Class for testing `LinkedListMonad`.
+ * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ */
 class LinkedListMonadTest extends MonadTest {
 
   private $linkedListMonad;

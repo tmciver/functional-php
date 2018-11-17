@@ -4,6 +4,10 @@ namespace TMciver\Functional\Test\Typeclass\Monad;
 
 use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
 
+/**
+ * Class for testing `RightFavoringEitherMonad`.
+ * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ */
 class RightFavoringEitherMonadTest extends MonadTest {
 
   private $eitherMonad;

@@ -5,6 +5,10 @@ namespace TMciver\Functional\Test\Typeclass\Monad;
 use TMciver\Functional\Maybe\MaybeMonad;
 use TMciver\Functional\Maybe\Maybe;
 
+/**
+ * Class for testing `MaybeMonad`.
+ * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ */
 class MaybeMonadTest extends MonadTest {
 
   private $maybeMonad;
