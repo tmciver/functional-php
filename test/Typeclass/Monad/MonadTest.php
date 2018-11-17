@@ -3,11 +3,6 @@
 namespace TMciver\Functional\Test\Typeclass\Monad;
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\MaybeT;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
-use TMciver\Functional\LinkedList\LinkedListFactory;
 
 /**
  * Test class for testing the monad laws of any monad.  The [Template
@@ -83,37 +78,5 @@ abstract class MonadTest extends TestCase {
 	});
 
     $this->assertEquals($result1, $result2);
-  }
-}
-
-interface MonadTestData {
-
-  /**
-   * Return some regular, non-monadic value like and int, string or array
-   */
-  function getValue();
-
-  /**
-   * Return an instance of the monad under test.
-   */
-  function getMonadInstance();
-  function getMonadFunctionF();
-  function getMonadFunctionG();
-}
-
-class LinkedListTestData implements MonadTestData {
-  private $factory;
-  function __construct() {
-    $this->factory = new LinkedListFactory();
-  }
-  function getValue() { return 1; }
-  function getMonadInstance() { return $this->factory->fromNativeArray([1, 2, 3]); }
-  function getMonadFunctionF() {
-    return function($i) { return $this->factory->fromNativeArray([$i + 1, $i + 2, $i + 3]); };
-  }
-  function getMonadFunctionG() {
-    return function($i) {
-      return $this->factory->fromNativeArray(str_split(str_repeat(".", $i)));
-    };
   }
 }
