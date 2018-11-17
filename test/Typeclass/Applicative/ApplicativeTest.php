@@ -50,19 +50,4 @@ abstract class ApplicativeTest extends TestCase {
 
     $this->assertEquals($exptectedResult, $result);
   }
-
-  // public function testInvoke() {
-
-  //   // TODO fix
-  //   // test all applicatives
-  //   foreach($this->applicativesToTest as $applicative) {
-  //     $f = $applicative->pure('add');
-  //     $x = $applicative->pure(1);
-  //     $y = $applicative->pure(2);
-  //     $result = $f($x, $y);
-  //     $exptectedResult = $applicative->pure(3);
-
-  //     $this->assertEquals($exptectedResult, $result);
-  //   }
-  // }
 }

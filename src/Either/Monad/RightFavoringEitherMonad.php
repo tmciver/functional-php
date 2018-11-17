@@ -5,6 +5,7 @@ namespace TMciver\Functional\Either\Monad;
 use TMciver\Functional\Typeclass\Monad;
 use TMciver\Functional\Either\Right;
 use TMciver\Functional\Either\Either;
+use TMciver\Functional\PartialFunction;
 
 class RightFavoringEitherMonad implements Monad {
 
@@ -64,10 +65,13 @@ class RightFavoringEitherMonad implements Monad {
     } else {
       $f = $eitherF->get();
 
+      // Wrap the applicative value in a PartialFunction, if it // is not already.
+      $pf = $f instanceof PartialFunction ? $f : new PartialFunction($f);
+
       if (is_null($eitherArgs)) {
         // There are no arguments passed in so we attempt to call the wrapped callable without arguments.
         try {
-          $val = $f();
+          $val = $pf();
           if (is_null($val)) {
             $eitherVal = Either::left('Got a null value when calling the no-argument callable passed to ' . get_class($this) . '::apply()');
           } else {
@@ -78,8 +82,7 @@ class RightFavoringEitherMonad implements Monad {
         }
       } else {
         // We have wrapped arguments.
-        //print_r($eitherArgs);
-        $eitherVal = $this->map($eitherArgs, $f);
+        $eitherVal = $this->map($eitherArgs, $pf);
       }
 
       return $eitherVal;
