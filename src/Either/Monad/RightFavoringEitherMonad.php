@@ -59,7 +59,7 @@ class RightFavoringEitherMonad implements Monad {
       $eitherEither->get();
   }
 
-  public function apply($eitherF, $eitherArgs = null) {
+  public function apply($eitherF, $eitherArg = null) {
     if ($eitherF->isLeft()) {
       return $eitherF;
     } else {
@@ -68,7 +68,7 @@ class RightFavoringEitherMonad implements Monad {
       // Wrap the applicative value in a PartialFunction, if it // is not already.
       $pf = $f instanceof PartialFunction ? $f : new PartialFunction($f);
 
-      if (is_null($eitherArgs)) {
+      if (is_null($eitherArg)) {
         // There are no arguments passed in so we attempt to call the wrapped callable without arguments.
         try {
           $val = $pf();
@@ -82,7 +82,7 @@ class RightFavoringEitherMonad implements Monad {
         }
       } else {
         // We have wrapped arguments.
-        $eitherVal = $this->map($eitherArgs, $pf);
+        $eitherVal = $this->map($eitherArg, $pf);
       }
 
       return $eitherVal;
