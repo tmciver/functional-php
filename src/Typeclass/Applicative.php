@@ -22,5 +22,19 @@ interface Applicative extends Functor {
    * the function in $ff to the value in $fa.
    */
   function apply($ff, $fa = null);
+
+  /**
+   * The `__invoke` magic method.  Allows one to call an `Applicative` as if it
+   * were a function as in the following:
+   *
+   * ```php
+   * $fResult = $applicativeInstance($ff, $fa, $fb, $fc);
+   * ```
+   *
+   * where `$ff` is a function in a context; `$fa`, `$fb`, `$fc` are arguents in
+   * a context and `$fResult` is the result of calling the function on the
+   * arguments - in a context.
+   */
+  function __invoke();
 }
 

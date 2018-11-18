@@ -2,12 +2,12 @@
 
 namespace TMciver\Functional\Either\Monad;
 
-use TMciver\Functional\Typeclass\Monad;
+use TMciver\Functional\Typeclass\BaseMonad;
 use TMciver\Functional\Either\Right;
 use TMciver\Functional\Either\Either;
 use TMciver\Functional\PartialFunction;
 
-class RightFavoringEitherMonad implements Monad {
+class RightFavoringEitherMonad extends BaseMonad {
 
   public function pure($v) {
     return is_null($v) ?

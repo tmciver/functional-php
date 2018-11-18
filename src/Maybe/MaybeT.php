@@ -30,6 +30,10 @@ class MaybeT {
    * Note that this flatMap signature is different than that defined in
    * ObjectMonad and that's why MaybeT no longer uses that trait. This is due to
    * the need to have a Monad instance for the wrapping type available.
+   *
+   * TODO Consider taking into the constructor the monad for the inner monad
+   * instead of passing it here. That way `MaybeT` could use the `ObjectMonad`
+   * trait again.
    */
   public function flatMap(Monad $m, callable $f) {
     $newObjectMonad = $m->flatMap($this->wrapper, function ($maybe) use ($m, $f) {

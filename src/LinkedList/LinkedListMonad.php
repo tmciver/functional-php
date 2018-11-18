@@ -2,9 +2,9 @@
 
 namespace TMciver\Functional\LinkedList;
 
-use TMciver\Functional\Typeclass\BaseMonad;
+use TMciver\Functional\Typeclass\BaseObjectMonad;
 
-class LinkedListMonad extends BaseMonad {
+class LinkedListMonad extends BaseObjectMonad {
 
   private $factory;
 

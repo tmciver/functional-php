@@ -2,9 +2,9 @@
 
 namespace TMciver\Functional\Validation;
 
-use TMciver\Functional\Typeclass\BaseApplicative;
+use TMciver\Functional\Typeclass\BaseObjectApplicative;
 
-class ValidationApplicative extends BaseApplicative {
+class ValidationApplicative extends BaseObjectApplicative {
 
   public function pure($v) {
     return is_null($v) ?

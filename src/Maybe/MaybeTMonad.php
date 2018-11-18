@@ -2,10 +2,10 @@
 
 namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\Typeclass\BaseMonad;
+use TMciver\Functional\Typeclass\BaseObjectMonad;
 use TMciver\Functional\Typeclass\Monad;
 
-class MaybeTMonad extends BaseMonad {
+class MaybeTMonad extends BaseObjectMonad {
 
   private $m;
   private $maybeMonad;
