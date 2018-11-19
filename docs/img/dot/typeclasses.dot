@@ -7,6 +7,18 @@ digraph Typeclasses {
              arrowtail = "empty"
         ]
 
+        Functor [
+             label = "Functor\n&#x226a;interface&#x226b;"
+        ]
+
+        Applicative [
+             label = "Applicative\n&#x226a;interface&#x226b;"
+        ]
+
+        Monad [
+             label = "Monad\n&#x226a;interface&#x226b;"
+        ]
+
         Functor -> Applicative [dir = back]
         Applicative -> Monad [dir = back]
 }
