@@ -1,0 +1,12 @@
+digraph Typeclasses {
+        node [
+             shape = "record"
+        ]
+
+        edge [
+             arrowtail = "empty"
+        ]
+
+        Functor -> Applicative [dir = back]
+        Applicative -> Monad [dir = back]
+}
