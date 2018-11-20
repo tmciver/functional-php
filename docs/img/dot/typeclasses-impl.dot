@@ -19,6 +19,36 @@ digraph Typeclasses {
              label = "Monad\n&#x226a;interface&#x226b;"
         ]
 
+        BaseApplicative [
+             label = <{<i>BaseApplicative</i>}>
+        ]
+
+        BaseMonad [
+             label = <{<i>BaseMonad</i>}>
+        ]
+
+        BaseObjectFunctor [
+             label = <{<i>BaseObjectFunctor</i>}>
+        ]
+
+        BaseObjectApplicative [
+             label = <{<i>BaseObjectApplicative</i>}>
+        ]
+
+        BaseObjectMonad [
+             label = <{<i>BaseObjectMonad</i>}>
+        ]
+
         Functor -> Applicative [dir = back]
         Applicative -> Monad [dir = back]
+        Applicative -> BaseApplicative [dir = back]
+
+        BaseApplicative -> BaseMonad [dir = back]
+        Monad -> BaseMonad [dir = back]
+
+        Functor -> BaseObjectFunctor [dir = back]
+
+        BaseApplicative -> BaseObjectApplicative [dir = back]
+
+        BaseMonad -> BaseObjectMonad [dir = back]
 }
