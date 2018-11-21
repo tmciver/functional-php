@@ -2,6 +2,11 @@
 
 namespace TMciver\Functional\Typeclass;
 
+/**
+ * An abstract class implementing the Applicative interface containing an
+ * implementation of the `__invoke()` magic method for convenience.  Any custom
+ * Applicative instance you may write should extend this class.
+ */
 abstract class BaseApplicative implements Applicative {
 
   function __invoke() {

@@ -7,7 +7,7 @@ namespace TMciver\Functional\Typeclass;
  * the `ObjectApplicative` trait or otherwise has an implementation for the
  * `map` method.
  */
-abstract class BaseObjectApplicative extends BaseApplicative {
+abstract class BaseApplicativeForObjectApplicative extends BaseApplicative {
 
   public function apply($ff, $fa = null) {
     return $ff->apply($fa);

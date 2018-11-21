@@ -7,7 +7,7 @@ namespace TMciver\Functional\Typeclass;
  * `ObjectMonad` trait or otherwise has implementations for the `flatMap` and
  * `join` methods.
  */
-abstract class BaseObjectMonad extends BaseMonad {
+abstract class BaseMonadForObjectMonad extends BaseMonad {
 
   public function apply($ff, $fa = null) {
     return $ff->apply($fa);

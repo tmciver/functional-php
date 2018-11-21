@@ -27,16 +27,16 @@ digraph Typeclasses {
              label = <{<i>BaseMonad</i>}>
         ]
 
-        BaseObjectFunctor [
-             label = <{<i>BaseObjectFunctor</i>}>
+        BaseFunctorForObjectFunctor [
+             label = <{<i>BaseFunctorForObjectFunctor</i>}>
         ]
 
-        BaseObjectApplicative [
-             label = <{<i>BaseObjectApplicative</i>}>
+        BaseApplicativeForObjectApplicative [
+             label = <{<i>BaseApplicativeForObjectApplicative</i>}>
         ]
 
-        BaseObjectMonad [
-             label = <{<i>BaseObjectMonad</i>}>
+        BaseMonadForObjectMonad [
+             label = <{<i>BaseMonadForObjectMonad</i>}>
         ]
 
         Functor -> Applicative [dir = back]
@@ -46,9 +46,9 @@ digraph Typeclasses {
         BaseApplicative -> BaseMonad [dir = back]
         Monad -> BaseMonad [dir = back]
 
-        Functor -> BaseObjectFunctor [dir = back]
+        Functor -> BaseFunctorForObjectFunctor [dir = back]
 
-        BaseApplicative -> BaseObjectApplicative [dir = back]
+        BaseApplicative -> BaseApplicativeForObjectApplicative [dir = back]
 
-        BaseMonad -> BaseObjectMonad [dir = back]
+        BaseMonad -> BaseMonadForObjectMonad [dir = back]
 }

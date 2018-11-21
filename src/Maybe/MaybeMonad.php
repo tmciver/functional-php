@@ -2,9 +2,9 @@
 
 namespace TMciver\Functional\Maybe;
 
-use TMciver\Functional\Typeclass\BaseObjectMonad;
+use TMciver\Functional\Typeclass\BaseMonadForObjectMonad;
 
-class MaybeMonad extends BaseObjectMonad {
+class MaybeMonad extends BaseMonadForObjectMonad {
 
   public function pure($v) {
     return is_null($v) ?

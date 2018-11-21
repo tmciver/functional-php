@@ -2,9 +2,9 @@
 
 namespace TMciver\Functional\Attempt;
 
-use TMciver\Functional\Typeclass\BaseObjectMonad;
+use TMciver\Functional\Typeclass\BaseMonadForObjectMonad;
 
-class AttemptMonad extends BaseObjectMonad {
+class AttemptMonad extends BaseMonadForObjectMonad {
 
   public function pure($v) {
     return is_null($v) ?
