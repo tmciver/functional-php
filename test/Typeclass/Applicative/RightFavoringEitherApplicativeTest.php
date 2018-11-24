@@ -5,7 +5,7 @@ namespace TMciver\Functional\Test\Typeclass\Applicative;
 use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
 use TMciver\Functional\Either\Either;
 
-class EitherApplicativeTest extends ApplicativeTest {
+class RightFavoringEitherApplicativeTest extends ApplicativeTest {
 
   private $applicative;
 
