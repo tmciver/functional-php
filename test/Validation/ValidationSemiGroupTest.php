@@ -10,11 +10,17 @@ use TMciver\Functional\String\StringMonoid;
 
 class ValidationSemiGroupTest extends TestCase {
 
+  private $innerSemigroup;
+
+  protected function setUp() {
+    $this->innerSemigroup = new StringMonoid();
+  }
+
   public function testAppendForSuccessSuccess() {
 
     $success5 = Validation::fromValue(5);
     $success6 = Validation::fromValue(6);
-    $appended = $success5->append($success6);
+    $appended = $success5->append($success6, $this->innerSemigroup);
     $expected = Validation::fromValue(5);
 
     $this->assertEquals($expected, $appended);
@@ -24,7 +30,7 @@ class ValidationSemiGroupTest extends TestCase {
 
     $success = Validation::fromValue(5);
     $failure = Validation::failure("hi");
-    $appended = $success->append($failure);
+    $appended = $success->append($failure, $this->innerSemigroup);
     $expected = $success;
 
     $this->assertEquals($appended, $expected);
@@ -79,12 +85,12 @@ class ValidationSemiGroupTest extends TestCase {
     $success3 = Validation::fromValue(3);
 
     // First, combine the first two, then that result with the third one
-    $firstTwo = $success1->append($success2);
-    $result1 = $firstTwo->append($success3);
+    $firstTwo = $success1->append($success2, $this->innerSemigroup);
+    $result1 = $firstTwo->append($success3, $this->innerSemigroup);
 
     // Next, combine the first one with the result of combining the last two.
-    $lastTwo = $success2->append($success3);
-    $result2 = $success1->append($lastTwo);
+    $lastTwo = $success2->append($success3, $this->innerSemigroup);
+    $result2 = $success1->append($lastTwo, $this->innerSemigroup);
 
     $this->assertEquals($result1, $result2);
   }

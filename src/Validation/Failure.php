@@ -25,31 +25,31 @@ class Failure extends Validation {
     return $this;
   }
 
-  protected function applyToArg($applicativeArgument) {
-    return $applicativeArgument->applyToFailure($this);
+  protected function applyToArg($applicativeArgument, SemiGroup $semiGroup) {
+    return $applicativeArgument->applyToFailure($this, $semiGroup);
   }
 
   protected function applyToSuccess($success) {
     return $this;
   }
 
-  protected function applyToFailure($failure) {
+  protected function applyToFailure($failure, SemiGroup $semiGroup) {
     // it's nice to be able to reuse this functionality!
-    return $this->appendToFailure($failure);
+    return $this->appendToFailure($failure, $semiGroup);
   }
 
-  public function append($other, SemiGroup $semiGroup = null) {
-    return $other->appendToFailure($this, $semiGroup);
+  public function append($other, SemiGroup $innerSemigroup) {
+    return $other->appendToFailure($this, $innerSemigroup);
   }
 
   protected function appendToSuccess($leftSuccess) {
     return $leftSuccess;
   }
 
-  protected function appendToFailure($failure, SemiGroup $semiGroup) {
+  protected function appendToFailure($failure, SemiGroup $innerSemigroup) {
     $leftVal = $failure->val;
     $rightVal = $this->val;
-    $appendedResult = $semiGroup->append($leftVal, $rightVal);
+    $appendedResult = $innerSemigroup->append($leftVal, $rightVal);
 
     return new Failure($appendedResult);
   }

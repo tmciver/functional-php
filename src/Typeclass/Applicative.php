@@ -35,6 +35,7 @@ interface Applicative extends Functor {
    * a context and `$fResult` is the result of calling the function on the
    * arguments - in a context.
    */
-  function __invoke();
+  // TODO Implement or remove. The Semigroup requirement makes this more awkward
+  //  than with other types.
+  //function __invoke();
 }
-
