@@ -3,12 +3,13 @@
 namespace TMciver\Functional\Validation;
 
 use TMciver\Functional\PartialFunction;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Success extends Validation {
 
   private $val;
 
-  protected function __construct($val) {
+  public function __construct($val) {
     $this->val = $val;
   }
 
@@ -26,6 +27,8 @@ class Success extends Validation {
     return $validationResult;
   }
 
+  // TODO Validation can't be a Monad!
+  // https://stackoverflow.com/questions/40539650/why-can-accvalidation-not-have-a-monad-instance
   public function flatMap(callable $f) {
 
     // Since we don't know if $f will throw an exception, we wrap the call
@@ -45,10 +48,27 @@ class Success extends Validation {
   }
 
   protected function applyNoArg() {
-    return call_user_func($this->val);
+    // Since we don't know if the wrapped function will throw an exception, we
+	// wrap the call in a try/catch. The result wiil be Failure if there's an
+	// exception or if the result is null.
+    $validationResult = null;
+	try {
+      $result = call_user_func($this->val);
+
+      // If the result is null, we return Nothing.
+      if (is_null($result)) {
+        $validationResult = self::failure("The result of calling the wrapped function was null.");
+      }
+	} catch (\Exception $e) {
+      $validationResult = self::failure("There was an exception when calling the wrapped function: " . $e->getMessage());
+	}
+
+	return is_null($validationResult) ?
+      new Success($result) :
+      $validationResult;
   }
 
-  protected function applyToArg($applicativeArgument) {
+  protected function applyToArg($applicativeArgument, SemiGroup $semiGroup) {
     return $applicativeArgument->applyToSuccess($this);
   }
 
@@ -62,11 +82,18 @@ class Success extends Validation {
     return $this->map($pf);
   }
 
-  protected function applyToFailure($failure) {
+  protected function applyToFailure($failure, SemiGroup $semiGroup) {
     return $failure;
   }
 
-  public function append($other) {
+  /**
+   * Append two 'Validation's together.
+   *
+   * @param $other the 'Validation' append to this one.
+   * @param $innerSemigroup A 'Semigroup' instance to use to append two
+   * 'Failure's together.
+   */
+  public function append($other, SemiGroup $innerSemigroup) {
     return $other->appendToSuccess($this);
   }
 
@@ -74,7 +101,7 @@ class Success extends Validation {
     return $leftSuccess;
   }
 
-  protected function appendToFailure($leftFailure) {
+  protected function appendToFailure($leftFailure, SemiGroup $semiGroup) {
     return $this;
   }
 }

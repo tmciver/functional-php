@@ -4,6 +4,7 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Tuple;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 /**
  * This class implements the `LinkedList` API using a native PHP array.
@@ -107,7 +108,7 @@ class ArrayBackedLinkedList extends LinkedList {
     return new ArrayBackedLinkedList($filtered, $this->factory);
   }
 
-  public function append($list) {
+  public function append($list, SemiGroup $semiGroup = null) {
     $merged = array_merge($this->array, $list->toNativeArray());
     return new ArrayBackedLinkedList($merged, $this->factory);
   }

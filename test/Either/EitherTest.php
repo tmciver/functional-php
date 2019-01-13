@@ -6,22 +6,6 @@ use TMciver\Functional\Either\Left;
 
 class EitherTest extends TestCase {
 
-    public function testEitherGetOrElseForRight() {
-
-        $either = Either::fromValue("Hello!");
-        $val = $either->getOrElse("World!");
-
-        $this->assertEquals("Hello!", $val);
-    }
-
-    public function testEitherGetOrElseForLeft() {
-
-        $either = Either::left('');
-        $val = $either->getOrElse("World!");
-
-        $this->assertEquals("World!", $val);
-    }
-
     public function testOrElseForLeft() {
 
         $either = Either::left('');
@@ -40,14 +24,5 @@ class EitherTest extends TestCase {
         }, []);
 
         $this->assertEquals($either, $eitherSame);
-    }
-
-    public function testEitherErrorMessage() {
-
-        $errMsg = 'No power in the \'verse can stop me.';
-        $either = Either::fromValue(null, $errMsg);
-        $expected = Either::left($errMsg);
-
-        $this->assertEquals($expected, $either);
     }
 }

@@ -1,0 +1,54 @@
+digraph Typeclasses {
+        node [
+             shape = "record"
+        ]
+
+        edge [
+             arrowtail = "empty"
+        ]
+
+        Functor [
+             label = "Functor\n&#x226a;interface&#x226b;"
+        ]
+
+        Applicative [
+             label = "Applicative\n&#x226a;interface&#x226b;"
+        ]
+
+        Monad [
+             label = "Monad\n&#x226a;interface&#x226b;"
+        ]
+
+        BaseApplicative [
+             label = <{<i>BaseApplicative</i>}>
+        ]
+
+        BaseMonad [
+             label = <{<i>BaseMonad</i>}>
+        ]
+
+        BaseFunctorForObjectFunctor [
+             label = <{<i>BaseFunctorForObjectFunctor</i>}>
+        ]
+
+        BaseApplicativeForObjectApplicative [
+             label = <{<i>BaseApplicativeForObjectApplicative</i>}>
+        ]
+
+        BaseMonadForObjectMonad [
+             label = <{<i>BaseMonadForObjectMonad</i>}>
+        ]
+
+        Functor -> Applicative [dir = back]
+        Applicative -> Monad [dir = back]
+        Applicative -> BaseApplicative [dir = back]
+
+        BaseApplicative -> BaseMonad [dir = back]
+        Monad -> BaseMonad [dir = back]
+
+        Functor -> BaseFunctorForObjectFunctor [dir = back]
+
+        BaseApplicative -> BaseApplicativeForObjectApplicative [dir = back]
+
+        BaseMonad -> BaseMonadForObjectMonad [dir = back]
+}

@@ -2,11 +2,12 @@
 
 namespace TMciver\Functional\Validation;
 
-use TMciver\Functional\SemiGroup;
-use TMciver\Functional\Applicative;
+use TMciver\Functional\ObjectTypeclass\ObjectSemiGroup;
+use TMciver\Functional\ObjectTypeclass\ObjectApplicative;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 abstract class Validation {
-  use SemiGroup, Applicative;
+  use ObjectSemiGroup, ObjectApplicative;
 
   public static function fromValue($val) {
     return is_null($val) ?
@@ -24,13 +25,29 @@ abstract class Validation {
     return self::failure($msg);
   }
 
+  public function apply($applicativeArgument, SemiGroup $semiGroup) {
+    return is_null($applicativeArgument) ?
+      $this->applyNoArg() :
+      $this->applyToArg($applicativeArgument, $semiGroup);
+  }
+
+  /**
+   * Calls the wrapped function with no arguments.
+   */
+  protected abstract function applyNoArg();
+
+  /**
+   * Calls the wrapped function on the value wrapped in the supplied argument.
+   */
+  protected abstract function applyToArg($applicativeArgument, SemiGroup $semiGroup);
+
   protected abstract function applyToSuccess($success);
 
-  protected abstract function applyToFailure($failure);
+  protected abstract function applyToFailure($failure, SemiGroup $semiGroup);
 
   protected abstract function appendToSuccess($success);
 
-  protected abstract function appendToFailure($failure);
+  protected abstract function appendToFailure($failure, SemiGroup $innerSemigroup);
 
   public function pure($val) {
     return is_null($val) ?

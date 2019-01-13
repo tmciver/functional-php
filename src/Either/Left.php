@@ -2,7 +2,7 @@
 
 namespace TMciver\Functional\Either;
 
-use TMciver\Functional\Either\Either;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Left extends Either {
 
@@ -24,14 +24,6 @@ class Left extends Either {
       // The argument $right contains the function but since the argument
       // is a Left (this object), we return $this.
       return $this;
-    }
-
-    public function append($either) {
-        return $either;
-    }
-
-    public function appendRight($right) {
-        return $right;
     }
 
     public function getOrElse($default) {

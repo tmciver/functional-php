@@ -2,6 +2,8 @@
 
 namespace TMciver\Functional\Maybe;
 
+use TMciver\Functional\Typeclass\SemiGroup;
+
 class Nothing extends Maybe {
 
     public function getOrElse($default) {
@@ -28,11 +30,11 @@ class Nothing extends Maybe {
       return $this;
     }
 
-    public function append($appendee) {
+    public function append($appendee, SemiGroup $semiGroup = null) {
         return $appendee;
     }
 
-    protected function appendJust($just) {
+    protected function appendJust($just, SemiGroup $semiGroup) {
         return $just;
     }
 

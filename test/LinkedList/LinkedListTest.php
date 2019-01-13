@@ -8,7 +8,11 @@ use TMciver\Functional\LinkedList\LinkedList;
 use TMciver\Functional\LinkedList\LinkedListFactory;
 use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
 use TMciver\Functional\Maybe\Maybe;
+use TMciver\Functional\Maybe\MaybeMonoid;
 use TMciver\Functional\Tuple;
+use TMciver\Functional\Int\IntSumMonoid;
+use TMciver\Functional\Int\IntProductMonoid;
+use TMciver\Functional\String\StringMonoid;
 
 require_once __DIR__ . '/../util.php';
 
@@ -255,7 +259,7 @@ abstract class LinkedListTest extends TestCase {
   }
 
   public function testFoldMap() {
-    $monoid = Maybe::nothing();
+    $monoid = new MaybeMonoid(new StringMonoid());
     $list = $this->makeListFromArray(["hello", " world!"]);
     $toMonoid = function ($v) { return Maybe::fromValue($v); };
     $result = $list->foldMap($monoid, $toMonoid);
@@ -264,13 +268,43 @@ abstract class LinkedListTest extends TestCase {
     $this->assertEquals($expected, $result);
   }
 
-  public function testFold() {
-    $monoid = Maybe::nothing();
-    $list = $this->makeListFromArray([Maybe::fromValue("hello"),
-				      $monoid, // throw in a Nothing for good measure
-				      Maybe::fromValue(" world!")]);
+  public function testFoldMaybe() {
+    $monoid = new MaybeMonoid(new StringMonoid());
+    $list = $this->makeListFromArray([
+      Maybe::fromValue("hello"),
+      Maybe::nothing(), // throw in a Nothing for good measure
+      Maybe::fromValue(" world!")
+    ]);
     $result = $list->fold($monoid);
     $expected = Maybe::fromValue("hello world!");
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testFoldIntSum() {
+    $l = $this->makeListFromArray(range(1, 10));
+    $intSumMonoid = new IntSumMonoid();
+    $result = $l->fold($intSumMonoid);
+    $expected = 55;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testFoldIntProduct() {
+    $l = $this->makeListFromArray(range(1, 10));
+    $intProductMonoid = new IntProductMonoid();
+    $result = $l->fold($intProductMonoid);
+    $expected = 3628800;
+
+    $this->assertEquals($expected, $result);
+  }
+
+  public function testFoldStrings() {
+    $l = $this->makeListFromArray(["category", "theory", "is", "cool!"]);
+    $withSpaces = $l->intersperse(" ");
+    $stringMonoid = new StringMonoid();
+    $result = $withSpaces->fold($stringMonoid);
+    $expected = "category theory is cool!";
 
     $this->assertEquals($expected, $result);
   }

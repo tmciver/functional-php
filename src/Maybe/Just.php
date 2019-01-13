@@ -7,14 +7,13 @@ use TMciver\Functional\Maybe\Nothing;
 use TMciver\Functional\AssociativeArray;
 use TMciver\Functional\PartialFunction;
 use TMciver\Functional\Util;
-
-require_once __DIR__ . '/../Monoid.php';
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Just extends Maybe {
 
   private $val;
 
-    protected function __construct($val) {
+    public function __construct($val) {
 	$this->val = $val;
     }
 
@@ -72,35 +71,15 @@ class Just extends Maybe {
       return $this->map($pf);
     }
 
-    public function append($appendee) {
-        return $appendee->appendJust($this);
+    public function append($appendee, SemiGroup $semiGroup) {
+      return $appendee->appendJust($this, $semiGroup);
     }
 
-    protected function appendJust($just) {
-        // this is where the real work of appending two Just's is done.
-
-        // Since we can't know if the value contained in a Maybe is itself a
-        // monoid, we're just going to put the values in an array. But there are
-        // four cases that we have to account for to create the proper result
-        // array so that associativity is maintained.
+    protected function appendJust($just, SemiGroup $semiGroup) {
         $leftVal = $just->val;
         $rightVal = $this->val;
-        if (is_string($leftVal) && is_string($rightVal)) {
-	  $appendedResult = $leftVal . $rightVal;
-	} else if (Util::is_monoid($leftVal) && Util::is_monoid($rightVal)) {
-	  $appendedResult = $leftVal->append($rightVal);
-	} else if (!is_array($leftVal) && !is_array($rightVal)) {
-            $appendedResult = [$leftVal, $rightVal];
-        } else if (is_array($leftVal) && !is_array($rightVal)) {
-            $leftVal[] = $rightVal;
-            $appendedResult = $leftVal;
-        } else if (!is_array($leftVal) && is_array($rightVal)) {
-            array_unshift($rightVal, $leftVal);
-            $appendedResult = $rightVal;
-        } else {
-            // both values are arrays
-            $appendedResult = array_merge($leftVal, $rightVal);
-        }
+
+        $appendedResult  = $semiGroup->append($leftVal, $rightVal);
 
         return Maybe::fromValue($appendedResult);
     }

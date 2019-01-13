@@ -4,6 +4,7 @@ namespace TMciver\Functional\LinkedList;
 
 use TMciver\Functional\Maybe\Maybe;
 use TMciver\Functional\Tuple;
+use TMciver\Functional\Typeclass\SemiGroup;
 
 class Nil extends LinkedList {
 
@@ -67,7 +68,7 @@ class Nil extends LinkedList {
     return $this;
   }
 
-  final public function append($other) {
+  final public function append($other, SemiGroup $semiGroup = null) {
     return $other;
   }
 
