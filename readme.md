@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/tmciver/functional-php.svg?style=svg)](https://circleci.com/gh/tmciver/functional-php)
 
+*This repository is no longer being maintained. It is now hosted here: https://github.com/serenitylabz/phatcats*
+
 # Functional PHP
 
 ## Contents
