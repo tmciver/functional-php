@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid;
+namespace PhatCats\Test\Typeclass\Monoid;
 
 use PHPUnit\Framework\TestCase;
 

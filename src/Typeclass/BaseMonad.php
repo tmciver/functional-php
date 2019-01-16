@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
 /**
  * BaseMonad contains default implementations for both `flatMap` and `join`.

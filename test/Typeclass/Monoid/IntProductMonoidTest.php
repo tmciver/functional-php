@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid;
+namespace PhatCats\Test\Typeclass\Monoid;
 
-use TMciver\Functional\Int\IntProductMonoid;
+use PhatCats\Int\IntProductMonoid;
 
 class IntProductMonoidTest extends MonoidTest {
 

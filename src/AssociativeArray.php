@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional;
+namespace PhatCats;
 
-use TMciver\Functional\ObjectTypeclass\ObjectTraversable;
+use PhatCats\ObjectTypeclass\ObjectTraversable;
 
 // Just a wrapper around the native PHP array to allow for cool FP goodness.
 class AssociativeArray {

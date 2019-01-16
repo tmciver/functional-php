@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Validation\Validation;
-use TMciver\Functional\String\StringMonoid;
+use PhatCats\Validation\Validation;
+use PhatCats\String\StringMonoid;
 
 class ValidationApplicativeTest extends TestCase {
 

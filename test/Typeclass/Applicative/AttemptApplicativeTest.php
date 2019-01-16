@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Applicative;
+namespace PhatCats\Test\Typeclass\Applicative;
 
-use TMciver\Functional\Attempt\AttemptMonad;
-use TMciver\Functional\Attempt\Attempt;
+use PhatCats\Attempt\AttemptMonad;
+use PhatCats\Attempt\Attempt;
 
 class AttemptApplicativeTest extends ApplicativeTest {
 

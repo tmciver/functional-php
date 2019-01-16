@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Attempt;
+namespace PhatCats\Attempt;
 
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Typeclass\SemiGroup;
 
 class Failure extends Attempt {
 

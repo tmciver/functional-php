@@ -1,12 +1,12 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monad;
+namespace PhatCats\Test\Typeclass\Monad;
 
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
+use PhatCats\Either\Monad\RightFavoringEitherMonad;
 
 /**
  * Class for testing `RightFavoringEitherMonad`.
- * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ * @see PhatCats\Test\Typeclass\Monad\MonadTest;
  */
 class RightFavoringEitherMonadTest extends MonadTest {
 

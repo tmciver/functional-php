@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Functor;
+namespace PhatCats\Test\Typeclass\Functor;
 
 use PHPUnit\Framework\TestCase;
 

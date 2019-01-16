@@ -1,11 +1,11 @@
 <?php
 
-namespace TMciver\Functional\LinkedList;
+namespace PhatCats\LinkedList;
 
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\PartialFunction;
-use TMciver\Functional\Tuple;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Maybe\Maybe;
+use PhatCats\PartialFunction;
+use PhatCats\Tuple;
+use PhatCats\Typeclass\SemiGroup;
 
 class Cons extends LinkedList {
 

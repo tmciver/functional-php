@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid;
+namespace PhatCats\Test\Typeclass\Monoid;
 
-use TMciver\Functional\Maybe\MaybeMonoid;
-use TMciver\Functional\String\StringMonoid;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Maybe\MaybeMonoid;
+use PhatCats\String\StringMonoid;
+use PhatCats\Maybe\Maybe;
 
 class MaybeMonoidTest extends MonoidTest {
 

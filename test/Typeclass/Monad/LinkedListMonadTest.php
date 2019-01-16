@@ -1,14 +1,14 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monad;
+namespace PhatCats\Test\Typeclass\Monad;
 
-use TMciver\Functional\LinkedList\LinkedListMonad;
-use TMciver\Functional\LinkedList\LinkedList;
-use TMciver\Functional\LinkedList\LinkedListFactory;
+use PhatCats\LinkedList\LinkedListMonad;
+use PhatCats\LinkedList\LinkedList;
+use PhatCats\LinkedList\LinkedListFactory;
 
 /**
  * Class for testing `LinkedListMonad`.
- * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ * @see PhatCats\Test\Typeclass\Monad\MonadTest;
  */
 class LinkedListMonadTest extends MonadTest {
 

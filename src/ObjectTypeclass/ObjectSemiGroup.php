@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\ObjectTypeclass;
+namespace PhatCats\ObjectTypeclass;
 
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Typeclass\SemiGroup;
 
 trait ObjectSemiGroup {
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace TMciver\Functional\Either;
+namespace PhatCats\Either;
 
-use TMciver\Functional\Either\Left;
-use TMciver\Functional\AssociativeArray;
-use TMciver\Functional\PartialFunction;
-use TMciver\Functional\Util;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Either\Left;
+use PhatCats\AssociativeArray;
+use PhatCats\PartialFunction;
+use PhatCats\Util;
+use PhatCats\Typeclass\SemiGroup;
 
 class Right extends Either {
 

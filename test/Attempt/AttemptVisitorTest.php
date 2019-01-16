@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Attempt\Attempt;
-use TMciver\Functional\Attempt\AttemptToMaybe;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Attempt\Attempt;
+use PhatCats\Attempt\AttemptToMaybe;
+use PhatCats\Maybe\Maybe;
 
 class AttemptVisitorTest extends TestCase {
 

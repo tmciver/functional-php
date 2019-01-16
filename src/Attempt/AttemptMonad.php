@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Attempt;
+namespace PhatCats\Attempt;
 
-use TMciver\Functional\Typeclass\BaseMonadForObjectMonad;
+use PhatCats\Typeclass\BaseMonadForObjectMonad;
 
 class AttemptMonad extends BaseMonadForObjectMonad {
 

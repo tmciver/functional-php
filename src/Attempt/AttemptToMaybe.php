@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Attempt;
+namespace PhatCats\Attempt;
 
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Maybe\Maybe;
 
 class AttemptToMaybe implements AttemptVisitor {
 

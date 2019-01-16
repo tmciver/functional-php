@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monad;
+namespace PhatCats\Test\Typeclass\Monad;
 
 use PHPUnit\Framework\TestCase;
 

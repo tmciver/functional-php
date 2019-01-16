@@ -1,13 +1,13 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\Nothing;
-use TMciver\Functional\AssociativeArray;
-use TMciver\Functional\PartialFunction;
-use TMciver\Functional\Util;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Maybe\Nothing;
+use PhatCats\AssociativeArray;
+use PhatCats\PartialFunction;
+use PhatCats\Util;
+use PhatCats\Typeclass\SemiGroup;
 
 class Just extends Maybe {
 

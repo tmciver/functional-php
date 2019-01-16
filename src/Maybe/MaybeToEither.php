@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\Maybe\MaybeVisitor;
-use TMciver\Functional\Either\Either;
+use PhatCats\Maybe\MaybeVisitor;
+use PhatCats\Either\Either;
 
 class MaybeToEither implements MaybeVisitor {
 

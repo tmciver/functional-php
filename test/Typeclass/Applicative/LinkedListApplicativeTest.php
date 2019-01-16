@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Applicative;
+namespace PhatCats\Test\Typeclass\Applicative;
 
-use TMciver\Functional\LinkedList\LinkedListMonad;
+use PhatCats\LinkedList\LinkedListMonad;
 
 class LinkedListApplicativeTest extends ApplicativeTest {
 

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Maybe\Maybe;
 
 require_once __DIR__ . '/../util.php';
 
@@ -24,7 +24,7 @@ class MaybeFunctorTest extends TestCase {
 	    return addOne($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('PhatCats\Maybe\Nothing', $maybeIntPlusOne);
     }
 
     public function testMapExceptionHandling() {
@@ -34,7 +34,7 @@ class MaybeFunctorTest extends TestCase {
 	    return throwException($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('PhatCats\Maybe\Nothing', $maybeIntPlusOne);
     }
 
     public function testMapNullHandling() {
@@ -44,6 +44,6 @@ class MaybeFunctorTest extends TestCase {
 	    return returnNull($i);
 	});
 
-	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('PhatCats\Maybe\Nothing', $maybeIntPlusOne);
     }
 }

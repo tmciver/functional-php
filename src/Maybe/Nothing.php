@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Typeclass\SemiGroup;
 
 class Nothing extends Maybe {
 

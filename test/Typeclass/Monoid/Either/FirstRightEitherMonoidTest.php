@@ -1,11 +1,11 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid\Either;
+namespace PhatCats\Test\Typeclass\Monoid\Either;
 
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\Monoid\FirstRightEitherMonoid;
-use TMciver\Functional\String\StringMonoid;
-use TMciver\Functional\Test\Typeclass\Monoid\MonoidTest;
+use PhatCats\Either\Either;
+use PhatCats\Either\Monoid\FirstRightEitherMonoid;
+use PhatCats\String\StringMonoid;
+use PhatCats\Test\Typeclass\Monoid\MonoidTest;
 
 class FirstRightEitherMonoidTest extends MonoidTest {
 

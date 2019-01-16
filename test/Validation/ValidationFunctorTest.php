@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Validation\Validation;
+use PhatCats\Validation\Validation;
 
 require_once __DIR__ . '/../util.php';
 
@@ -29,7 +29,7 @@ class ValidationFunctorTest extends TestCase {
     $validationInt = Validation::fromValue(1);
     $mappedValidationInt = $validationInt->map('throwException');
 
-    $this->assertInstanceOf('TMciver\Functional\Validation\Failure', $mappedValidationInt);
+    $this->assertInstanceOf('PhatCats\Validation\Failure', $mappedValidationInt);
   }
 
   public function testMapNullHandling() {
@@ -37,6 +37,6 @@ class ValidationFunctorTest extends TestCase {
     $validationInt = Validation::fromValue(1);
     $mappedValidationInt = $validationInt->map('returnNull');
 
-    $this->assertInstanceOf('TMciver\Functional\Validation\Failure', $mappedValidationInt);
+    $this->assertInstanceOf('PhatCats\Validation\Failure', $mappedValidationInt);
   }
 }

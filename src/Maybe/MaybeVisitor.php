@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
 interface MaybeVisitor {
 

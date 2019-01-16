@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\Left;
+use PhatCats\Either\Either;
+use PhatCats\Either\Left;
 
 class EitherTest extends TestCase {
 

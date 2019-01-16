@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\EitherToMaybe;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Either\Either;
+use PhatCats\Either\EitherToMaybe;
+use PhatCats\Maybe\Maybe;
 
 class EitherVisitorTest extends TestCase {
 

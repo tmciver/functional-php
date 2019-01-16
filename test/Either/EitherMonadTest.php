@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
+use PhatCats\Either\Either;
+use PhatCats\Either\Monad\RightFavoringEitherMonad;
 
 class EitherMonadTest extends TestCase {
 
@@ -17,7 +17,7 @@ class EitherMonadTest extends TestCase {
         // create a wrapped val
         $wrappedVal = $this->monad->pure("Hello!");
 
-        $this->assertInstanceOf('TMciver\Functional\Either\Right', $wrappedVal);
+        $this->assertInstanceOf('PhatCats\Either\Right', $wrappedVal);
         $this->assertEquals($wrappedVal->get(), "Hello!");
     }
 
@@ -38,7 +38,7 @@ class EitherMonadTest extends TestCase {
             return Either::fromValue($i + 1);
         });
 
-        $this->assertInstanceOf('TMciver\Functional\Either\Left', $eitherIntPlusOne);
+        $this->assertInstanceOf('PhatCats\Either\Left', $eitherIntPlusOne);
     }
 
     public function testEitherGetOrElseForRight() {

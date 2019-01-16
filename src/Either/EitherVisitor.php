@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Either;
+namespace PhatCats\Either;
 
 interface EitherVisitor {
 

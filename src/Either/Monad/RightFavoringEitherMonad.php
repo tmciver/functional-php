@@ -1,11 +1,11 @@
 <?php
 
-namespace TMciver\Functional\Either\Monad;
+namespace PhatCats\Either\Monad;
 
-use TMciver\Functional\Typeclass\BaseMonad;
-use TMciver\Functional\Either\Right;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\PartialFunction;
+use PhatCats\Typeclass\BaseMonad;
+use PhatCats\Either\Right;
+use PhatCats\Either\Either;
+use PhatCats\PartialFunction;
 
 class RightFavoringEitherMonad extends BaseMonad {
 
@@ -16,7 +16,7 @@ class RightFavoringEitherMonad extends BaseMonad {
   }
 
   /**
-   * @see \TMciver\Functional\Typeclass\Functor::map()
+   * @see \PhatCats\Typeclass\Functor::map()
    */
   public function map($either, callable $f) {
     if ($either->isLeft()) {
@@ -35,7 +35,7 @@ class RightFavoringEitherMonad extends BaseMonad {
   }
 
   /**
-   * @see \TMciver\Functional\Typeclass\Monad::flatMap()
+   * @see \PhatCats\Typeclass\Monad::flatMap()
    */
   public function flatMap($either, callable $f) {
     if ($either->isLeft()) {

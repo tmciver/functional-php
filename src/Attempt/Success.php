@@ -1,12 +1,12 @@
 <?php
 
-namespace TMciver\Functional\Attempt;
+namespace PhatCats\Attempt;
 
-use TMciver\Functional\Attempt\Failure;
-use TMciver\Functional\AssociativeArray;
-use TMciver\Functional\PartialFunction;
-use TMciver\Functional\Util;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Attempt\Failure;
+use PhatCats\AssociativeArray;
+use PhatCats\PartialFunction;
+use PhatCats\Util;
+use PhatCats\Typeclass\SemiGroup;
 
 class Success extends Attempt {
 

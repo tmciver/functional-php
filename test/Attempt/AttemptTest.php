@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Attempt\Attempt;
-use TMciver\Functional\Attempt\Failure;
+use PhatCats\Attempt\Attempt;
+use PhatCats\Attempt\Failure;
 
 class AttemptTest extends TestCase {
 

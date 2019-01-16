@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Applicative;
+namespace PhatCats\Test\Typeclass\Applicative;
 
-use TMciver\Functional\Maybe\MaybeMonad;
+use PhatCats\Maybe\MaybeMonad;
 
 class MaybeApplicativeTest extends ApplicativeTest {
 

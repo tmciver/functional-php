@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\PartialFunction;
+use PhatCats\PartialFunction;
 
 class PartialFunctionTest extends TestCase {
 

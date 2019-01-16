@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid;
+namespace PhatCats\Test\Typeclass\Monoid;
 
-use TMciver\Functional\LinkedList\LinkedListFactory;
-use TMciver\Functional\LinkedList\ListMonoid;
+use PhatCats\LinkedList\LinkedListFactory;
+use PhatCats\LinkedList\ListMonoid;
 
 class ListMonoidTest extends MonoidTest {
 

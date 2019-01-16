@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Test\Maybe;
+namespace PhatCats\Test\Maybe;
 
-use TMciver\Functional\Maybe\MaybeVisitor;
+use PhatCats\Maybe\MaybeVisitor;
 
 // This MaybeVisitor converts Just/Nothing to strings. In the case of Just, it
 // casts the contained value to a string; in the case of Nothing, it just

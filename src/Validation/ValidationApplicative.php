@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Validation;
+namespace PhatCats\Validation;
 
-use TMciver\Functional\Typeclass\Applicative;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Typeclass\Applicative;
+use PhatCats\Typeclass\SemiGroup;
 
 class ValidationApplicative implements Applicative {
 

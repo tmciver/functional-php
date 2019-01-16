@@ -1,13 +1,13 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monad;
+namespace PhatCats\Test\Typeclass\Monad;
 
-use TMciver\Functional\Maybe\MaybeMonad;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Maybe\MaybeMonad;
+use PhatCats\Maybe\Maybe;
 
 /**
  * Class for testing `MaybeMonad`.
- * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ * @see PhatCats\Test\Typeclass\Monad\MonadTest;
  */
 class MaybeMonadTest extends MonadTest {
 

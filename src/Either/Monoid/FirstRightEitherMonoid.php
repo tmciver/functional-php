@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Either\Monoid;
+namespace PhatCats\Either\Monoid;
 
-use TMciver\Functional\Typeclass\Monoid;
-use TMciver\Functional\Either\Either;
+use PhatCats\Typeclass\Monoid;
+use PhatCats\Either\Either;
 
 /*
  * This Either monoid gives the same behavior as Haskell's Either SemiGroup. In

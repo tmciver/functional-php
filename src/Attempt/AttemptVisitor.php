@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Attempt;
+namespace PhatCats\Attempt;
 
 interface AttemptVisitor {
 

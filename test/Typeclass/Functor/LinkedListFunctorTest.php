@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Functor;
+namespace PhatCats\Test\Typeclass\Functor;
 
-use TMciver\Functional\LinkedList\LinkedListMonad;
-use TMciver\Functional\LinkedList\LinkedListFactory;
+use PhatCats\LinkedList\LinkedListMonad;
+use PhatCats\LinkedList\LinkedListFactory;
 
 class LinkedListFunctorTest extends FunctorTest {
 

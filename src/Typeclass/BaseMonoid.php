@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
-use TMciver\Functional\Typeclass\Monoid;
+use PhatCats\Typeclass\Monoid;
 
 abstract class BaseMonoid implements Monoid {
 

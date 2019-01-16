@@ -1,7 +1,7 @@
 {
-  "name": "tmciver/functional-php",
-  "description": "A functional programming library for PHP.",
-  "keywords": ["functional", "fp"],
+  "name": "serenitylabs/phatcats",
+  "description": "A functional programming library that brings Haskell and Scala Cats like features to PHP.",
+  "keywords": ["functional", "fp", "category theory"],
   "authors": [
     {
       "name": "Tim McIver",
@@ -10,12 +10,12 @@
   ],
   "autoload": {
     "psr-4": {
-      "TMciver\\Functional\\": "src/"
+      "PhatCats\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "TMciver\\Functional\\Test\\": "test/"
+      "PhatCats\\Test\\": "test/"
     }
   },
   "require": {

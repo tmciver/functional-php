@@ -1,12 +1,12 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Validation\Validation;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\MaybeMonoid;
-use TMciver\Functional\Int\IntSumMonoid;
-use TMciver\Functional\Int\IntProductMonoid;
-use TMciver\Functional\String\StringMonoid;
+use PhatCats\Validation\Validation;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Maybe\MaybeMonoid;
+use PhatCats\Int\IntSumMonoid;
+use PhatCats\Int\IntProductMonoid;
+use PhatCats\String\StringMonoid;
 
 class ValidationSemiGroupTest extends TestCase {
 

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Maybe\Maybe;
 
 class MaybeMonadTest extends TestCase {
 
@@ -14,7 +14,7 @@ class MaybeMonadTest extends TestCase {
 	// create a wrapped val
 	$wrappedVal = $maybe->pure("Hello!");
 
-	$this->assertInstanceOf('TMciver\Functional\Maybe\Just', $wrappedVal);
+	$this->assertInstanceOf('PhatCats\Maybe\Just', $wrappedVal);
 	$this->assertEquals($wrappedVal->get(), "Hello!");
     }
 
@@ -31,7 +31,7 @@ class MaybeMonadTest extends TestCase {
 	$maybeInt = Maybe::nothing();
 	$maybeIntPlusOne = $maybeInt->flatMap('maybeAddOne');
 
-	$this->assertInstanceOf('TMciver\Functional\Maybe\Nothing', $maybeIntPlusOne);
+	$this->assertInstanceOf('PhatCats\Maybe\Nothing', $maybeIntPlusOne);
     }
 }
 

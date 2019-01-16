@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Either;
+namespace PhatCats\Either;
 
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Typeclass\SemiGroup;
 
 class Left extends Either {
 

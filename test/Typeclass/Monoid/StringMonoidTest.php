@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid;
+namespace PhatCats\Test\Typeclass\Monoid;
 
-use TMciver\Functional\String\StringMonoid;
+use PhatCats\String\StringMonoid;
 
 class StringMonoidTest extends MonoidTest {
 

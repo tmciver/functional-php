@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\LinkedList\LinkedListFactory;
-use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Tuple;
+use PhatCats\LinkedList\LinkedListFactory;
+use PhatCats\LinkedList\ArrayBackedLinkedList;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Tuple;
 
 class LinkedListFactoryTest extends TestCase {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\String;
+namespace PhatCats\String;
 
-use TMciver\Functional\Typeclass\Monoid;
+use PhatCats\Typeclass\Monoid;
 
 class StringMonoid implements Monoid {
 

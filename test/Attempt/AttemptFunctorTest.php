@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Attempt\Attempt;
+use PhatCats\Attempt\Attempt;
 
 class AttemptFunctorTest extends TestCase {
 
@@ -30,6 +30,6 @@ class AttemptFunctorTest extends TestCase {
 	$tryStr = Attempt::failure("We have a problem!");
 	$mappedAttemptStr = $tryStr->map($toUpper);
 
-	$this->assertInstanceOf('TMciver\Functional\Attempt\Failure', $mappedAttemptStr);
+	$this->assertInstanceOf('PhatCats\Attempt\Failure', $mappedAttemptStr);
     }
 }

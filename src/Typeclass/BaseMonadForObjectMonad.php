@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
 /**
  * Monad to be used as the basis for a Monad for a type that uses the

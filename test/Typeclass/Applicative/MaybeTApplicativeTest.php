@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Applicative;
+namespace PhatCats\Test\Typeclass\Applicative;
 
-use TMciver\Functional\Maybe\MaybeTMonad;
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
+use PhatCats\Maybe\MaybeTMonad;
+use PhatCats\Either\Monad\RightFavoringEitherMonad;
 
 class MaybeTApplicativeTest extends ApplicativeTest {
 

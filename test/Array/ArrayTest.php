@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\AssociativeArray;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
+use PhatCats\AssociativeArray;
+use PhatCats\Either\Either;
+use PhatCats\Either\Monad\RightFavoringEitherMonad;
 
 class ArrayTest extends TestCase {
 
@@ -62,7 +62,7 @@ class ArrayTest extends TestCase {
         }, $this->monad);
         $expected = $this->monad->fail();
 
-        $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
+        $this->assertInstanceOf(PhatCats\Either\Left::class, $expected);
     }
 
     public function testTraverseForReturningNull() {
@@ -73,7 +73,7 @@ class ArrayTest extends TestCase {
         }, $this->monad);
         $expected = $this->monad->fail();
 
-        $this->assertInstanceOf(TMciver\Functional\Either\Left::class, $expected);
+        $this->assertInstanceOf(PhatCats\Either\Left::class, $expected);
     }
 
     public function testHandlingOfNullArgument() {

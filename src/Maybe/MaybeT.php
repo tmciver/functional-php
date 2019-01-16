@@ -1,11 +1,11 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\Typeclass\Monad;
-use TMciver\Functional\ObjectTypeclass\ObjectFunctor;
-use TMciver\Functional\AssociativeArray;
-use TMciver\Functional\PartialFunction;
+use PhatCats\Typeclass\Monad;
+use PhatCats\ObjectTypeclass\ObjectFunctor;
+use PhatCats\AssociativeArray;
+use PhatCats\PartialFunction;
 
 class MaybeT {
   use ObjectFunctor;

@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\Typeclass\BaseMonoid;
-use TMciver\Functional\Typeclass\Monoid;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Typeclass\BaseMonoid;
+use PhatCats\Typeclass\Monoid;
+use PhatCats\Maybe\Maybe;
 
 class MaybeMonoid extends BaseMonoid {
 

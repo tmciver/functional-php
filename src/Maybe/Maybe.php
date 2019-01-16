@@ -1,12 +1,12 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\ObjectTypeclass\ObjectMonad;
-use TMciver\Functional\ObjectTypeclass\ObjectMonoid;
-use TMciver\Functional\Typeclass\SemiGroup;
-use TMciver\Functional\Maybe\Just;
-use TMciver\Functional\Maybe\Nothing;
+use PhatCats\ObjectTypeclass\ObjectMonad;
+use PhatCats\ObjectTypeclass\ObjectMonoid;
+use PhatCats\Typeclass\SemiGroup;
+use PhatCats\Maybe\Just;
+use PhatCats\Maybe\Nothing;
 
 abstract class Maybe {
     use ObjectMonoid, ObjectMonad;

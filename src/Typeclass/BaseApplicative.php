@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
 /**
  * An abstract class implementing the Applicative interface containing an

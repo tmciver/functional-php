@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\LinkedList;
+namespace PhatCats\LinkedList;
 
 class LinkedListFactory {
 
@@ -58,7 +58,7 @@ class LinkedListFactory {
 	});
 
       // Use reflection to mutate the tail reference of the last element.
-      $tailProp = new \ReflectionProperty('\TMciver\Functional\LinkedList\Cons', 'tail');
+      $tailProp = new \ReflectionProperty('\PhatCats\LinkedList\Cons', 'tail');
       $tailProp->setAccessible(true);
       $tailProp->setValue($last, $cycled);
     }

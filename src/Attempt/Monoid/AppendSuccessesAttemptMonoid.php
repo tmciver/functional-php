@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Attempt\Monoid;
+namespace PhatCats\Attempt\Monoid;
 
-use TMciver\Functional\Typeclass\Monoid;
-use TMciver\Functional\Attempt\Attempt;
-use TMciver\Functional\Attempt\AttemptVisitor;
+use PhatCats\Typeclass\Monoid;
+use PhatCats\Attempt\Attempt;
+use PhatCats\Attempt\AttemptVisitor;
 
 /*
  * This Attempt monoid is a Success-preferring monoid and, in the case of two

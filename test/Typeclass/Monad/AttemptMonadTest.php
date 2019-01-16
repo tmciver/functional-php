@@ -1,13 +1,13 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monad;
+namespace PhatCats\Test\Typeclass\Monad;
 
-use TMciver\Functional\Attempt\AttemptMonad;
-use TMciver\Functional\Attempt\Attempt;
+use PhatCats\Attempt\AttemptMonad;
+use PhatCats\Attempt\Attempt;
 
 /**
  * Class for testing `AttemptMonad`.
- * @see TMciver\Functional\Test\Typeclass\Monad\MonadTest;
+ * @see PhatCats\Test\Typeclass\Monad\MonadTest;
  */
 class AttemptMonadTest extends MonadTest {
 

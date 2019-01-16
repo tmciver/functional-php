@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Test\LinkedList;
+namespace PhatCats\Test\LinkedList;
 
-use TMciver\Functional\Test\LinkedList\LinkedListTest;
-use TMciver\Functional\LinkedList\Cons;
+use PhatCats\Test\LinkedList\LinkedListTest;
+use PhatCats\LinkedList\Cons;
 
 /**
  * This class exists to implement the Template Pattern

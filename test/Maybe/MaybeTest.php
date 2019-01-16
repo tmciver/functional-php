@@ -1,9 +1,9 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\Nothing;
-use TMciver\Functional\Test\StaticClass;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Maybe\Nothing;
+use PhatCats\Test\StaticClass;
 
 class MaybeTest extends TestCase {
 
@@ -46,7 +46,7 @@ class MaybeTest extends TestCase {
     public function testStaticMethodCall() {
 
         $maybe = Maybe::fromValue("Hello world!");
-        $f = ['\TMciver\Functional\Test\StaticClass', 'toUpperCase'];
+        $f = ['\PhatCats\Test\StaticClass', 'toUpperCase'];
         $maybeUpperCase = $maybe->map($f);
         $expexted = Maybe::fromValue("HELLO WORLD!");
 

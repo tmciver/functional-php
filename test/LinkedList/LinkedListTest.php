@@ -1,18 +1,18 @@
 <?php
 
-namespace TMciver\Functional\Test\LinkedList;
+namespace PhatCats\Test\LinkedList;
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\LinkedList\Cons;
-use TMciver\Functional\LinkedList\LinkedList;
-use TMciver\Functional\LinkedList\LinkedListFactory;
-use TMciver\Functional\LinkedList\ArrayBackedLinkedList;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\MaybeMonoid;
-use TMciver\Functional\Tuple;
-use TMciver\Functional\Int\IntSumMonoid;
-use TMciver\Functional\Int\IntProductMonoid;
-use TMciver\Functional\String\StringMonoid;
+use PhatCats\LinkedList\Cons;
+use PhatCats\LinkedList\LinkedList;
+use PhatCats\LinkedList\LinkedListFactory;
+use PhatCats\LinkedList\ArrayBackedLinkedList;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Maybe\MaybeMonoid;
+use PhatCats\Tuple;
+use PhatCats\Int\IntSumMonoid;
+use PhatCats\Int\IntProductMonoid;
+use PhatCats\String\StringMonoid;
 
 require_once __DIR__ . '/../util.php';
 

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Attempt\Attempt;
+use PhatCats\Attempt\Attempt;
 
 class AttemptMonadTest extends TestCase {
 
@@ -14,7 +14,7 @@ class AttemptMonadTest extends TestCase {
 		// create a wrapped val
 		$wrappedVal = $try->pure("Hello!");
 
-		$this->assertInstanceOf('TMciver\Functional\Attempt\Success', $wrappedVal);
+		$this->assertInstanceOf('PhatCats\Attempt\Success', $wrappedVal);
 		$this->assertEquals($wrappedVal->get(), "Hello!");
 	}
 
@@ -35,6 +35,6 @@ class AttemptMonadTest extends TestCase {
 			return Attempt::fromValue($i + 1);
 		});
 
-		$this->assertInstanceOf('TMciver\Functional\Attempt\Failure', $tryIntPlusOne);
+		$this->assertInstanceOf('PhatCats\Attempt\Failure', $tryIntPlusOne);
 	}
 }

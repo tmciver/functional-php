@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Attempt\Monoid;
+namespace PhatCats\Attempt\Monoid;
 
-use TMciver\Functional\Typeclass\Monoid;
-use TMciver\Functional\Attempt\Attempt;
+use PhatCats\Typeclass\Monoid;
+use PhatCats\Attempt\Attempt;
 
 /*
  * This Attempt monoid gives the same behavior as Haskell's Attempt SemiGroup. In

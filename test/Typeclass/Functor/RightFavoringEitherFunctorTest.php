@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Functor;
+namespace PhatCats\Test\Typeclass\Functor;
 
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
-use TMciver\Functional\Either\Either;
+use PhatCats\Either\Monad\RightFavoringEitherMonad;
+use PhatCats\Either\Either;
 
 class RightFavoringEitherFunctorTest extends FunctorTest {
 

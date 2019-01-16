@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Either\Monoid;
+namespace PhatCats\Either\Monoid;
 
-use TMciver\Functional\Typeclass\Monoid;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\EitherVisitor;
+use PhatCats\Typeclass\Monoid;
+use PhatCats\Either\Either;
+use PhatCats\Either\EitherVisitor;
 
 /*
  * This Either monoid is a Right-preferring monoid and, in the case of two

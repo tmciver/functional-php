@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
 interface Monad extends Applicative {
 

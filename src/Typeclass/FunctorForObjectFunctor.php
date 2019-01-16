@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
 /**
  * `DefaultFunctor` is a `Functor` that assumes that the first argument to `map`

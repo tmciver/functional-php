@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Attempt\Attempt;
+use PhatCats\Attempt\Attempt;
 
 class AttemptApplicativeTest extends TestCase {
 

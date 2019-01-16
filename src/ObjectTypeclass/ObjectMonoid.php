@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\ObjectTypeclass;
+namespace PhatCats\ObjectTypeclass;
 
 trait ObjectMonoid {
     use ObjectSemiGroup;

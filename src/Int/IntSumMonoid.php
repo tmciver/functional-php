@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\Int;
+namespace PhatCats\Int;
 
-use TMciver\Functional\Typeclass\Monoid;
+use PhatCats\Typeclass\Monoid;
 
 class IntSumMonoid implements Monoid {
 

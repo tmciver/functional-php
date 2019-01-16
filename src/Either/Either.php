@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Either;
+namespace PhatCats\Either;
 
 abstract class Either {
 
-    public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Either\Right with a null value.') {
+    public static function fromValue($val, $errorMsg = 'Attempted to create PhatCats\Either\Right with a null value.') {
         if (is_null($val)) {
             $either = self::fail($errorMsg);
         } else {
@@ -16,7 +16,7 @@ abstract class Either {
 
     public static function left($val) {
         if (is_null($val)) {
-            $either = self::fail('Attempted to create TMciver\Functional\Either\Left with a null value.');
+            $either = self::fail('Attempted to create PhatCats\Either\Left with a null value.');
         } else {
             $either = new Left($val);
         }

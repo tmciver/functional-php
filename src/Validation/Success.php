@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Validation;
+namespace PhatCats\Validation;
 
-use TMciver\Functional\PartialFunction;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\PartialFunction;
+use PhatCats\Typeclass\SemiGroup;
 
 class Success extends Validation {
 

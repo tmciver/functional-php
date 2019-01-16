@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\LinkedList;
+namespace PhatCats\LinkedList;
 
-use TMciver\Functional\LinkedList\LinkedListFactory;
-use TMciver\Functional\Typeclass\BaseMonoid;
+use PhatCats\LinkedList\LinkedListFactory;
+use PhatCats\Typeclass\BaseMonoid;
 
 class ListMonoid extends BaseMonoid {
 

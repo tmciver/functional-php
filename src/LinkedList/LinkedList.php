@@ -1,14 +1,14 @@
 <?php
 
-namespace TMciver\Functional\LinkedList;
+namespace PhatCats\LinkedList;
 
-use TMciver\Functional\ObjectTypeclass\ObjectFoldable;
-use TMciver\Functional\ObjectTypeclass\ObjectTraversable;
-use TMciver\Functional\ObjectTypeclass\ObjectMonad;
-use TMciver\Functional\ObjectTypeclass\ObjectMonoid;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\MaybeVisitor;
-use TMciver\Functional\Tuple;
+use PhatCats\ObjectTypeclass\ObjectFoldable;
+use PhatCats\ObjectTypeclass\ObjectTraversable;
+use PhatCats\ObjectTypeclass\ObjectMonad;
+use PhatCats\ObjectTypeclass\ObjectMonoid;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Maybe\MaybeVisitor;
+use PhatCats\Tuple;
 
 abstract class LinkedList {
   use ObjectFoldable, ObjectTraversable, ObjectMonoid, ObjectMonad;
@@ -46,7 +46,7 @@ abstract class LinkedList {
   protected abstract function numConsCells();
 
   /**
-   * @return TMciver\Functional\Maybe\Maybe containing value.
+   * @return PhatCats\Maybe\Maybe containing value.
    */
   public abstract function head();
 

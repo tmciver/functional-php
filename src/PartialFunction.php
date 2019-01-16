@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional;
+namespace PhatCats;
 
 use TRex\Reflection\CallableReflection;
 

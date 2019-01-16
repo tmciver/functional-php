@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional;
+namespace PhatCats;
 
 trait Collection {
   abstract function add($value);

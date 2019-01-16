@@ -1,14 +1,14 @@
 <?php
 
-namespace TMciver\Functional\Attempt;
+namespace PhatCats\Attempt;
 
-use TMciver\Functional\ObjectTypeclass\ObjectMonad;
-use TMciver\Functional\ObjectTypeclass\ObjectMonoid;
+use PhatCats\ObjectTypeclass\ObjectMonad;
+use PhatCats\ObjectTypeclass\ObjectMonoid;
 
 abstract class Attempt {
   use ObjectMonad;
 
-    public static function fromValue($val, $errorMsg = 'Attempted to create TMciver\Functional\Attempt\Success with a null value.') {
+    public static function fromValue($val, $errorMsg = 'Attempted to create PhatCats\Attempt\Success with a null value.') {
         if (is_null($val)) {
             $try = self::fail($errorMsg);
         } else {
@@ -20,7 +20,7 @@ abstract class Attempt {
 
     public static function failure($val) {
         if (is_null($val)) {
-            $try = self::fail('Attempted to create TMciver\Functional\Attempt\Failure with a null value.');
+            $try = self::fail('Attempted to create PhatCats\Attempt\Failure with a null value.');
         } else {
             $try = new Failure($val);
         }

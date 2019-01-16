@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\ObjectTypeclass;
+namespace PhatCats\ObjectTypeclass;
 
-use TMciver\Functional\Collection;
-use TMciver\Functional\Typeclass\Monoid;
+use PhatCats\Collection;
+use PhatCats\Typeclass\Monoid;
 
 trait ObjectFoldable {
   // not sure if it's a good idea to extend Collection . . .

@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Maybe;
+namespace PhatCats\Maybe;
 
-use TMciver\Functional\Typeclass\BaseMonadForObjectMonad;
-use TMciver\Functional\Typeclass\Monad;
+use PhatCats\Typeclass\BaseMonadForObjectMonad;
+use PhatCats\Typeclass\Monad;
 
 class MaybeTMonad extends BaseMonadForObjectMonad {
 

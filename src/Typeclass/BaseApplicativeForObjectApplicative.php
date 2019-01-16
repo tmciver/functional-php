@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Typeclass;
+namespace PhatCats\Typeclass;
 
 /**
  * Applicative to be used as the basis for an Applicative for a type that uses

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
+use PhatCats\Maybe\Maybe;
 
 class MaybeApplicativeTest extends TestCase {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace TMciver\Functional\LinkedList;
+namespace PhatCats\LinkedList;
 
-use TMciver\Functional\Typeclass\BaseMonadForObjectMonad;
+use PhatCats\Typeclass\BaseMonadForObjectMonad;
 
 class LinkedListMonad extends BaseMonadForObjectMonad {
 

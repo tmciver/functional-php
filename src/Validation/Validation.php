@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Validation;
+namespace PhatCats\Validation;
 
-use TMciver\Functional\ObjectTypeclass\ObjectSemiGroup;
-use TMciver\Functional\ObjectTypeclass\ObjectApplicative;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\ObjectTypeclass\ObjectSemiGroup;
+use PhatCats\ObjectTypeclass\ObjectApplicative;
+use PhatCats\Typeclass\SemiGroup;
 
 abstract class Validation {
   use ObjectSemiGroup, ObjectApplicative;

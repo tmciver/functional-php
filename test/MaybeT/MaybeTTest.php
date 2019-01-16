@@ -1,11 +1,11 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Maybe\MaybeT;
-use TMciver\Functional\Maybe\MaybeTMonad;
-use TMciver\Functional\Either\Monad\RightFavoringEitherMonad;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Either\Either;
+use PhatCats\Maybe\MaybeT;
+use PhatCats\Maybe\MaybeTMonad;
+use PhatCats\Either\Monad\RightFavoringEitherMonad;
 
 class MaybeTTest extends TestCase {
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace TMciver\Functional\Validation;
+namespace PhatCats\Validation;
 
-use TMciver\Functional\Util;
-use TMciver\Functional\Typeclass\SemiGroup;
+use PhatCats\Util;
+use PhatCats\Typeclass\SemiGroup;
 
 class Failure extends Validation {
 

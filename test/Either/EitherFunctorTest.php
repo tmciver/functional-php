@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Either\Either;
+use PhatCats\Either\Either;
 
 class EitherFunctorTest extends TestCase {
 
@@ -30,6 +30,6 @@ class EitherFunctorTest extends TestCase {
 	$eitherStr = Either::left("We have a problem!");
 	$mappedEitherStr = $eitherStr->map($toUpper);
 
-	$this->assertInstanceOf('TMciver\Functional\Either\Left', $mappedEitherStr);
+	$this->assertInstanceOf('PhatCats\Either\Left', $mappedEitherStr);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace TMciver\Functional\Test;
+namespace PhatCats\Test;
 
 /*
  * A class that exists simply to hold a static method for testing purposes.

@@ -1,10 +1,10 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Applicative;
+namespace PhatCats\Test\Typeclass\Applicative;
 
-use TMciver\Functional\Validation\ValidationApplicative;
-use TMciver\Functional\Validation\Validation;
-use TMciver\Functional\String\StringMonoid;
+use PhatCats\Validation\ValidationApplicative;
+use PhatCats\Validation\Validation;
+use PhatCats\String\StringMonoid;
 
 class ValidationApplicativeTest extends ApplicativeTest {
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Monoid\Either;
+namespace PhatCats\Test\Typeclass\Monoid\Either;
 
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Either\Monoid\AppendRightsEitherMonoid;
-use TMciver\Functional\String\StringMonoid;
-use TMciver\Functional\Int\IntSumMonoid;
-use TMciver\Functional\Test\Typeclass\Monoid\MonoidTest;
+use PhatCats\Either\Either;
+use PhatCats\Either\Monoid\AppendRightsEitherMonoid;
+use PhatCats\String\StringMonoid;
+use PhatCats\Int\IntSumMonoid;
+use PhatCats\Test\Typeclass\Monoid\MonoidTest;
 
 class AppendRightsEitherMonoidTest extends MonoidTest {
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace TMciver\Functional\Test\Typeclass\Applicative;
+namespace PhatCats\Test\Typeclass\Applicative;
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Maybe\MaybeT;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Validation\Validation;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Maybe\MaybeT;
+use PhatCats\Either\Either;
+use PhatCats\Validation\Validation;
 
 abstract class ApplicativeTest extends TestCase {
 

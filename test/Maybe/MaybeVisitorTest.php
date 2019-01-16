@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use TMciver\Functional\Maybe\Maybe;
-use TMciver\Functional\Either\Either;
-use TMciver\Functional\Maybe\MaybeToEither;
-use TMciver\Functional\Test\Maybe\ToStringMaybeVisitor;
+use PhatCats\Maybe\Maybe;
+use PhatCats\Either\Either;
+use PhatCats\Maybe\MaybeToEither;
+use PhatCats\Test\Maybe\ToStringMaybeVisitor;
 
 class MaybeVisitorTest extends TestCase {
 
